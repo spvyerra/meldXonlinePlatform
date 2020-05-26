@@ -1,6 +1,6 @@
 import React from "react";
 
-import Web3 from 'web3';
+import { addBusiness } from "../../../businessData.js";
 
 
 export default class BusRegister extends React.Component {
@@ -14,12 +14,21 @@ export default class BusRegister extends React.Component {
             businessName: e.target.value
         });
     }
-    
+
     symbolChange = (e) => {
         this.setState({
             businessSymbol: e.target.value
         });
+    }
 
+    shareChange = (e) => {
+        this.setState({
+            numShares: e.target.value
+        });
+    }
+
+    register = () => {
+        addBusiness(this.state.numShares, this.state.businessName, this.state.businessSymbol);
     }
 
     render() {
@@ -30,14 +39,14 @@ export default class BusRegister extends React.Component {
                 <input type="text" placeholder="Address" />
                 <button>Add Financial Info</button>
                 <p>(Just for show does nothing right now)</p>
-
                 <div>
                     <h2>Contract Info</h2>
                     <input type="text" id="busName" placeholder="Business Name" onChange={this.nameChange} />
                     <input type="text" id="busSymbol" placeholder="Symbol 3-4 letters" onChange={this.symbolChange} />
+                    <input type="number" id="numShares" placeholder="Number of Shares" onChange={this.shareChange} />
                 </div>
 
-                <button>Continue</button>
+                <button onClick={this.register}>Continue</button>
             </div>
         );
     }
