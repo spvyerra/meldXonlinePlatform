@@ -3,5 +3,10 @@
         "id": -1,
         "busName": "sample",
         "symbol": "smpl"
+    },
+    {
+        "id": 1,
+        "busName": "newBus",
+        "symbol": "nbs"
     }
 ]

@@ -3,3 +3,14 @@ GET http://localhost:8080/list
 ###
 
 GET http://localhost:8080/list/-1
+
+###
+POST http://localhost:8080/bus/add
+Content-Type: application/json
+
+{
+    "busName": "newBus",
+    "symbol": "nbs",
+    "numShares": 100,
+    "ownerAddress": "0xnewBusOwner"
+}
