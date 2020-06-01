@@ -28,6 +28,13 @@ let getAcct = () => {
     return decrypted;
 }
 
+let getBal = async () => {
+    let acct = getAcct();
+
+    return await web3.eth.getBalance(acct.address);
+}
+
 module.exports = {
-    getAcct
+    getAcct,
+    getBal
 };
