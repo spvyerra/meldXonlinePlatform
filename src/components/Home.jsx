@@ -15,7 +15,10 @@ const Home = (props) => {
         </NavLink>
         <NavLink to="investor">
           investor
-        </NavLink>        
+        </NavLink> 
+        <hr className="my-2" />
+        <br />
+        <h2 className="lead"> Buisnesses on MeldX</h2>     
       </Jumbotron>
     </div>
   );
