@@ -1,7 +1,15 @@
 let admin = require('./adminInteract');
+const fs = require('fs');
+
+const contractPath = '../../build/contracts/SecureToken.json';
+
+let rawContract = fs.readFileSync(contractPath);
+let abi = JSON.parse(rawContract);
 
 let deploySecureToken = async (bus) => {
-    let acct = getAcct();
+    admin.init();
+
+    let acct = admin.getAcct();
     let deployAddress;
     
     // Get SecureToken contract
@@ -12,7 +20,7 @@ let deploySecureToken = async (bus) => {
         let bytecode = rawContract.bytecode;
         let ownerHash = web3.utils.sha3(bus.ownerAddress);
         
-        let secureToken = new web3.eth.Contract(rawContract.abi);
+        let secureToken = new admin.web3.eth.Contract(rawContract.abi);
         
         secureToken.deploy({
             data: bytecode,
@@ -29,5 +37,20 @@ let deploySecureToken = async (bus) => {
         
     });
     
+    admin.exit();
+
     return deployAddress;
 }
+
+let addVerified = (address) => {
+    admin.init();
+
+    let acct = admin.getAcct();
+
+
+}
+
+module.exports = {
+    deploySecureToken,
+    addVerified
+};
