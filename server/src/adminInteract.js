@@ -34,7 +34,49 @@ let getBal = async () => {
     return await web3.eth.getBalance(acct.address);
 }
 
+let deploySecureToken = async (bus) => {
+    let acct = getAcct();
+    let deployAddress;
+
+    // Get SecureToken contract
+    fs.readFile('../../build/contracts/SecureToken.json', (err, data) => {
+        if (err) throw err;
+        let rawContract = JSON.parse(data);
+
+        let bytecode = rawContract.bytecode;
+        let ownerHash = web3.utils.sha3(bus.ownerAddress);
+
+        let secureToken = new web3.eth.Contract(rawContract.abi);
+
+        let contObj = secureToken.deploy({
+            data: bytecode,
+            arguments: [bus.ownerAddress, ownerHash, bus.numShares, bus.busName, bus.symbol]
+        });
+
+        let contString = web3.eth.sign(contObj, acct.address);
+        web3.eth.sendSignedTransaction(contString.toHex)
+            .on('receipt', (rec) => {
+                console.log(rec);
+                deployAddress = rec.address;
+            });
+
+    });
+
+    return deployAddress;
+}
+
+let obj = {
+    "busName": "newBus",
+    "symbol": "nbs",
+    "numShares": 100,
+    "ownerAddress": "0xebBF6e4fC3a229D4f5b3B00C6018cff2f3246Cc5",
+    "id": 1
+};
+
+deploySecureToken(obj);
+
 module.exports = {
     getAcct,
-    getBal
+    getBal,
+    deploySecureToken
 };
