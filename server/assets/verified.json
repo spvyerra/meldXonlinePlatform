@@ -3,8 +3,5 @@
         "id": -1,
         "address": "sampleAdd"
     },
-    {
-        "id": 0,
-        "address": "0x2f36E258AF1945a8C1614BBf6c7E33D27aC39c60"
-    }
+    null
 ]
