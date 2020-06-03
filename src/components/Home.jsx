@@ -10,7 +10,7 @@ const Home = (props) => {
         <p className="lead">Welcome to Meld Exchange.</p>
         <hr className="my-2" />
         <p>I am a: </p>
-        <NavLink to="/business">
+        <NavLink to="/business/registration">
           business<br />
         </NavLink>
         <NavLink to="investor">

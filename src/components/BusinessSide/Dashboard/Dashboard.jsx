@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Jumbotron, Table } from 'reactstrap';
 
-class BusinessDashboard extends Component {
+class Dashboard extends Component {
   
   render() {
     return (
@@ -61,4 +61,4 @@ class BusinessDashboard extends Component {
  
 }
 
-export default BusinessDashboard;
+export default Dashboard;

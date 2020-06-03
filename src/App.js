@@ -3,9 +3,11 @@ import React from 'react';
 import Web3 from 'web3';
 import * as abi from './abi.js';
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Home from './components/Home'
-import Business from './components/Business'
-import Investor from './components/Investor'
+import Home from './components/Home';
+import BusDash from './components/BusinessSide/Dashboard/Dashboard.jsx';
+import BusRegister from './components/BusinessSide/Registration/Register.jsx';
+import Investor from './components/Investor';
+
 
 const ethEnabled = () => {
   if (window.ethereum) {
@@ -47,8 +49,11 @@ class App extends React.Component {
         <Router>
           <React.Fragment>
             <Route exact path="/" component={Home} />
-            <Route path="/business" component={Business} />
+
+            <Route path="/business/dashboard" component={BusDash} />
+            <Route path="/business/registration" component={BusRegister} />
             <Route path="/investor" component={Investor} />
+
           </React.Fragment>
         </Router>
       </div>
