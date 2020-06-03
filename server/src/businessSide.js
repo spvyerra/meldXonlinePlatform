@@ -6,14 +6,14 @@ const contractPath = '../../build/contracts/SecureToken.json';
 const rawContract = JSON.parse(fs.readFileSync(contractPath));
 const bytecode = rawContract.bytecode;
 
-let secureToken = admin.web3.eth.Contract(rawContract.abi);
+let secureToken = new admin.web3.eth.Contract(rawContract.abi);
 
 let deploySecureToken = async (bus) => {
     admin.init();
     let acct = admin.getAcct();
 
     let deployAddress;
-    let ownerHash = web3.utils.sha3(bus.ownerAddress);
+    let ownerHash = admin.web3.utils.sha3(bus.ownerAddress);
 
     secureToken.deploy({
         data: bytecode,
@@ -34,10 +34,17 @@ let deploySecureToken = async (bus) => {
 }
 
 let addVerify = async (addressObj) => {
+    admin.init();
+    let acct = admin.getAcct();
 
-    
+    secureToken.options.address = addressObj.contAddress;
+    let userHash = admin.web3.utils.sha3(addressObj.userAddress);
 
-    let verified = await contract.methods.addVerified(rawData['ownerAdress'], rawData['name']).call({ from: acct });
+
+    await secureToken.methods
+        .addVerified(addressObj.userAddress, userHash)
+        .send({ from: acct.address });
+
     return verified;
 }
 
