@@ -26,7 +26,7 @@ let deploySecureToken = async (bus) => {
         .on("transactionHash", (hash) => console.log(hash))
         .on('receipt', (rec) => {
             console.log(rec);
-            deployAddress = rec.address;
+            deployAddress = rec.contractAddress;
         });
 
     admin.exit();
