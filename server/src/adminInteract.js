@@ -36,6 +36,8 @@ let getBal = async () => {
 }
 
 let init = () => {
+    let acct = getAcct();
+    
     provider = new HDwalletProvider(acct.privateKey, "https://rinkeby.infura.io/v3/d938f5a0bc83408e887c10d7a7599c17");
     web3.setProvider(provider);
 }
@@ -47,7 +49,6 @@ let exit = () => {
 module.exports = {
     getAcct,
     getBal,
-    deploySecureToken,
     init,
     exit,
     web3

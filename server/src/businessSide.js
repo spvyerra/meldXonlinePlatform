@@ -1,7 +1,8 @@
-let admin = require('./adminInteract');
+let admin = require('./adminInteract.js');
 const fs = require('fs');
 
 const contractPath = '../../build/contracts/SecureToken.json';
+const verifiedPath = '../assets/verified.json';
 
 const rawContract = JSON.parse(fs.readFileSync(contractPath));
 const bytecode = rawContract.bytecode;
@@ -40,30 +41,47 @@ let addVerify = async (addressObj) => {
     secureToken.options.address = addressObj.contAddress;
     let userHash = admin.web3.utils.sha3(addressObj.userAddress);
 
-
     await secureToken.methods
         .addVerified(addressObj.userAddress, userHash)
-        .send({ from: acct.address });
+        .send({ from: acct.address })
+        
+        .on("transactionHash", (hash) => console.log(hash))
+        
+        .on("receipt", (rec) => {
+            console.log("Tx completed");
+            console.log(rec);
+        })
 
-    return verified;
-}
+        .on("error", (err, rec) => {
+            console.log("error occured");
+            console.log(rec);
+            console.log(err);
+        });
 
-let isVerified = async () => {
+    admin.exit();
 
-    let isVerified = await contract.methods.isVerified(rawData['ownerAdress']).call();
-    return isVerified;
+    fs.readFile(verifiedPath, (err, data) => {
+        data = JSON.parse(data);
+        data.push({
+            "id": data.length,
+            "address": addressObj.userAddress
+        });
+
+        fs.writeFileSync(verifiedPath, JSON.stringify(data, null, 4));
+        console.log("File written");
+    })
 }
 
 let reissue = async () => {
 
-    return await contract.methods.cancelAndReissue(rawData[""], rawData[""])
+    return await contract.methods.cancelAndReissue(rawData[""], rawData[""]);
 }
 
+
+
+
 module.exports = {
-    getAcct,
-    isVerified,
     addVerify,
-    getBal,
     deploySecureToken,
-    addVerified
+    reissue
 };
