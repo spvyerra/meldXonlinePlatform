@@ -34,6 +34,18 @@ let deploySecureToken = async (bus) => {
     return deployAddress;
 }
 
+let isVerified = (address) => {
+    let data = JSON.parse(fs.readFileSync(verifiedPath));
+
+    for (i in data) {
+        if (data[i].address == address) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 let addVerify = async (addressObj) => {
     admin.init();
     let acct = admin.getAcct();
@@ -44,9 +56,9 @@ let addVerify = async (addressObj) => {
     await secureToken.methods
         .addVerified(addressObj.userAddress, userHash)
         .send({ from: acct.address })
-        
+
         .on("transactionHash", (hash) => console.log(hash))
-        
+
         .on("receipt", (rec) => {
             console.log("Tx completed");
             console.log(rec);
@@ -69,7 +81,11 @@ let addVerify = async (addressObj) => {
 
         fs.writeFileSync(verifiedPath, JSON.stringify(data, null, 4));
         console.log("File written");
-    })
+    });
+}
+
+let removeVerified = async (addressObj) => {
+
 }
 
 let reissue = async () => {
@@ -78,10 +94,9 @@ let reissue = async () => {
 }
 
 
-
-
 module.exports = {
     addVerify,
     deploySecureToken,
+    isVerified,
     reissue
 };
