@@ -73,9 +73,8 @@ contract MeldCoin is verify, Context, MinterRole, IERC20 {
         return true;
     }
 
-     function burn(uint256 amount) public {
-         require(isVerified(msg.sender), "To address is not verified");
-        _burn(_msgSender(), amount);
+    function burn(address user, uint256 amount) public onlyMinter {
+        _burn(user, amount);
     }
 
     //Can't transfer from other account
