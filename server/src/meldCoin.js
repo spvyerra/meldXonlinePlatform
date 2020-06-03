@@ -31,6 +31,8 @@ let deployMeldcoin = async () => {
     return deployAddress;
 }
 
+
+
 module.exports = {
     deployMeldcoin
 };
