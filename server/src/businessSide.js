@@ -3,48 +3,39 @@ const fs = require('fs');
 
 const contractPath = '../../build/contracts/SecureToken.json';
 
-let rawContract = fs.readFileSync(contractPath);
-let abi = JSON.parse(rawContract);
+const rawContract = JSON.parse(fs.readFileSync(contractPath));
+const bytecode = rawContract.bytecode;
+
+let secureToken = admin.web3.eth.Contract(rawContract.abi);
 
 let deploySecureToken = async (bus) => {
     admin.init();
-
     let acct = admin.getAcct();
+
     let deployAddress;
+    let ownerHash = web3.utils.sha3(bus.ownerAddress);
 
-    // Get SecureToken contract
-    fs.readFile('../../build/contracts/SecureToken.json', (err, data) => {
-        if (err) throw err;
-        let rawContract = JSON.parse(data);
-
-        let bytecode = rawContract.bytecode;
-        let ownerHash = web3.utils.sha3(bus.ownerAddress);
-
-        let secureToken = new admin.web3.eth.Contract(rawContract.abi);
-
-        secureToken.deploy({
-            data: bytecode,
-            arguments: [bus.ownerAddress, ownerHash, bus.numShares, bus.busName, bus.symbol]
+    secureToken.deploy({
+        data: bytecode,
+        arguments: [bus.ownerAddress, ownerHash, bus.numShares, bus.busName, bus.symbol]
+    })
+        .send({
+            from: acct.address
         })
-            .send({
-                from: acct.address
-            })
-            .on("transactionHash", (hash) => console.log(hash))
-            .on('receipt', (rec) => {
-                console.log(rec);
-                deployAddress = rec.address;
-            });
-
-    });
+        .on("transactionHash", (hash) => console.log(hash))
+        .on('receipt', (rec) => {
+            console.log(rec);
+            deployAddress = rec.address;
+        });
 
     admin.exit();
 
     return deployAddress;
 }
 
-let addVerify = async () => {
+let addVerify = async (addressObj) => {
 
-    console.log("Hello");
+    
 
     let verified = await contract.methods.addVerified(rawData['ownerAdress'], rawData['name']).call({ from: acct });
     return verified;
