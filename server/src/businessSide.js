@@ -129,9 +129,28 @@ let removeVerified = async (addressObj) => {
     admin.exit();
 }
 
-let reissue = async () => {
+let reissue = async (obj) => {
+    admin.init();
+    const acct = getAcct();
+    secureToken.options.address = obj.contAddress;
 
-    return await contract.methods.cancelAndReissue(rawData[""], rawData[""]);
+    await secureToken.methods
+        .cancelAndReissue(obj.oldAddress, obj.newAddress)
+        .send({ from: acct.address })
+        .on("transactionHash", (hash) => console.log(hash))
+
+        .on("receipt", (rec) => {
+            console.log("Tx completed");
+            console.log(rec);
+        })
+
+        .on("error", (err, rec) => {
+            console.log("error occured");
+            console.log(rec);
+            console.log(err);
+        });
+
+    admin.exit();
 }
 
 module.exports = {
