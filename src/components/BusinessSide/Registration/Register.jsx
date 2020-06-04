@@ -39,7 +39,10 @@ export default class BusRegister extends React.Component {
     }
 
     register = () => {
-        if (this.state.nameChange !== "" && this.state.symbolChange !== "" && this.state.shareChange !== "") {
+        if(!this.state.nameChange || !this.state.symbolChange || this.state.shareChange) {
+            alert("Please complete the form before submitting");
+        }
+        else if (this.state.nameChange !== "" && this.state.symbolChange !== "" && this.state.shareChange !== "") {
             addBusiness(this.state.numShares, this.state.businessName, this.state.businessSymbol);
         }
 
@@ -54,14 +57,15 @@ export default class BusRegister extends React.Component {
                     <input type="text" placeholder="Address" />
                     <button>Add Financial Info</button>
                     <p>(Just for show does nothing right now)</p>
-                    <div>
+                    <form onSubmit={this.register}>
                         <h2>Contract Info</h2>
                         <input type="text" id="busName" placeholder="Business Name" onChange={this.nameChange} />
                         <input type="text" id="busSymbol" placeholder="Symbol 3-4 letters" onChange={this.symbolChange} />
                         <input type="number" id="numShares" placeholder="Number of Shares" onChange={this.shareChange} />
-                    </div>
+                        <button value="submit" type="submit">Continue</button>
+                    </form>
 
-                    <button onClick={this.register}>Continue</button>
+                    
                 </div>
             </Jumbotron>
 
