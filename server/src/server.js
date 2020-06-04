@@ -1,6 +1,10 @@
 const express = require('express');
 const fs = require('fs');
 
+const mc = require('./meldCoin');
+const verify = require('./verfied');
+const bus = require('./businessSide');
+
 const overall = './server/assets/bus.json';
 const breakDown = './server/assets/busBreak';
 
@@ -26,7 +30,7 @@ app.get('/list/:id', (req, res) => {
     res.status(200).json(data);
 });
 
-app.post('/bus/add', (req, res) => {
+app.post('/bus/add', async (req, res) => {
     const raw = fs.readFileSync(overall);
     let general = JSON.parse(raw);
 
@@ -49,6 +53,14 @@ app.post('/bus/add', (req, res) => {
 
 
     res.status(200).json(newBus);
+});
+
+app.post('/user/add', async (req, res) => {
+    let address;
+
+    address = await mc.addVerify(req.body);
+
+    res.status(200).json(address);
 });
 
 const port = process.env.PORT || 8080;

@@ -1,7 +1,20 @@
 [
     {
         "id": -1,
-        "address": "sampleAdd"
+        "userAddress": "sampleAdd"
     },
-    null
+    {
+        "id": 1,
+        "name": "nameyBoi",
+        "email": "namey@boi.com",
+        "ssn": 123456789,
+        "userAddress": "0xUseraddd"
+    },
+    {
+        "id": 2,
+        "name": "nameyBoi",
+        "email": "namey@boi.com",
+        "ssn": 123456789,
+        "userAddress": "0x2f36E258AF1945a8C1614BBf6c7E33D27aC39c60"
+    }
 ]

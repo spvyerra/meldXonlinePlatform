@@ -1,8 +1,9 @@
 const admin = require('./adminInteract');
 const fs = require('fs');
+const verify = require('./verfied');
 
-const contractPath = '../../build/contracts/MeldCoin.json';
-const stablePath = '../assets/stableCoin.txt';
+const contractPath = './build/contracts/MeldCoin.json';
+const stablePath = './server/assets/stableCoin.txt';
 
 const rawContract = JSON.parse(fs.readFileSync(contractPath));
 const bytecode = rawContract.bytecode;
@@ -122,11 +123,17 @@ let checkBalance = async (address) => {
     return tmp;
 }
 
-//mintTokens("0x6052101B715C9fFb74A1ca327599655A15D951A4", 100);
+let addVerify = async (addresssObj) => {
+    addresssObj.contAddress = stableAddress();
+    await verify.addVerify(meldCoin, addresssObj);
+
+    return stableAddress();
+}
 
 module.exports = {
     deployMeldcoin,
     mintTokens,
     burnTokens,
-    checkBalance
+    checkBalance,
+    addVerify
 };

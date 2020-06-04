@@ -14,3 +14,14 @@ Content-Type: application/json
     "numShares": 100,
     "ownerAddress": "0xnewBusOwner"
 }
+
+###
+POST http://localhost:8080/user/add
+Content-Type: application/json
+
+{
+    "name": "nameyBoi",
+    "email": "namey@boi.com",
+    "ssn": 123456789,
+    "userAddress": "0x2f36E258AF1945a8C1614BBf6c7E33D27aC39c60"
+}

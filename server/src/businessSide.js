@@ -1,7 +1,7 @@
 let admin = require('./adminInteract.js');
 const fs = require('fs');
 
-const contractPath = '../../build/contracts/SecureToken.json';
+const contractPath = './build/contracts/SecureToken.json';
 
 const rawContract = JSON.parse(fs.readFileSync(contractPath));
 const bytecode = rawContract.bytecode;

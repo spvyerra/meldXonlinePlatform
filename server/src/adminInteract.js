@@ -2,6 +2,8 @@ const Web3 = require('web3');
 const fs = require('fs');
 const HDwalletProvider = require('@truffle/hdwallet-provider');
 
+const acctPath = './server/assets/encryptedAcct.json';
+
 let web3 = new Web3();
 let provider;
 const password = "The best password in the world boi";
@@ -9,20 +11,20 @@ const password = "The best password in the world boi";
 let creatAcct = () => {
     let acct = web3.eth.accounts.create();
     console.log(acct);
-    fs.writeFileSync('../assets/serverAcct.json', JSON.stringify(acct, null, 4));
+    fs.writeFileSync(acctPath, JSON.stringify(acct, null, 4));
 }
 
 let encryptAcct = () => {
-    let raw = JSON.parse(fs.readFileSync('../assets/serverAcct.json'));
+    let raw = JSON.parse(fs.readFileSync(acctPath));
 
     let encrypted = web3.eth.accounts.encrypt(raw.privateKey, password);
-    fs.writeFileSync('../assets/encryptedAcct.json', JSON.stringify(encrypted, null, 4));
+    fs.writeFileSync(acctPath, JSON.stringify(encrypted, null, 4));
 
     return encrypted;
 }
 
 let getAcct = () => {
-    let raw = JSON.parse(fs.readFileSync('../assets/encryptedAcct.json'));
+    let raw = JSON.parse(fs.readFileSync(acctPath));
 
     let decrypted = web3.eth.accounts.decrypt(raw, password);
 
