@@ -25,3 +25,32 @@ Content-Type: application/json
     "ssn": 123456789,
     "userAddress": "0x2f36E258AF1945a8C1614BBf6c7E33D27aC39c60"
 }
+
+###
+POST http://localhost:8080/user/deposit
+Content-Type: application/json
+
+{
+    "userAddress": "0x2f36E258AF1945a8C1614BBf6c7E33D27aC39c60"
+}
+
+###
+POST http://localhost:8080/transfer/buy
+Content-Type: application/json
+
+{
+    "userAddress": "0x2f36E258AF1945a8C1614BBf6c7E33D27aC39c60",
+    "contAddress": "0x0269B443D496604B4b255f457392a64f4c39B8e0",
+    "buyPrice": 200,
+    "numShares": 50
+}
+
+###
+POST http://localhost:8080/transfer/sell
+
+{
+    "userAddress": "0x0269B443D496604B4b255f457392a64f4c39B8e0",
+    "contAddress": "0x0269B443D496604B4b255f457392a64f4c39B8e0",
+    "sellPrice": 200,
+    "numShares": 50
+}

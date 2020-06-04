@@ -7,12 +7,9 @@ const stablePath = './server/assets/stableCoin.txt';
 
 const rawContract = JSON.parse(fs.readFileSync(contractPath));
 const bytecode = rawContract.bytecode;
+const stableAddress = fs.readFileSync(stablePath, 'utf-8');
 
-let meldCoin = new admin.web3.eth.Contract(rawContract.abi);
-
-let stableAddress = () => {
-    return fs.readFileSync(stablePath, 'utf-8');
-}
+let meldCoin = new admin.web3.eth.Contract(rawContract.abi, stableAddress);
 
 let deployMeldcoin = async () => {
     admin.init();
@@ -39,7 +36,6 @@ let deployMeldcoin = async () => {
 let mintTokens = async (address, amount) => {
     admin.init();
     let acct = admin.getAcct();
-    meldCoin.options.address = stableAddress();
 
     let tmp = await meldCoin.methods.isVerified(address).call();
 
@@ -79,7 +75,6 @@ let mintTokens = async (address, amount) => {
 let burnTokens = async (address, amount) => {
     admin.init();
     let acct = admin.getAcct();
-    meldCoin.options.address = stableAddress();
 
     let tmp = await meldCoin.methods.isVerified(address).call();
 
@@ -115,7 +110,6 @@ let burnTokens = async (address, amount) => {
 let checkBalance = async (address) => {
     admin.init();
 
-    meldCoin.options.address = stableAddress();
     let tmp = await meldCoin.methods.balanceOf(address).call();
 
     console.log(tmp);

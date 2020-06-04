@@ -35,7 +35,7 @@ let deploySecureToken = async (bus) => {
 
 let reissue = async (obj) => {
     admin.init();
-    const acct = getAcct();
+    const acct = admin.getAcct();
     secureToken.options.address = obj.contAddress;
 
     await secureToken.methods
