@@ -126,9 +126,14 @@ let addVerify = async (addresssObj) => {
     return stableAddress();
 }
 
+let transfer = async (_to, _from, _value) => { 
+    console.log("Transfering Meldcoin");
+}
+
 module.exports = {
     mintTokens,
     burnTokens,
     checkBalance,
-    addVerify
+    addVerify,
+    transfer
 };

@@ -41,7 +41,7 @@ Content-Type: application/json
 
 {
     "userAddress": "0xebBF6e4fC3a229D4f5b3B00C6018cff2f3246Cc5",
-    "contAddress": "0x0269B443D496604B4b255f457392a64f4c39B8e0",
+    "contract": "0x0269B443D496604B4b255f457392a64f4c39B8e0",
     "buyPrice": 200,
     "numShares": 50
 }
@@ -51,7 +51,7 @@ POST http://localhost:8080/transfer/sell
 
 {
     "userAddress": "0x2f36E258AF1945a8C1614BBf6c7E33D27aC39c60",
-    "contAddress": "0x0269B443D496604B4b255f457392a64f4c39B8e0",
+    "contract": "0x0269B443D496604B4b255f457392a64f4c39B8e0",
     "sellPrice": 200,
     "numShares": 50
 }

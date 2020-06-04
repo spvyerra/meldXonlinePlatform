@@ -57,7 +57,12 @@ let reissue = async (obj) => {
     admin.exit();
 }
 
+let transfer = async (_to, _from, _value, _contAddress) => {
+    console.log("Transfering secureTokens");
+}
+
 module.exports = {
     deploySecureToken,
-    reissue
+    reissue,
+    transfer
 };

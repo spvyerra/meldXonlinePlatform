@@ -2,7 +2,7 @@ const express = require('express');
 const fs = require('fs');
 
 const mc = require('./meldCoin');
-const verify = require('./verfied');
+const order = require('./orders');
 const bus = require('./businessSide');
 
 const overall = './server/assets/bus.json';
@@ -80,16 +80,26 @@ app.post('/user/deposit', async (req, res) => {
 // Transfer requests
 // When user wants to buy tokens this request is called
 app.post('/transfer/buy', async (req, res) => {
-    
+    let thing = order.checkRequests();
+
+    if (thing == null) {
+        order.addBuy();
+    } else {
+        mc.transfer();
+        bus.transfer();
+    }
+
+    // Remove order from orders.json
 });
 
 // When user wants to sell tokens this request is called
 app.post("/transfer/sell", async (req, res) => {
-    
+
 });
 
+// Pending orders of specific user
 app.get('transfer/pending', (req, res) => {
-    
+
 });
 
 const port = process.env.PORT || 8080;
