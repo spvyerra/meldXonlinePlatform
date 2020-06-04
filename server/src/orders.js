@@ -36,13 +36,29 @@ let checkRequests = async (_contract, _orderType, _amount, price) => {
     return null;
 }
 
-let pendingOrders = () => {
+let pendingOrders = (address) => {
+    const master = JSON.parse(fs.readFileSync(orderPath));
+    let list = {
+        "buy": [],
+        "sell": []
+    };
 
+    for (let i in master.buy) {
+        if (master.buy[i].userAddress == address)
+            list["buy"].push(master.buy[i]);
+    }
+
+    for (let i in master.sell) {
+        if (master.sell[i].userAddress == address)
+            list["sell"].push(master.sell[i]);
+    }
+
+    return list;
 }
-
 
 module.exports = {
     addBuy,
     addSell,
-    checkRequests
+    checkRequests,
+    pendingOrders
 };
