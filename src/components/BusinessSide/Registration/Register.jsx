@@ -14,9 +14,9 @@ export default class BusRegister extends React.Component {
 
 
     componentDidMount() {
-        axios.get("http://localhost:3000/list")
-            .then((res) => console.log(res))
-            .catch((err) => console.log(err));
+        axios.get("/list/")
+            .then(response => response.json())
+            .then(json => this.setState({ users: json.data, done: true }))
 
     }
 

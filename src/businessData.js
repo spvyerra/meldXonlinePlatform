@@ -10,21 +10,18 @@ export let addBusiness = (numShares, busName, busSymbol) => {
     };
 
     let obj = JSON.stringify(busObj);
-    //fs.writeFileSync(data, obj);
 
-    // console.log("test.me")
-    // var xhr = new XMLHttpRequest()
-    // xhr.addEventListener('load', () => {
+    console.log("test.me")
+     var xhr = new XMLHttpRequest()
+     xhr.addEventListener('load', () => {
     //     // update the state of the component with the result here
-    //     console.log(xhr.responseText)
-    //   })
+         console.log(xhr.responseText)
+    })
 
-    //   xhr.open('GET',  "http://localhost:8080/list/")
-    //   xhr.send()
+    xhr.open('POST',  "/bus/add", true);
+    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+    xhr.send(obj);
 
-    axios.get("/list")
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err));
     
 
 }
