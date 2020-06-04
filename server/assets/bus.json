@@ -28,5 +28,25 @@
         "id": 5,
         "busName": "100",
         "symbol": "SMB"
+    },
+    {
+        "id": 6,
+        "busName": "MeldX",
+        "symbol": "MLDX"
+    },
+    {
+        "id": 7,
+        "busName": "MeldX",
+        "symbol": "MLDX"
+    },
+    {
+        "id": 8,
+        "busName": "Mcdonalds",
+        "symbol": "MCD"
+    },
+    {
+        "id": 9,
+        "busName": "Hardware Store",
+        "symbol": "HDW"
     }
 ]

@@ -1,9 +1,12 @@
 const express = require('express');
 const fs = require('fs');
 
+const mc = require('./meldCoin');
+const verify = require('./verified.js');
+const bus = require('./businessSide');
+
 const overall = './server/assets/bus.json';
 const breakDown = './server/assets/busBreak';
-const verifyOverall = './server/assets/verified.json';
 
 const app = express();
 
@@ -27,22 +30,22 @@ app.get('/list/:id', (req, res) => {
     res.status(200).json(data);
 });
 
-app.post('/bus/add', (req, res) => {
+app.post('/bus/add', async (req, res) => {
     const raw = fs.readFileSync(overall);
     let general = JSON.parse(raw);
 
     let newBus = req.body;
     newBus.id = general.length;
-
     console.log(newBus);
 
+    let address = await bus.deploySecureToken(newBus);
+    console.log(`Deployed at ${address}`);
+
+    newBus.address = address;
     general.push({
         "id": newBus.id,
         "busName": newBus.busName,
         "symbol": newBus.symbol,
-        "type": newBus.type,
-        "originalShares": newBus.numShares,
-        "description": newBus.description
     });
 
     const newRaw = JSON.stringify(newBus, null, 4);
@@ -54,39 +57,40 @@ app.post('/bus/add', (req, res) => {
 
     res.status(200).json(newBus);
 });
-////// Verfication GET
-app.get('/verify', (req, res) => {
-    const raw = fs.readFileSync(verifyOverall);
-    const data = JSON.parse(raw);
 
-    res.status(200).json(data);
+// New Users
+app.post('/user/add', async (req, res) => {
+    let address;
+
+    address = await mc.addVerify(req.body);
+
+    res.status(200).json(address);
 });
 
-app.post('/verify/add', (req, res) => {
-    const raw = fs.readFileSync(verifyOverall);
-    let general = JSON.parse(raw);
+// Minting tokens to user
+app.post('/user/deposit', async (req, res) => {
+    let address = req.body.userAddress;
+    let amt = req.body.amt;
 
+    let stableAddress = await mc.mintTokens(address, amt);
 
-    let newVer = req.body;
-    newVer.id = general.length;
-
-    console.log(newVer);
-
-    general.push({
-        "id": newVer.id,
-        "fullName": newVer.fullName,
-        "email": newVer.email,
-        "address": newVer.address,
-        "ssn": newVer.ssn
-    });
-
-    const newOverall = JSON.stringify(general, null, 4);
-    fs.writeFileSync(verifyOverall, newOverall);
-
-    res.status(200).json(newVer);
+    res.status(200).json(stableAddress);
 });
 
+// Transfer requests
+// When user wants to buy tokens this request is called
+app.post('/transfer/buy', async (req, res) => {
+    
+});
+
+// When user wants to sell tokens this request is called
+app.post("/transfer/sell", async (req, res) => {
+    
+});
+
+app.get('transfer/pending', (req, res) => {
+    
+});
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => console.log("Running on port " + port));
-

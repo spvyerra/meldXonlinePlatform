@@ -35,10 +35,11 @@ mintChange = (e) => {
 }
 
 register = () => {
-    console.log(this.state.FullName, this.state.email, this.state.ssn, this.state.address)
+    
    
      if(this.state.nameChange !== "" && this.state.emailChange !== "" && this.state.ssnChange !== "") {
        console.log("Works!");
+       
       addVerification(this.state.FullName, this.state.email, this.state.address, this.state.ssn);
     }
     

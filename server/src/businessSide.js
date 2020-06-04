@@ -1,21 +1,21 @@
-let admin = require('./adminInteract');
+let admin = require('./adminInteract.js');
 const fs = require('fs');
 
-const contractPath = '../../build/contracts/SecureToken.json';
+const contractPath = './build/contracts/SecureToken.json';
 
 const rawContract = JSON.parse(fs.readFileSync(contractPath));
 const bytecode = rawContract.bytecode;
 
-let secureToken = admin.web3.eth.Contract(rawContract.abi);
+let secureToken = new admin.web3.eth.Contract(rawContract.abi);
 
 let deploySecureToken = async (bus) => {
     admin.init();
     let acct = admin.getAcct();
 
-    let deployAddress;
-    let ownerHash = web3.utils.sha3(bus.ownerAddress);
+    let ownerHash = admin.web3.utils.sha3(bus.ownerAddress);
+    let deployedAddress;
 
-    secureToken.deploy({
+    await secureToken.deploy({
         data: bytecode,
         arguments: [bus.ownerAddress, ownerHash, bus.numShares, bus.busName, bus.symbol]
     })
@@ -25,38 +25,39 @@ let deploySecureToken = async (bus) => {
         .on("transactionHash", (hash) => console.log(hash))
         .on('receipt', (rec) => {
             console.log(rec);
-            deployAddress = rec.address;
+            deployedAddress = rec.contractAddress;
         });
 
     admin.exit();
 
-    return deployAddress;
+    return deployedAddress;
 }
 
-let addVerify = async (addressObj) => {
+let reissue = async (obj) => {
+    admin.init();
+    const acct = admin.getAcct();
+    secureToken.options.address = obj.contAddress;
 
-    
+    await secureToken.methods
+        .cancelAndReissue(obj.oldAddress, obj.newAddress)
+        .send({ from: acct.address })
+        .on("transactionHash", (hash) => console.log(hash))
 
-    let verified = await contract.methods.addVerified(rawData['ownerAdress'], rawData['name']).call({ from: acct });
-    return verified;
-}
+        .on("receipt", (rec) => {
+            console.log("Tx completed");
+            console.log(rec);
+        })
 
-let isVerified = async () => {
+        .on("error", (err, rec) => {
+            console.log("error occured");
+            console.log(rec);
+            console.log(err);
+        });
 
-    let isVerified = await contract.methods.isVerified(rawData['ownerAdress']).call();
-    return isVerified;
-}
-
-let reissue = async () => {
-
-    return await contract.methods.cancelAndReissue(rawData[""], rawData[""])
+    admin.exit();
 }
 
 module.exports = {
-    getAcct,
-    isVerified,
-    addVerify,
-    getBal,
     deploySecureToken,
-    addVerified
+    reissue
 };

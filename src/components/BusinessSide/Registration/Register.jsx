@@ -38,6 +38,11 @@ export default class BusRegister extends React.Component {
         });
     }
 
+    pricePerShareChange = (e) => {
+        this.setState({
+            perPerShare: e.target.value
+        });
+    }
     shareChange = (e) => {
         this.setState({
             numShares: e.target.value
@@ -51,7 +56,7 @@ export default class BusRegister extends React.Component {
         }
         else if (this.state.nameChange !== "" && this.state.symbolChange !== "" && this.state.shareChange !== "") {
             alert("Valid form");
-            addBusiness(this.state.numShares, this.state.businessName, this.state.businessSymbol, this.state.businessType, this.state.businessDescription);
+            addBusiness(this.state.numShares, this.state.pricePerShareChange, this.state.businessName, this.state.businessSymbol, this.state.businessType, this.state.businessDescription);
         }
 
     }
@@ -85,6 +90,8 @@ export default class BusRegister extends React.Component {
                         <p className="busShareClass"> Number of shares offered</p>
                         <input type="number" id="numShares" className="busShareClass" placeholder="Number of Shares" onChange={this.shareChange} />
                         
+                        <p className="busSharePriceClass"> Price per share: USD</p>
+                        <input type="number" id="priceShares" className="busSharePriceClass" placeholder="Price per share" onChange={this.pricePerShareChange} />
                         <br/>
                         <br/>
                         <p className="busDescClass"> Business Description</p>

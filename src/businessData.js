@@ -1,11 +1,12 @@
 //import fs from 'fs';
 //import { getDefaultNormalizer } from '@testing-library/react';
 
-export let addBusiness = (numShares, busName, busSymbol, busType, busDesc) => {
+export let addBusiness = (numShares, pricePerShare,  busName, busSymbol, busType, busDesc) => {
     let busObj = {
         "busName": busName,
         "symbol": busSymbol,
         "numShares": numShares,
+        "pricePerShare": pricePerShare,
         "type": busType,
         "description": busDesc
     };

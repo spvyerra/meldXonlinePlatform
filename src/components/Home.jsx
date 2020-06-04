@@ -38,15 +38,15 @@ export default class Home extends React.Component{
 
   renderTableData() {
     return this.state.busisnesses.map((business, index) => {
-       const { id, busName, symbol } = business //destructuring
+       const { id, busName, symbol, numShares, pricePerShare } = business //destructuring
       
       
         return (
           <tr key={id}>
              <td>{busName}</td>
              <td>{symbol}</td>
-             <td>NYC</td>
-
+             <td>{numShares}</td>
+             <td>{pricePerShare} </td>
           </tr>
        )
     })
@@ -77,7 +77,8 @@ export default class Home extends React.Component{
                 <tr>
                   <th>Business Name</th>
                   <th>Symbol</th>
-                  <th>Location</th>
+                  <th>Number of shares</th>
+                  <th> Price per Share</th>
                 </tr>
               </thead>
                <tbody>

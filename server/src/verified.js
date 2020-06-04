@@ -1,14 +1,14 @@
 const admin = require('./adminInteract');
 const fs = require('fs');
 
-const verifiedPath = '../assets/verified.json';
+const verifiedPath = './server/assets/verified.json';
 
-let isVerifiedLocal = (address) => {
+let isVerifiedLocal = (obj) => {
     let data = JSON.parse(fs.readFileSync(verifiedPath));
     data = data.filter((obj) => obj);
 
     for (i in data) {
-        if (data[i].address == address) {
+        if (data[i].userAddress == obj.userAddress) {
             return true;
         }
     }
@@ -16,28 +16,36 @@ let isVerifiedLocal = (address) => {
     return false;
 }
 
-let addVerify = async (addressObj) => {
-    admin.init();
-    let acct = admin.getAcct();
-
-    if (!isVerifiedLocal(addressObj.userAddress)) {
-        fs.readFile(verifiedPath, (err, data) => {
-            data = JSON.parse(data);
-            data.push({
-                "id": data.length,
-                "address": addressObj.userAddress
-            });
-
-            data = data.filter((obj) => obj);
-            fs.writeFileSync(verifiedPath, JSON.stringify(data, null, 4));
-            console.log("File written");
-        });
+let addVerifyLocal = (obj) => {
+    if (isVerifiedLocal(obj)) {
+        return;
     }
 
-    secureToken.options.address = addressObj.contAddress;
+    fs.readFile(verifiedPath, (err, data) => {
+        data = JSON.parse(data);
+        data.push({
+            "id": data.length,
+            "name": obj.name,
+            "email": obj.email,
+            "ssn": obj.ssn,
+            "userAddress": obj.userAddress
+        });
+
+        data = data.filter((obj) => obj);
+        fs.writeFileSync(verifiedPath, JSON.stringify(data, null, 4));
+        console.log("File written");
+    });
+}
+
+let addVerify = async (contract, addressObj) => {
+    admin.init();
+    let acct = admin.getAcct();
+    addVerifyLocal(addressObj);
+
+    contract.options.address = addressObj.contAddress;
     let userHash = admin.web3.utils.sha3(addressObj.userAddress);
 
-    await secureToken.methods
+    await contract.methods
         .addVerified(addressObj.userAddress, userHash)
         .send({ from: acct.address })
 
@@ -57,7 +65,7 @@ let addVerify = async (addressObj) => {
     admin.exit();
 }
 
-let removeVerified = async (addressObj) => {
+let removeVerified = async (contract, addressObj) => {
     admin.init();
     let acct = admin.getAcct();
     secureToken.options.address = addressObj.contAddress;
@@ -69,6 +77,7 @@ let removeVerified = async (addressObj) => {
             for (i in data) {
                 if (data[i].address == addressObj.userAddress) {
                     delete data[i];
+                    break;
                 }
             }
 
@@ -78,7 +87,7 @@ let removeVerified = async (addressObj) => {
         });
     }
 
-    await secureToken.methods
+    await contract.methods
         .removeVerified(addressObj.userAddress)
         .send({ from: acct.address })
         .on("transactionHash", (hash) => console.log(hash))
