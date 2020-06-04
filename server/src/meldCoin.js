@@ -40,6 +40,18 @@ let mintTokens = async (address, amount) => {
     let acct = admin.getAcct();
     meldCoin.options.address = stableAddress();
 
+    let tmp = await meldCoin.methods.isVerified(address).call();
+
+    if (!tmp) {
+        let hash = admin.web3.utils.sha3(address);
+
+        await meldCoin.methods
+            .addVerified(address, hash)
+            .send({ from: acct.address })
+            .on('receipt', () => console.log("Add verified"))
+            .on('error', () => console.log("still not working"));
+    }
+
     await meldCoin.methods
         .mint(address, amount)
         .send({
@@ -67,23 +79,35 @@ let burnTokens = async (address, amount) => {
     admin.init();
     let acct = admin.getAcct();
     meldCoin.options.address = stableAddress();
-    
+
+    let tmp = await meldCoin.methods.isVerified(address).call();
+
+    if (!tmp) {
+        let hash = admin.web3.utils.sha3(address);
+
+        await meldCoin.methods
+            .addVerified(address, hash)
+            .send({ from: acct.address })
+            .on('receipt', () => console.log("Add verified"))
+            .on('error', () => console.log("still not working"));
+    }
+
     await meldCoin.methods
-    .burn(address, amount)
-    .send({ from: acct.address })
-    .on("transactionHash", (hash) => console.log(hash))
-    
-    .on("receipt", (rec) => {
-        console.log("Tx completed");
-        console.log(rec);
-    })
-    
-    .on("error", (err, rec) => {
-        console.log("error occured");
-        console.log(rec);
-        console.log(err);
-    });
-    
+        .burn(address, amount)
+        .send({ from: acct.address })
+        .on("transactionHash", (hash) => console.log(hash))
+
+        .on("receipt", (rec) => {
+            console.log("Tx completed");
+            console.log(rec);
+        })
+
+        .on("error", (err, rec) => {
+            console.log("error occured");
+            console.log(rec);
+            console.log(err);
+        });
+
     admin.exit();
 }
 
@@ -92,7 +116,7 @@ let checkBalance = async (address) => {
 
     meldCoin.options.address = stableAddress();
     let tmp = await meldCoin.methods.balanceOf(address).call();
-    
+
     console.log(tmp);
     admin.exit();
     return tmp;
