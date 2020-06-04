@@ -1,23 +1,31 @@
 const fs = require('fs');
-const mc = require('./meldCoin');
-const bus = require('./businessSide');
 
 const orderPath = "../assets/orders.json";
 
-let addBuy = () => { 
+let addBuy = (obj) => {
+    let master = JSON.parse(fs.readFileSync(orderPath));
+    obj.id = master["buy"].length;
+    master["buy"].push(obj);
 
+    fs.writeFileSync(orderPath, JSON.stringify(master, null, 4));
 }
 
-let addSell = () => { }
+let addSell = (obj) => {
+    let master = JSON.parse(fs.readFileSync(orderPath));
+    obj.id = master["sell"].length;
+    master["sell"].push(obj);
 
-let checkRequests = async (_contract, _orderType, _amount) => {
+    fs.writeFileSync(orderPath, JSON.stringify(master, null, 4));
+}
+
+let checkRequests = async (_contract, _orderType, _amount, price) => {
     const master = JSON.parse(fs.readFileSync(orderPath));
     const list = master[_orderType];
 
     for (let i in list) {
-        if (list[i].contract == _contract && list[i].amount == _amount) {
+        if (list[i].contract == _contract && list[i].amount == _amount && list[i].price == price) {
             let tmp = list[i];
-            console.log("Supposed to delete entry");
+            delete list[i];
 
             master[_orderType] = list.filter((obj) => obj);
             fs.writeFileSync(orderPath, JSON.stringify(master, null, 4));
@@ -25,12 +33,13 @@ let checkRequests = async (_contract, _orderType, _amount) => {
         }
     }
 
-
+    return null;
 }
 
 let pendingOrders = () => {
 
 }
+
 
 module.exports = {
     addBuy,
