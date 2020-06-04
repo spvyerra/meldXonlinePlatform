@@ -36,9 +36,12 @@ app.post('/bus/add', async (req, res) => {
 
     let newBus = req.body;
     newBus.id = general.length;
-
     console.log(newBus);
 
+    let address = await bus.deploySecureToken(newBus);
+    console.log(`Deployed at ${address}`);
+
+    newBus.address = address;
     general.push({
         "id": newBus.id,
         "busName": newBus.busName,

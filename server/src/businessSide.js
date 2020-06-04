@@ -12,10 +12,10 @@ let deploySecureToken = async (bus) => {
     admin.init();
     let acct = admin.getAcct();
 
-    let deployAddress;
     let ownerHash = admin.web3.utils.sha3(bus.ownerAddress);
+    let deployedAddress;
 
-    secureToken.deploy({
+    await secureToken.deploy({
         data: bytecode,
         arguments: [bus.ownerAddress, ownerHash, bus.numShares, bus.busName, bus.symbol]
     })
@@ -25,12 +25,12 @@ let deploySecureToken = async (bus) => {
         .on("transactionHash", (hash) => console.log(hash))
         .on('receipt', (rec) => {
             console.log(rec);
-            deployAddress = rec.contractAddress;
+            deployedAddress = rec.contractAddress;
         });
 
     admin.exit();
 
-    return deployAddress;
+    return deployedAddress;
 }
 
 let reissue = async (obj) => {

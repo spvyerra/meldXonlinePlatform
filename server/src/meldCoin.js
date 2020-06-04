@@ -131,7 +131,6 @@ let addVerify = async (addresssObj) => {
 }
 
 module.exports = {
-    deployMeldcoin,
     mintTokens,
     burnTokens,
     checkBalance,
