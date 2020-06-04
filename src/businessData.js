@@ -1,12 +1,13 @@
-import axios from 'axios';
 //import fs from 'fs';
 //import { getDefaultNormalizer } from '@testing-library/react';
 
-export let addBusiness = (numShares, busName, busSymbol) => {
+export let addBusiness = (numShares, busName, busSymbol, busType, busDesc) => {
     let busObj = {
         "busName": busName,
         "symbol": busSymbol,
-        "numShares": numShares
+        "numShares": numShares,
+        "type": busType,
+        "description": busDesc
     };
 
     let obj = JSON.stringify(busObj);

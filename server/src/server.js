@@ -3,6 +3,7 @@ const fs = require('fs');
 
 const overall = './server/assets/bus.json';
 const breakDown = './server/assets/busBreak';
+const verifyOverall = './server/assets/verified.json';
 
 const app = express();
 
@@ -31,7 +32,6 @@ app.post('/bus/add', (req, res) => {
     let general = JSON.parse(raw);
 
     let newBus = req.body;
-    console.log("HELLLO")
     newBus.id = general.length;
 
     console.log(newBus);
@@ -39,7 +39,10 @@ app.post('/bus/add', (req, res) => {
     general.push({
         "id": newBus.id,
         "busName": newBus.busName,
-        "symbol": newBus.symbol
+        "symbol": newBus.symbol,
+        "type": newBus.type,
+        "originalShares": newBus.numShares,
+        "description": newBus.description
     });
 
     const newRaw = JSON.stringify(newBus, null, 4);
@@ -51,6 +54,38 @@ app.post('/bus/add', (req, res) => {
 
     res.status(200).json(newBus);
 });
+////// Verfication GET
+app.get('/verify', (req, res) => {
+    const raw = fs.readFileSync(verifyOverall);
+    const data = JSON.parse(raw);
+
+    res.status(200).json(data);
+});
+
+app.post('/verify/add', (req, res) => {
+    const raw = fs.readFileSync(verifyOverall);
+    let general = JSON.parse(raw);
+
+
+    let newVer = req.body;
+    newVer.id = general.length;
+
+    console.log(newVer);
+
+    general.push({
+        "id": newVer.id,
+        "fullName": newVer.fullName,
+        "email": newVer.email,
+        "address": newVer.address,
+        "ssn": newVer.ssn
+    });
+
+    const newOverall = JSON.stringify(general, null, 4);
+    fs.writeFileSync(verifyOverall, newOverall);
+
+    res.status(200).json(newVer);
+});
+
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => console.log("Running on port " + port));
