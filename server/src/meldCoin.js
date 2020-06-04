@@ -70,6 +70,8 @@ let mintTokens = async (address, amount) => {
         });
 
     admin.exit();
+
+    return stableAddress;
 }
 
 let burnTokens = async (address, amount) => {

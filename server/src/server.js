@@ -69,7 +69,12 @@ app.post('/user/add', async (req, res) => {
 
 // Minting tokens to user
 app.post('/user/deposit', async (req, res) => {
-    
+    let address = req.body.userAddress;
+    let amt = req.body.amt;
+
+    let stableAddress = await mc.mintTokens(address, amt);
+
+    res.status(200).json(stableAddress);
 });
 
 // Transfer requests
