@@ -79,15 +79,18 @@ app.post('/user/deposit', async (req, res) => {
 
 // Transfer requests
 // When user wants to buy tokens this request is called
-app.post('/transfer/buy', (req, res) => {
+app.post('/transfer/buy', async (req, res) => {
     
 });
 
 // When user wants to sell tokens this request is called
-app.post("/transfer/sell", (req, res) => {
+app.post("/transfer/sell", async (req, res) => {
     
 });
 
+app.get('transfer/pending', (req, res) => {
+    
+});
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => console.log("Running on port " + port));
