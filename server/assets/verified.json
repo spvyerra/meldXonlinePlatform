@@ -16,5 +16,12 @@
         "email": "namey@boi.com",
         "ssn": 123456789,
         "userAddress": "0x2f36E258AF1945a8C1614BBf6c7E33D27aC39c60"
+    },
+    {
+        "id": 3,
+        "name": "nameyBoi",
+        "email": "namey@boi.com",
+        "ssn": 123456789,
+        "userAddress": "0xebBF6e4fC3a229D4f5b3B00C6018cff2f3246Cc5"
     }
 ]

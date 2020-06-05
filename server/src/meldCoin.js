@@ -123,7 +123,7 @@ let addVerify = async (addresssObj) => {
     addresssObj.contAddress = stableAddress;
     await verify.addVerify(meldCoin, addresssObj);
 
-    return stableAddress();
+    return stableAddress;
 }
 
 let transfer = async (_to, _from, _value) => {
@@ -132,18 +132,28 @@ let transfer = async (_to, _from, _value) => {
 
     await meldCoin.methods
         .transferFrom(_from, _to, _value)
-        .send({ from: acct.address })
+        .estimateGas({
+            gas: 30000000,
+            from: acct.address
+        }, (err, gasAmt) => {
+            console.log(gasAmt);
+            return;
 
-        .on("transactionHash", (hash) => console.log(hash))
-        .on("receipt", (rec) => {
-            console.log("Tx Completed");
-            console.log(rec);
-        })
+            meldCoin.methods
+                .transferFrom(_from, _to, _value)
+                .send({ from: acct.address })
 
-        .on('error', (err, rec) => {
-            console.log("error occured");
-            console.log(rec);
-            console.log(err);
+                .on("transactionHash", (hash) => console.log(hash))
+                .on("receipt", (rec) => {
+                    console.log("Tx Completed");
+                    console.log(rec);
+                })
+
+                .on('error', (err, rec) => {
+                    console.log("error occured");
+                    console.log(rec);
+                    console.log(err);
+                });
         });
 
     admin.exit();

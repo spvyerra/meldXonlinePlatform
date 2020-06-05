@@ -1,11 +1,14 @@
 const fs = require('fs');
+const bus = require('./businessSide');
 
 const orderPath = "./server/assets/orders.json";
 
-let addBuy = (obj) => {
+let addBuy = async (obj) => {
     let master = JSON.parse(fs.readFileSync(orderPath));
     obj.id = master["buy"].length;
     master["buy"].push(obj);
+
+    await bus.addVerify(obj);
 
     fs.writeFileSync(orderPath, JSON.stringify(master, null, 4));
 }

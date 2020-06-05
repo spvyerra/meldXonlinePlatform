@@ -1,4 +1,6 @@
 let admin = require('./adminInteract.js');
+const verify = require('./verfied');
+
 const fs = require('fs');
 
 const contractPath = './build/contracts/SecureToken.json';
@@ -57,6 +59,15 @@ let reissue = async (obj) => {
     admin.exit();
 }
 
+let addVerify = async (addresssObj) => {
+    addresssObj.contAddress = addresssObj.contract;
+    secureToken.options.address = addresssObj.contract;
+
+    await verify.addVerify(secureToken, addresssObj);
+
+    return addresssObj.contract;
+}
+
 let transfer = async (_to, _from, _value, _contAddress) => {
     admin.init();
     let acct = admin.getAcct();
@@ -64,18 +75,28 @@ let transfer = async (_to, _from, _value, _contAddress) => {
 
     await secureToken.methods
         .transferFrom(_from, _to, _value)
-        .send({ from: acct.address })
+        .estimateGas((err, gasAmt) => {
+            console.log(gasAmt);
+            return;
+            
+            secureToken.methods
+                .transferFrom(_from, _to, _value)
+                .send({
+                    from: acct.address,
+                    gas: gasAmt
+                })
 
-        .on("transactionHash", (hash) => console.log(hash))
-        .on("receipt", (rec) => {
-            console.log("Tx Completed");
-            console.log(rec);
-        })
+                .on("transactionHash", (hash) => console.log(hash))
+                .on("receipt", (rec) => {
+                    console.log("Tx Completed");
+                    console.log(rec);
+                })
 
-        .on('error', (err, rec) => {
-            console.log("error occured");
-            console.log(rec);
-            console.log(err);
+                .on('error', (err, rec) => {
+                    console.log("error occured");
+                    console.log(rec);
+                    console.log(err);
+                });
         });
 
     admin.exit();
@@ -84,5 +105,6 @@ let transfer = async (_to, _from, _value, _contAddress) => {
 module.exports = {
     deploySecureToken,
     reissue,
-    transfer
+    transfer,
+    addVerify
 };

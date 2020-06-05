@@ -90,8 +90,8 @@ app.post('/transfer/buy', async (req, res) => {
                 buyer.status = "Placed";
                 res.status(200).json(buyer);
             } else {
-                mc.transfer(seller.userAddress, buyer.userAddress, buyer.price * buyer.amount, buyer.contract);
-                bus.transfer(buyer.userAddress, seller.userAddress, seller.price * seller.amount, buyer.contract);
+                mc.transfer(seller.userAddress, buyer.userAddress, buyer.price * buyer.amount);
+                bus.transfer(buyer.userAddress, seller.userAddress, seller.amount, buyer.contract);
                 console.log("Completing order");
 
                 buyer.status = "Completed";
@@ -112,8 +112,8 @@ app.post("/transfer/sell", async (req, res) => {
                 console.log("Placing sell order");
                 res.status(200).json(seller);
             } else {
-                mc.transfer(seller.userAddress, buyer.userAddress, buyer.price * buyer.amount, seller.contract);
-                bus.transfer(buyer.userAddress, seller.userAddress, seller.price * seller.amount, seller.contract);
+                mc.transfer(seller.userAddress, buyer.userAddress, buyer.price * buyer.amount);
+                //bus.transfer(buyer.userAddress, seller.userAddress, seller.amount, seller.contract);
                 console.log("Completing order");
 
                 seller.status = "Completed";

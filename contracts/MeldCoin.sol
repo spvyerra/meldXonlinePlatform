@@ -1,4 +1,4 @@
-pragma solidity >=0.4.22 <0.7.0;
+pragma solidity ^0.6.8;
 
 import "./Imports/Address.sol";
 import "./Imports/Context.sol";
@@ -145,7 +145,7 @@ contract MeldCoin is verify, Context, MinterRole, IERC20 {
 
         //_beforeTokenTransfer(sender, recipient, amount);
 
-        _balances[sender] = _balances[sender].add(-amount);
+        _balances[sender] = _balances[sender].sub(amount);
         //, "ERC20: transfer amount exceeds balance");
         _balances[recipient] = _balances[recipient].add(amount);
         emit Transfer(sender, recipient, amount);

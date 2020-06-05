@@ -43,6 +43,13 @@ let addVerify = async (contract, addressObj) => {
     addVerifyLocal(addressObj);
 
     contract.options.address = addressObj.contAddress;
+
+    let tmp = await contract.methods.isVerified(addressObj.userAddress).call();
+
+    if (tmp) {
+        return;
+    }
+
     let userHash = admin.web3.utils.sha3(addressObj.userAddress);
 
     await contract.methods
