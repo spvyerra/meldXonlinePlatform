@@ -77,26 +77,25 @@ let transfer = async (_to, _from, _value, _contAddress) => {
         .transferFrom(_from, _to, _value)
         .estimateGas((err, gasAmt) => {
             console.log(gasAmt);
-            return;
-            
-            secureToken.methods
-                .transferFrom(_from, _to, _value)
-                .send({
-                    from: acct.address,
-                    gas: gasAmt
-                })
+        });
+    
+    
+    secureToken.methods
+        .transferFrom(_from, _to, _value)
+        .send({
+            from: acct.address
+        })
 
-                .on("transactionHash", (hash) => console.log(hash))
-                .on("receipt", (rec) => {
-                    console.log("Tx Completed");
-                    console.log(rec);
-                })
+        .on("transactionHash", (hash) => console.log(hash))
+        .on("receipt", (rec) => {
+            console.log("Tx Completed");
+            console.log(rec);
+        })
 
-                .on('error', (err, rec) => {
-                    console.log("error occured");
-                    console.log(rec);
-                    console.log(err);
-                });
+        .on('error', (err, rec) => {
+            console.log("error occured");
+            console.log(rec);
+            console.log(err);
         });
 
     admin.exit();

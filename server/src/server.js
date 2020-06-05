@@ -113,7 +113,7 @@ app.post("/transfer/sell", async (req, res) => {
                 res.status(200).json(seller);
             } else {
                 mc.transfer(seller.userAddress, buyer.userAddress, buyer.price * buyer.amount);
-                //bus.transfer(buyer.userAddress, seller.userAddress, seller.amount, seller.contract);
+                bus.transfer(buyer.userAddress, seller.userAddress, seller.amount, seller.contract);
                 console.log("Completing order");
 
                 seller.status = "Completed";

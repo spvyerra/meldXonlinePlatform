@@ -130,34 +130,35 @@ let transfer = async (_to, _from, _value) => {
     admin.init();
     let acct = admin.getAcct()
 
+    let thing = await meldCoin.methods
+        .transferFrom(_from, _to, _value)
+        .call({
+            from: acct.address
+        });
+
+    console.log(thing);
     await meldCoin.methods
         .transferFrom(_from, _to, _value)
-        .estimateGas({
-            gas: 30000000,
+        .send({
             from: acct.address
-        }, (err, gasAmt) => {
-            console.log(gasAmt);
-            return;
+        })
 
-            meldCoin.methods
-                .transferFrom(_from, _to, _value)
-                .send({ from: acct.address })
+        .on("transactionHash", (hash) => console.log(hash))
+        .on("receipt", (rec) => {
+            console.log(rec);
+            console.log("Tx Completed");
+        })
 
-                .on("transactionHash", (hash) => console.log(hash))
-                .on("receipt", (rec) => {
-                    console.log("Tx Completed");
-                    console.log(rec);
-                })
-
-                .on('error', (err, rec) => {
-                    console.log("error occured");
-                    console.log(rec);
-                    console.log(err);
-                });
+        .on('error', (err, rec) => {
+            console.log(rec);
+            console.log(err);
+            console.log("error occured");
         });
+
 
     admin.exit();
 }
+
 
 module.exports = {
     mintTokens,
