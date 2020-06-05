@@ -284,7 +284,10 @@ contract SecureToken is IERC20, Context {
         holderAmt[to] += value;
 
         if (holderAmt[from] > 0) holders++;
-        else Roles.remove(shareholders, _msgSender());
+        else {
+            Roles.remove(shareholders, from);
+            holders--;
+        }
     }
 
     /**
