@@ -55,7 +55,6 @@ export default class BusRegister extends React.Component {
             alert("Please complete the form before submitting");
         }
         else if (this.state.nameChange !== "" && this.state.symbolChange !== "" && this.state.shareChange !== "") {
-            alert("Valid form");
             addBusiness(this.state.numShares, this.state.pricePerShareChange, this.state.businessName, this.state.businessSymbol, this.state.businessType, this.state.businessDescription);
         }
 
