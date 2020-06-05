@@ -1,24 +1,25 @@
 
-//import fs from 'fs';
-//import { getDefaultNormalizer } from '@testing-library/react';
-
-export let addBusiness = (numShares, busName, busSymbol) => {
+export let addBusiness = (numShares, pricePerShare,  busName, busSymbol, busType, busDesc) => {
     let busObj = {
         "busName": busName,
         "symbol": busSymbol,
-        "numShares": numShares
+        "numShares": numShares,
+        "pricePerShare": pricePerShare,
+        "type": busType,
+        "description": busDesc
     };
 
     let obj = JSON.stringify(busObj);
-    //fs.writeFileSync(data, obj);
 
     console.log("test.me")
-    var xhr = new XMLHttpRequest()
-    xhr.addEventListener('load', () => {
-        // update the state of the component with the result here
-        console.log(xhr.responseText)
-      })
+     var xhr = new XMLHttpRequest()
+     xhr.addEventListener('load', () => {
+    //     // update the state of the component with the result here
+         console.log(xhr.responseText)
+    })
 
-      xhr.open('GET',  "http://localhost:8080/list/-1")
-      xhr.send()
+    xhr.open('POST',  "/bus/add", true);
+    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+    xhr.send(obj);
 }
+
