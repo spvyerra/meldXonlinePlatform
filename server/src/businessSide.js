@@ -73,14 +73,13 @@ let transfer = async (_to, _from, _value, _contAddress) => {
     let acct = admin.getAcct();
     secureToken.options.address = _contAddress;
 
-    await secureToken.methods
+    let thing = await secureToken.methods
         .transferFrom(_from, _to, _value)
-        .estimateGas((err, gasAmt) => {
-            console.log(gasAmt);
-        });
-    
-    
-    secureToken.methods
+        .call({ from: acct.address })
+
+    console.log(thing);
+
+    await secureToken.methods
         .transferFrom(_from, _to, _value)
         .send({
             from: acct.address

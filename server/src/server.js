@@ -82,7 +82,7 @@ app.post('/user/deposit', async (req, res) => {
 app.post('/transfer/buy', async (req, res) => {
     let buyer = req.body;
     order.orderMatch(buyer.contract, "sell", buyer.amount, buyer.price)
-        .then((seller) => {
+        .then(async (seller) => {
             if (seller == null) {
                 order.addBuy(buyer);
                 console.log("Placing buy order")
@@ -90,8 +90,8 @@ app.post('/transfer/buy', async (req, res) => {
                 buyer.status = "Placed";
                 res.status(200).json(buyer);
             } else {
-                mc.transfer(seller.userAddress, buyer.userAddress, buyer.price * buyer.amount);
-                bus.transfer(buyer.userAddress, seller.userAddress, seller.amount, buyer.contract);
+                await mc.transfer(seller.userAddress, buyer.userAddress, buyer.price * buyer.amount);
+                await bus.transfer(buyer.userAddress, seller.userAddress, seller.amount, buyer.contract);
                 console.log("Completing order");
 
                 buyer.status = "Completed";
@@ -104,7 +104,7 @@ app.post('/transfer/buy', async (req, res) => {
 app.post("/transfer/sell", async (req, res) => {
     let seller = req.body;
     order.orderMatch(seller.contract, "buy", seller.amount, seller.price)
-        .then((buyer) => {
+        .then(async (buyer) => {
             if (buyer == null) {
                 seller.status = "Placed";
                 order.addSell(seller);
@@ -112,8 +112,8 @@ app.post("/transfer/sell", async (req, res) => {
                 console.log("Placing sell order");
                 res.status(200).json(seller);
             } else {
-                mc.transfer(seller.userAddress, buyer.userAddress, buyer.price * buyer.amount);
-                bus.transfer(buyer.userAddress, seller.userAddress, seller.amount, seller.contract);
+                await mc.transfer(seller.userAddress, buyer.userAddress, buyer.price * buyer.amount);
+                await bus.transfer(buyer.userAddress, seller.userAddress, seller.amount, seller.contract);
                 console.log("Completing order");
 
                 seller.status = "Completed";

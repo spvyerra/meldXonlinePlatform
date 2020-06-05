@@ -256,7 +256,12 @@ contract SecureToken is IERC20, Context {
         holderAmt[to] += value;
 
         if (holderAmt[_msgSender()] > 0) holders++;
-        else Roles.remove(shareholders, _msgSender());
+        else {
+            Roles.remove(shareholders, _msgSender());
+            holders--;
+        }
+
+        return true;
     }
 
     /**
@@ -288,6 +293,8 @@ contract SecureToken is IERC20, Context {
             Roles.remove(shareholders, from);
             holders--;
         }
+
+        return true;
     }
 
     /**

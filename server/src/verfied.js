@@ -47,6 +47,7 @@ let addVerify = async (contract, addressObj) => {
     let tmp = await contract.methods.isVerified(addressObj.userAddress).call();
 
     if (tmp) {
+        console.log("Verified");
         return;
     }
 
