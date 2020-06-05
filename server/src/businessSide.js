@@ -58,7 +58,27 @@ let reissue = async (obj) => {
 }
 
 let transfer = async (_to, _from, _value, _contAddress) => {
-    console.log("Transfering secureTokens");
+    admin.init();
+    let acct = admin.getAcct();
+    secureToken.options.address = _contAddress;
+
+    await secureToken.methods
+        .transferFrom(_from, _to, _value)
+        .send({ from: acct.address })
+
+        .on("transactionHash", (hash) => console.log(hash))
+        .on("receipt", (rec) => {
+            console.log("Tx Completed");
+            console.log(rec);
+        })
+
+        .on('error', (err, rec) => {
+            console.log("error occured");
+            console.log(rec);
+            console.log(err);
+        });
+
+    admin.exit();
 }
 
 module.exports = {

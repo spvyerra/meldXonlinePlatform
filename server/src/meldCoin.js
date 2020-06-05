@@ -120,14 +120,33 @@ let checkBalance = async (address) => {
 }
 
 let addVerify = async (addresssObj) => {
-    addresssObj.contAddress = stableAddress();
+    addresssObj.contAddress = stableAddress;
     await verify.addVerify(meldCoin, addresssObj);
 
     return stableAddress();
 }
 
-let transfer = async (_to, _from, _value) => { 
-    console.log("Transfering Meldcoin");
+let transfer = async (_to, _from, _value) => {
+    admin.init();
+    let acct = admin.getAcct()
+
+    await meldCoin.methods
+        .transferFrom(_from, _to, _value)
+        .send({ from: acct.address })
+
+        .on("transactionHash", (hash) => console.log(hash))
+        .on("receipt", (rec) => {
+            console.log("Tx Completed");
+            console.log(rec);
+        })
+
+        .on('error', (err, rec) => {
+            console.log("error occured");
+            console.log(rec);
+            console.log(err);
+        });
+
+    admin.exit();
 }
 
 module.exports = {

@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const orderPath = "../assets/orders.json";
+const orderPath = "./server/assets/orders.json";
 
 let addBuy = (obj) => {
     let master = JSON.parse(fs.readFileSync(orderPath));
@@ -18,9 +18,9 @@ let addSell = (obj) => {
     fs.writeFileSync(orderPath, JSON.stringify(master, null, 4));
 }
 
-let checkRequests = async (_contract, _orderType, _amount, price) => {
-    const master = JSON.parse(fs.readFileSync(orderPath));
-    const list = master[_orderType];
+let orderMatch = async (_contract, _orderType, _amount, price) => {
+    let master = JSON.parse(fs.readFileSync(orderPath));
+    let list = master[_orderType];
 
     for (let i in list) {
         if (list[i].contract == _contract && list[i].amount == _amount && list[i].price == price) {
@@ -59,6 +59,6 @@ let pendingOrders = (address) => {
 module.exports = {
     addBuy,
     addSell,
-    checkRequests,
+    orderMatch,
     pendingOrders
 };

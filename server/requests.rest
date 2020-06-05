@@ -31,8 +31,8 @@ POST http://localhost:8080/user/deposit
 Content-Type: application/json
 
 {
-    "userAddress": "0x2f36E258AF1945a8C1614BBf6c7E33D27aC39c60",
-    "amt": 100
+    "userAddress": "0xebBF6e4fC3a229D4f5b3B00C6018cff2f3246Cc5",
+    "amt": 100000
 }
 
 ###
@@ -43,15 +43,24 @@ Content-Type: application/json
     "userAddress": "0xebBF6e4fC3a229D4f5b3B00C6018cff2f3246Cc5",
     "contract": "0x0269B443D496604B4b255f457392a64f4c39B8e0",
     "price": 200,
-    "amount": 50
+    "amount": 5
 }
 
 ###
 POST http://localhost:8080/transfer/sell
+Content-Type: application/json
 
 {
     "userAddress": "0x2f36E258AF1945a8C1614BBf6c7E33D27aC39c60",
     "contract": "0x0269B443D496604B4b255f457392a64f4c39B8e0",
     "price": 200,
-    "amount": 50
+    "amount": 5
+}
+
+###
+PUT http://localhost:8080/transfer/pending
+Content-Type: application/json
+
+{
+    "userAddress": "0xebBF6e4fC3a229D4f5b3B00C6018cff2f3246Cc5"
 }
