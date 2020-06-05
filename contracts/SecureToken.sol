@@ -256,7 +256,12 @@ contract SecureToken is IERC20, Context {
         holderAmt[to] += value;
 
         if (holderAmt[_msgSender()] > 0) holders++;
-        else Roles.remove(shareholders, _msgSender());
+        else {
+            Roles.remove(shareholders, _msgSender());
+            holders--;
+        }
+
+        return true;
     }
 
     /**
@@ -270,7 +275,7 @@ contract SecureToken is IERC20, Context {
         address from,
         address to,
         uint256 value
-    ) public override returns (bool) {
+    ) public override isAdmin returns (bool) {
         require(isVerified(to), "To address is not verified");
         require(isVerified(from), "From address is not verified");
         require(
@@ -284,7 +289,12 @@ contract SecureToken is IERC20, Context {
         holderAmt[to] += value;
 
         if (holderAmt[from] > 0) holders++;
-        else Roles.remove(shareholders, _msgSender());
+        else {
+            Roles.remove(shareholders, from);
+            holders--;
+        }
+
+        return true;
     }
 
     /**

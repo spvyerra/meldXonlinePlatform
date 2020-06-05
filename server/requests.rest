@@ -12,5 +12,55 @@ Content-Type: application/json
     "busName": "newBus",
     "symbol": "nbs",
     "numShares": 100,
-    "ownerAddress": "0xnewBusOwner"
+    "ownerAddress": "0x2f36E258AF1945a8C1614BBf6c7E33D27aC39c60"
+}
+
+###
+POST http://localhost:8080/user/add
+Content-Type: application/json
+
+{
+    "name": "nameyBoi",
+    "email": "namey@boi.com",
+    "ssn": 123456789,
+    "userAddress": "0xebBF6e4fC3a229D4f5b3B00C6018cff2f3246Cc5"
+}
+
+###
+POST http://localhost:8080/user/deposit
+Content-Type: application/json
+
+{
+    "userAddress": "0xebBF6e4fC3a229D4f5b3B00C6018cff2f3246Cc5",
+    "amt": 100000
+}
+
+###
+POST http://localhost:8080/transfer/buy
+Content-Type: application/json
+
+{
+    "userAddress": "0xebBF6e4fC3a229D4f5b3B00C6018cff2f3246Cc5",
+    "contract": "0xE4f7AfcF3cEA32B381363044BcB07a860Bb3cE44",
+    "price": 200,
+    "amount": 5
+}
+
+###
+POST http://localhost:8080/transfer/sell
+Content-Type: application/json
+
+{
+    "userAddress": "0x2f36E258AF1945a8C1614BBf6c7E33D27aC39c60",
+    "contract": "0xE4f7AfcF3cEA32B381363044BcB07a860Bb3cE44",
+    "price": 200,
+    "amount": 5
+}
+
+###
+PUT http://localhost:8080/transfer/pending
+Content-Type: application/json
+
+{
+    "userAddress": "0xebBF6e4fC3a229D4f5b3B00C6018cff2f3246Cc5"
 }
