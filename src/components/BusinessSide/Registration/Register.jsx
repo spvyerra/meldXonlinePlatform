@@ -1,6 +1,8 @@
 import React from "react";
+import axios from 'axios'
 
 import { addBusiness } from "../../../businessData.js";
+import { Jumbotron } from "reactstrap";
 
 
 export default class BusRegister extends React.Component {
@@ -8,6 +10,15 @@ export default class BusRegister extends React.Component {
         super(props);
     }
 
+   
+
+
+    componentDidMount() {
+        axios.get("http://localhost:8080/list/")
+            .then(response => response.json())
+            .then(json => this.setState({ users: json.data, done: true }))
+
+    }
 
     nameChange = (e) => {
         this.setState({
@@ -28,13 +39,17 @@ export default class BusRegister extends React.Component {
     }
 
     register = () => {
-        addBusiness(this.state.numShares, this.state.businessName, this.state.businessSymbol);
+        if(this.state.nameChange !== "" && this.state.symbolChange !== "" && this.state.shareChange !== "") {
+            addBusiness(this.state.numShares, this.state.businessName, this.state.businessSymbol);
+        }
+        
     }
 
     render() {
         return (
-            <div>
-                <h1>Business</h1>
+            <Jumbotron>
+                <div>
+                <h1 className="display-3">Business</h1>
                 <p>Register your business</p>
                 <input type="text" placeholder="Address" />
                 <button>Add Financial Info</button>
@@ -48,6 +63,8 @@ export default class BusRegister extends React.Component {
 
                 <button onClick={this.register}>Continue</button>
             </div>
+            </Jumbotron>
+            
         );
     }
 }

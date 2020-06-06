@@ -42,6 +42,12 @@ class App extends React.Component {
         });
     }
 
+    handleEmail = (event) => {
+        this.setState({
+            email: event.target.value
+        });
+    }
+
     render() {
         return (
             <div>
@@ -52,16 +58,26 @@ class App extends React.Component {
                         <Route path="/business/dashboard" component={BusDash} />
                         <Route path="/business/registration" component={BusRegister} />
                         <Route path="/investor" component={Investor} />
+
                     </React.Fragment>
                 </Router>
             </div>
         );
     }
 
-    getBalance = async () => {
-        let currentOwn = await contract.methods.getOwner().call();
-        this.setState({ balance: currentOwn });
+                        <Route path="/business/dashboard" component={BusDash} />
+    <Route path="/business/registration" component={BusRegister} />
+    <Route path="/investor" component={Investor} />
+                    </React.Fragment >
+                </Router >
+            </div >
+        );
     }
+
+getBalance = async () => {
+    let currentOwn = await contract.methods.getOwner().call();
+    this.setState({ balance: currentOwn });
+}
 
 }
 

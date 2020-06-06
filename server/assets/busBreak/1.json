@@ -1,0 +1,7 @@
+{
+  "busName": "newBus",
+  "symbol": "nbs",
+  "numShares": 100,
+  "ownerAddress": "0xnewBusOwner",
+  "id": 1
+}
