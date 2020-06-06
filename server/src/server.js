@@ -34,7 +34,7 @@ app.post('/bus/add', async (req, res) => {
     const raw = fs.readFileSync(overall);
     let general = JSON.parse(raw);
 
-    let newBus = req.body;
+    let newBus = req.body.busObj;
     newBus.id = general.length;
     console.log(newBus);
 
@@ -46,6 +46,7 @@ app.post('/bus/add', async (req, res) => {
         "id": newBus.id,
         "busName": newBus.busName,
         "symbol": newBus.symbol,
+        "numShares": newBus.numShares
     });
 
     const newRaw = JSON.stringify(newBus, null, 4);
