@@ -16,25 +16,43 @@ export let addBusiness = async (numShares, pricePerShare, busName, busSymbol, bu
 
     const url = "/bus/add";
 
-    await axios({
+    let res = await axios({
         method: 'post',
         url: url,
         data: {
             busObj
         }
-    }).then(data => console.log(data + "succcess"))
-        .catch(err => console.log(err + "Failed"));
+    }).catch(err => console.log(err + "Failed"));
 
-    // console.log("test.me")
-    //  var xhr = new XMLHttpRequest()
-    //  xhr.addEventListener('load', () => {
-    // //     // update the state of the component with the result here
-    //      console.log(xhr.responseText)
-    // })
-
-    // xhr.open('POST',  "/bus/add", true);
-    // xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-    // xhr.send(obj);
-
-
+    console.log(res);
+    return res;
 }
+
+/*
+    obj format:
+    {
+        "userAddress": address,
+        "contract": address,
+        "price": number,
+        "amount": number
+    }
+*/
+export let sellShares = async (obj) => {
+    const url = "/transfer/sell";
+
+    let thing = await axios.post(url, obj);
+
+    return thing;
+}
+
+// Object must be set up the same as sell shares
+export let buyShares = async (obj) => {
+    const url = "/transfer/buy";
+
+    let thing = await axios.post(url, obj);
+
+    return thing;
+}
+
+
+

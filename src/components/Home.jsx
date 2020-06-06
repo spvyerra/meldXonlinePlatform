@@ -2,93 +2,100 @@ import React from 'react';
 import { Jumbotron, Table } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 
-export default class Home extends React.Component{
+import * as bus from "../businessData";
+
+export default class Home extends React.Component {
 
 
-  constructor() {
-    super();
-    this.state = {
-      busisnesses: []
-    };
-  }
-  componentWillMount() {
-    
-    this.getData();
+    constructor() {
+        super();
+        this.state = {
+            busisnesses: []
+        };
+    }
+    componentWillMount() {
+        this.getData();
+    }
 
-  }
+    getData() {
+        var xhr = new XMLHttpRequest()
 
-  getData() {
-    var xhr = new XMLHttpRequest()
-
-    // get a callback when the server responds
-    xhr.addEventListener('load', () => {
-      // update the state of the component with the result here
-      var json_obj = JSON.parse(xhr.responseText);
-      this.setState({
-        busisnesses: json_obj
-      });
-      console.log(this.state.busisnesses)
-    })
-    // open the request with the verb and the url
-    xhr.open('GET', '/list/', true);
-    // send the request
-    xhr.send();
-  }
+        // get a callback when the server responds
+        xhr.addEventListener('load', () => {
+            // update the state of the component with the result here
+            var json_obj = JSON.parse(xhr.responseText);
+            this.setState({
+                busisnesses: json_obj
+            });
+            console.log(this.state.busisnesses)
+        })
+        // open the request with the verb and the url
+        xhr.open('GET', '/list/', true);
+        // send the request
+        xhr.send();
+    }
 
 
-  renderTableData() {
-    return this.state.busisnesses.map((business, index) => {
-       const { id, busName, symbol, numShares, pricePerShare } = business //destructuring
-      
-      
-        return (
-          <tr key={id}>
-             <td>{busName}</td>
-             <td>{symbol}</td>
-             <td>{numShares}</td>
-             <td>{pricePerShare} </td>
-          </tr>
-       )
-    })
- }
+    renderTableData() {
+        return this.state.busisnesses.map((business, index) => {
+            const { id, busName, symbol, numShares, pricePerShare } = business //destructuring
 
-  render() {
-    return (
-      <div>
-        <Jumbotron>
-          <h1 className="display-3">Hello!</h1>
-          <p className="lead">Welcome to Meld Exchange.</p>
-          <hr className="my-2" />
-          <p>I am a: </p>
-          <NavLink to="/business/registration">
-            business<br />
-          </NavLink>
-          <NavLink to="investor">
-            investor
-          </NavLink> 
 
-          <hr className="my-2" />
-          <br />
-          <h2 className="lead"> Buisnesses on MeldX</h2>
-         
-            <div>
-            <Table id='students'>
-                <thead>
-                <tr>
-                  <th>Business Name</th>
-                  <th>Symbol</th>
-                  <th>Number of shares</th>
-                  <th> Price per Share</th>
+            return (
+                <tr key={id}>
+                    <td>{busName}</td>
+                    <td>{symbol}</td>
+                    <td>{numShares}</td>
+                    <td>{pricePerShare} </td>
                 </tr>
-              </thead>
-               <tbody>
-                {this.renderTableData()}
-               </tbody>
-            </Table>
-              </div>    
-        </Jumbotron>
-      </div>
-    );
-  };
-  }
-  
+            )
+        })
+    }
+
+    test = async () => {
+        let info = await bus.buyShares();
+        console.log(info);
+    }
+
+    render() {
+        return (
+            <div>
+                <button onClick={this.test}>THingy</button>
+
+                <Jumbotron>
+                    <h1 className="display-3">Hello!</h1>
+                    <p className="lead">Welcome to Meld Exchange.</p>
+                    <hr className="my-2" />
+                    <p>I am a: </p>
+                    <NavLink to="/business/registration">
+                        business<br />
+                    </NavLink>
+                    <NavLink to="investor">
+                        investor
+          </NavLink>
+
+                    <hr className="my-2" />
+                    <br />
+                    <h2 className="lead"> Buisnesses on MeldX</h2>
+
+                    <div>
+                        <Table id='students'>
+                            <thead>
+                                <tr>
+                                    <th>Business Name</th>
+                                    <th>Symbol</th>
+                                    <th>Number of shares</th>
+                                    <th> Price per Share</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {this.renderTableData()}
+                            </tbody>
+                        </Table>
+                    </div>
+                </Jumbotron>
+            </div>
+        );
+    };
+}
+
