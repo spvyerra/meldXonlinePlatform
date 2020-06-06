@@ -8,10 +8,12 @@ To run MeldX's web app on your machine, clone this repository, then:
 
 Install project dependencies using npm
 
-### `npm startServer`
+### `npm run startServer`
 
-Start the backend, then open up a new command line
+Start the backend server
 
-### `npm startApp`
+Then, open a new command line
 
-Start the front end and go to `localhost`
+### `npm run startApp`
+
+Start the frontend and go to `localhost`
