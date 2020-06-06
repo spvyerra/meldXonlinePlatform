@@ -1,6 +1,6 @@
 const admin = require('./adminInteract');
 const fs = require('fs');
-const verify = require('./verified');
+const verify = require('./verfied');
 
 const contractPath = './build/contracts/MeldCoin.json';
 const stablePath = './server/assets/stableCoin.txt';
@@ -120,15 +120,50 @@ let checkBalance = async (address) => {
 }
 
 let addVerify = async (addresssObj) => {
-    addresssObj.contAddress = stableAddress();
+    addresssObj.contAddress = stableAddress;
     await verify.addVerify(meldCoin, addresssObj);
 
-    return stableAddress();
+    return stableAddress;
 }
+
+let transfer = async (_to, _from, _value) => {
+    admin.init();
+    let acct = admin.getAcct()
+
+    let thing = await meldCoin.methods
+        .transferFrom(_from, _to, _value)
+        .call({
+            from: acct.address
+        });
+
+    console.log(thing);
+    await meldCoin.methods
+        .transferFrom(_from, _to, _value)
+        .send({
+            from: acct.address
+        })
+
+        .on("transactionHash", (hash) => console.log(hash))
+        .on("receipt", (rec) => {
+            console.log(rec);
+            console.log("Tx Completed");
+        })
+
+        .on('error', (err, rec) => {
+            console.log(rec);
+            console.log(err);
+            console.log("error occured");
+        });
+
+
+    admin.exit();
+}
+
 
 module.exports = {
     mintTokens,
     burnTokens,
     checkBalance,
-    addVerify
+    addVerify,
+    transfer
 };

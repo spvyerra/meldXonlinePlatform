@@ -2,7 +2,7 @@ const express = require('express');
 const fs = require('fs');
 
 const mc = require('./meldCoin');
-const verify = require('./verified.js');
+const order = require('./orders');
 const bus = require('./businessSide');
 
 const overall = './server/assets/bus.json';
@@ -81,16 +81,54 @@ app.post('/user/deposit', async (req, res) => {
 // Transfer requests
 // When user wants to buy tokens this request is called
 app.post('/transfer/buy', async (req, res) => {
-    
+    let buyer = req.body;
+    order.orderMatch(buyer.contract, "sell", buyer.amount, buyer.price)
+        .then(async (seller) => {
+            if (seller == null) {
+                order.addBuy(buyer);
+                console.log("Placing buy order")
+
+                buyer.status = "Placed";
+                res.status(200).json(buyer);
+            } else {
+                await mc.transfer(seller.userAddress, buyer.userAddress, buyer.price * buyer.amount);
+                await bus.transfer(buyer.userAddress, seller.userAddress, seller.amount, buyer.contract);
+                console.log("Completing order");
+
+                buyer.status = "Completed";
+                res.status(200).json(buyer);
+            }
+        });
 });
 
 // When user wants to sell tokens this request is called
 app.post("/transfer/sell", async (req, res) => {
-    
+    let seller = req.body;
+    order.orderMatch(seller.contract, "buy", seller.amount, seller.price)
+        .then(async (buyer) => {
+            if (buyer == null) {
+                seller.status = "Placed";
+                order.addSell(seller);
+
+                console.log("Placing sell order");
+                res.status(200).json(seller);
+            } else {
+                await mc.transfer(seller.userAddress, buyer.userAddress, buyer.price * buyer.amount);
+                await bus.transfer(buyer.userAddress, seller.userAddress, seller.amount, seller.contract);
+                console.log("Completing order");
+
+                seller.status = "Completed";
+                res.status(200).json(seller);
+            }
+        });
 });
 
-app.get('transfer/pending', (req, res) => {
-    
+// Pending orders of specific user
+app.put('/transfer/pending', (req, res) => {
+    let list = order.pendingOrders(req.body.userAddress);
+
+    req.body.pending = list;
+    res.status(200).json(req.body);
 });
 
 const port = process.env.PORT || 8080;
