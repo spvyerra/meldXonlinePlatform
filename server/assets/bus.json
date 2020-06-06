@@ -48,5 +48,11 @@
         "id": 9,
         "busName": "Hardware Store",
         "symbol": "HDW"
+    },
+    {
+        "id": 10,
+        "busName": "saibus",
+        "symbol": "SAI",
+        "numShares": "200"
     }
 ]

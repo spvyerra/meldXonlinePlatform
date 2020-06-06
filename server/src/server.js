@@ -46,7 +46,8 @@ app.post('/bus/add', async (req, res) => {
         "id": newBus.id,
         "busName": newBus.busName,
         "symbol": newBus.symbol,
-        "numShares": newBus.numShares
+        "numShares": newBus.numShares,
+        "pricePerShare": newBus.pricePerShare
     });
 
     const newRaw = JSON.stringify(newBus, null, 4);
