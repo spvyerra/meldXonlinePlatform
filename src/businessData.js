@@ -40,19 +40,29 @@ export let addBusiness = async (numShares, pricePerShare, busName, busSymbol, bu
 export let sellShares = async (obj) => {
     const url = "/transfer/sell";
 
-    let thing = await axios.post(url, obj);
+    let res = await axios.post(url, obj)
+        .catch(err => console.log(err));
 
-    return thing;
+    return res;
 }
 
 // Object must be set up the same as sell shares
 export let buyShares = async (obj) => {
     const url = "/transfer/buy";
 
-    let thing = await axios.post(url, obj);
+    let res = await axios.post(url, obj)
+        .catch(err => console.log(err));
 
-    return thing;
+    return res;
 }
 
+// @Params: Address of investor
+export let pendingOrders = async (address) => {
+    const url = "/transfer/pending";
 
+    let res = await axios.put(url, { "userAddress": address })
+        .catch(err => console.log(err));
+
+    return res;
+}
 

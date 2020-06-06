@@ -53,7 +53,7 @@ export default class Home extends React.Component {
     }
 
     test = async () => {
-        let info = await bus.buyShares();
+        let info = await bus.pendingOrders();
         console.log(info);
     }
 
