@@ -1,4 +1,6 @@
-export let addVerification = (fullName, email, address, ssn) => {
+import axios from 'axios';
+
+export let addVerification = async (fullName, email, address, ssn) => {
     let verificationObj = {
         "fullName": fullName,
         "email": email,
@@ -17,7 +19,5 @@ export let addVerification = (fullName, email, address, ssn) => {
     xhr.open('POST',  "/verify/add/", true);
     xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
     xhr.send(obj);
-
-    
 
 }
