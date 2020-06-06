@@ -1,6 +1,6 @@
 const admin = require('./adminInteract');
 const fs = require('fs');
-const verify = require('./verfied');
+const verify = require('./verified');
 
 const contractPath = './build/contracts/MeldCoin.json';
 const stablePath = './server/assets/stableCoin.txt';

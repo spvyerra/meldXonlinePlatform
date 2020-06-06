@@ -7,7 +7,7 @@ let isVerifiedLocal = (obj) => {
     let data = JSON.parse(fs.readFileSync(verifiedPath));
     data = data.filter((obj) => obj);
 
-    for (i in data) {
+    for (let i in data) {
         if (data[i].userAddress == obj.userAddress) {
             return true;
         }
@@ -43,6 +43,14 @@ let addVerify = async (contract, addressObj) => {
     addVerifyLocal(addressObj);
 
     contract.options.address = addressObj.contAddress;
+
+    let tmp = await contract.methods.isVerified(addressObj.userAddress).call();
+
+    if (tmp) {
+        console.log("Verified");
+        return;
+    }
+
     let userHash = admin.web3.utils.sha3(addressObj.userAddress);
 
     await contract.methods
@@ -68,13 +76,13 @@ let addVerify = async (contract, addressObj) => {
 let removeVerified = async (contract, addressObj) => {
     admin.init();
     let acct = admin.getAcct();
-    secureToken.options.address = addressObj.contAddress;
+    contract.options.address = addressObj.contAddress;
 
     if (isVerifiedLocal(addressObj.userAddress)) {
         fs.readFile(verifiedPath, (err, data) => {
             data = JSON.parse(data);
 
-            for (i in data) {
+            for (let i in data) {
                 if (data[i].address == addressObj.userAddress) {
                     delete data[i];
                     break;
