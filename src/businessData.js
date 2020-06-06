@@ -1,24 +1,40 @@
-
+import axios from 'axios';
+//const axios = require('axios');
 //import fs from 'fs';
 //import { getDefaultNormalizer } from '@testing-library/react';
 
-export let addBusiness = (numShares, busName, busSymbol) => {
-    let busObj = {
+export let addBusiness = async (numShares, pricePerShare, busName, busSymbol, busType, busDesc, acct) => {
+    const busObj = {
         "busName": busName,
         "symbol": busSymbol,
-        "numShares": numShares
+        "numShares": numShares,
+        "pricePerShare": pricePerShare,
+        "type": busType,
+        "description": busDesc,
+        "ownerAddress": acct
     };
 
-    let obj = JSON.stringify(busObj);
-    //fs.writeFileSync(data, obj);
+    const url = "/bus/add";
 
-    console.log("test.me")
-    var xhr = new XMLHttpRequest()
-    xhr.addEventListener('load', () => {
-        // update the state of the component with the result here
-        console.log(xhr.responseText)
-      })
+    await axios({
+        method: 'post',
+        url: url,
+        data: {
+            busObj
+        }
+    }).then(data => console.log(data + "succcess"))
+        .catch(err => console.log(err + "Failed"));
 
-      xhr.open('GET',  "http://localhost:8080/list/-1")
-      xhr.send()
+    // console.log("test.me")
+    //  var xhr = new XMLHttpRequest()
+    //  xhr.addEventListener('load', () => {
+    // //     // update the state of the component with the result here
+    //      console.log(xhr.responseText)
+    // })
+
+    // xhr.open('POST',  "/bus/add", true);
+    // xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+    // xhr.send(obj);
+
+
 }

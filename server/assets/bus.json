@@ -11,17 +11,54 @@
     },
     {
         "id": 2,
-        "busName": "newBus",
-        "symbol": "nbs"
+        "busName": "Test Business",
+        "symbol": "TST"
     },
     {
         "id": 3,
-        "busName": "newBus",
-        "symbol": "nbs"
+        "busName": "2000",
+        "symbol": "2000"
     },
     {
         "id": 4,
-        "busName": "newBus",
-        "symbol": "nbs"
+        "busName": "2000",
+        "symbol": "2000"
+    },
+    {
+        "id": 5,
+        "busName": "100",
+        "symbol": "SMB"
+    },
+    {
+        "id": 6,
+        "busName": "MeldX",
+        "symbol": "MLDX"
+    },
+    {
+        "id": 7,
+        "busName": "MeldX",
+        "symbol": "MLDX"
+    },
+    {
+        "id": 8,
+        "busName": "Mcdonalds",
+        "symbol": "MCD"
+    },
+    {
+        "id": 9,
+        "busName": "Hardware Store",
+        "symbol": "HDW"
+    },
+    {
+        "id": 10,
+        "busName": "saibus",
+        "symbol": "SAI",
+        "numShares": "200"
+    },
+    {
+        "id": 11,
+        "busName": "spv",
+        "symbol": "SPV",
+        "numShares": "500"
     }
 ]
