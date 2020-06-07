@@ -53,7 +53,12 @@ export default class Home extends React.Component {
     }
 
     test = async () => {
-        let info = await inv.addVerification();
+        const obj = {
+            "userAddress": "0x2f36E258AF1945a8C1614BBf6c7E33D27aC39c60",
+            "amt": Math.pow(10, 5)
+        }
+
+        let info = await inv.userDeposit(obj);
         console.log(info);
     }
 

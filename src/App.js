@@ -1,8 +1,6 @@
 import React from 'react';
 
 import Web3 from 'web3';
-import { secureTokenAbi } from './assets/secureTokenAbi.js';
-import { meldCoinAbi } from "./assets/meldCoinAbi.js";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Home from './components/Home';
 import BusDash from './components/BusinessSide/Dashboard/Dashboard.jsx';
