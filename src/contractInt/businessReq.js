@@ -1,6 +1,26 @@
 import axios from 'axios';
 import { secureToken, web3 } from "./constants";
 
+
+export let getBusList = async () => {
+    const url = '/list';
+
+    let res = await axios.get(url)
+        .catch(err => console.log(err));
+
+    return res.data;
+}
+
+export let getBusId = async (idt) => {
+    const url = '/list';
+
+    let res = await axios.get(url + `/${idt}`)
+        .catch(err => console.log(err));
+
+    console.log(res);
+    return res.data;
+}
+
 /**
  * 
  * @param {*} numShares 
@@ -33,7 +53,7 @@ export let addBusiness = async (numShares, pricePerShare, busName, busSymbol, bu
     }).catch(err => console.log(err + "Failed"));
 
     console.log(res);
-    return res;
+    return res.data;
 }
 
 
@@ -52,7 +72,7 @@ export let sellShares = async (obj) => {
     let res = await axios.post(url, obj)
         .catch(err => console.log(err));
 
-    return res;
+    return res.data;
 }
 
 /**
@@ -70,7 +90,7 @@ export let buyShares = async (obj) => {
     let res = await axios.post(url, obj)
         .catch(err => console.log(err));
 
-    return res;
+    return res.data;
 }
 
 /**
@@ -83,20 +103,21 @@ export let pendingOrders = async (address) => {
     let res = await axios.put(url, { "userAddress": address })
         .catch(err => console.log(err));
 
-    return res;
+    return res.data;
 }
 
 /**
  * 
  * @param {address} contract address of securetoken contract
  */
-export let shareBalance = async (contract) => {
+export let shareBalance = async (contract, address) => {
     let userAddress = window.ethereum.selectedAddress;
+    console.log(userAddress);
 
     secureToken.options.address = contract;
 
-    let res = await secureToken.methods.balanceOf(userAddress)
-        .call({ from: userAddress });
+    let res = await secureToken.methods.balanceOf(address)
+        .call({ from: address });
 
     secureToken.options.address = null;
     return res;

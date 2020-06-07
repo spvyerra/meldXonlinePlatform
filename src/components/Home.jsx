@@ -2,59 +2,54 @@ import React from 'react';
 import { Jumbotron, Table } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import "../home.css"
-export default class Home extends React.Component{
+import { getBusList } from "../contractInt/businessReq";
+
+export default class Home extends React.Component {
 
 
-  constructor() {
-    super();
-    this.state = {
-      busisnesses: []
-    };
-  }
-  componentWillMount() {
-    
-    this.getData();
+    constructor() {
+        super();
+        this.state = {
+            busisnesses: []
+        };
+    }
+    componentWillMount() {
 
-  }
+        this.getData();
 
-  getData() {
-    var xhr = new XMLHttpRequest()
+    }
 
-    // get a callback when the server responds
-    xhr.addEventListener('load', () => {
-      // update the state of the component with the result here
-      var json_obj = JSON.parse(xhr.responseText);
-      this.setState({
-        busisnesses: json_obj
-      });
-      console.log(this.state.busisnesses)
-    })
-    // open the request with the verb and the url
-    xhr.open('GET', '/list/', true);
-    // send the request
-    xhr.send();
-  }
+    getData() {
+        getBusList().then((info) => {
+            this.setState({
+                busisnesses: info
+            });
+        });
+    }
 
-  nameChange = (e) => {
-    this.setState({
-        businessName: e.target.value
-    });
-} 
-  symbolChange = (e) => {
-    this.setState({
-        businessSymbol: e.target.value
-    });
-}
+    nameChange = (e) => {
+        this.setState({
+            businessName: e.target.value
+        });
+    }
+    symbolChange = (e) => {
+        this.setState({
+            businessSymbol: e.target.value
+        });
+    }
 
-shareChange = (e) => {
-  this.setState({
-      numBuyShares: e.target.value
-  });
-}
+    shareChange = (e) => {
+        this.setState({
+            numBuyShares: e.target.value
+        });
+    }
 
-buyBus = () => {
-  //Connect to server here
-}
+    buyBus = () => {
+        //Connect to server here
+    }
+
+  
+
 
 //In the Progresss of doing this
 //fetchAvaibleTokens = async() => {
