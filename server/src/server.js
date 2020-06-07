@@ -30,8 +30,8 @@ app.get('/list/:id', (req, res) => {
 
         res.status(200).json(data);
     } catch (err) {
-        res.status(500).json("Error occured");
-        res.status(500).json(err);
+        res.status(409).json("Error occured");
+        res.status(409).json(err);
     }
 });
 
@@ -78,8 +78,8 @@ app.post('/user/add', async (req, res) => {
 
         res.status(200).json(address);
     } catch (err) {
-        res.status(500).json("Error occured");
-        res.status(500).json(err);
+        res.status(409).json("Error occured");
+        res.status(409).json(err);
     }
 });
 
@@ -93,8 +93,8 @@ app.post('/user/deposit', async (req, res) => {
 
         res.status(200).json(stableAddress);
     } catch (err) {
-        res.status(500).json("Error occured");
-        res.status(500).json(err);
+        res.status(409).json("Error occured");
+        res.status(409).json(err);
     }
 });
 
@@ -121,8 +121,8 @@ app.post('/transfer/buy', async (req, res) => {
                 }
             });
     } catch (err) {
-        res.status(500).json("Error occured");
-        res.status(500).json(err);
+        res.status(409).json("Error occured");
+        res.status(409).json(err);
     }
 });
 
@@ -148,8 +148,8 @@ app.post("/transfer/sell", async (req, res) => {
                 }
             });
     } catch (err) {
-        res.status(500).json("Error occured");
-        res.status(500).json(err);
+        res.status(409).json("Error occured");
+        res.status(409).json(err);
     }
 });
 
@@ -161,8 +161,8 @@ app.put('/transfer/pending', (req, res) => {
         req.body.pending = list;
         res.status(200).json(req.body);
     } catch (err) {
-        res.status(500).json("Error occured");
-        res.status(500).json(err);
+        res.status(409).json("Error occured");
+        res.status(409).json(err);
     }
 });
 

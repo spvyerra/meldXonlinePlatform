@@ -2,7 +2,7 @@ import React from 'react';
 import { Jumbotron, Table } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 
-import * as bus from "../businessData";
+import * as inv from "../investorReq";
 
 export default class Home extends React.Component {
 
@@ -53,7 +53,7 @@ export default class Home extends React.Component {
     }
 
     test = async () => {
-        let info = await bus.pendingOrders();
+        let info = await inv.addVerification();
         console.log(info);
     }
 
