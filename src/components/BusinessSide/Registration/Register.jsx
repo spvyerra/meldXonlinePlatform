@@ -1,6 +1,6 @@
 import React from "react";
 
-import { addBusiness } from "../../../businessReq.js";
+import { addBusiness } from "../../../contractInt/businessReq";
 import { NavLink } from 'react-router-dom';
 import { Jumbotron } from "reactstrap";
 import { findAllByAltText } from "@testing-library/react";
@@ -18,7 +18,7 @@ export default class BusRegister extends React.Component {
             businessType: e.target.value
         });
     }
-  
+
     descriptionChange = (e) => {
         this.setState({
             businessDescription: e.target.value
@@ -52,8 +52,8 @@ export default class BusRegister extends React.Component {
     register = async () => {
         let acct = window.ethereum.selectedAddress;
         alert(acct);
-       
-        if(!this.state.businessName|| !this.state.businessSymbol || !this.state.numShares || !this.state.businessDescription || !this.state.businessType) {
+
+        if (!this.state.businessName || !this.state.businessSymbol || !this.state.numShares || !this.state.businessDescription || !this.state.businessType) {
             alert("Please complete the form before submitting");
         }
         else if (this.state.nameChange !== "" && this.state.symbolChange !== "" && this.state.shareChange !== "") {
@@ -69,7 +69,7 @@ export default class BusRegister extends React.Component {
                 <div>
                     <NavLink to="/">
                         Home
-                    </NavLink> 
+                    </NavLink>
                     <h1 className="display-3">Business</h1>
                     <p>Register your business</p>
                     <input type="text" placeholder="Address" />
@@ -79,31 +79,31 @@ export default class BusRegister extends React.Component {
                         <h2>Contract Info</h2>
                         <p className="busNameClass"> Business Name</p>
                         <input type="text" className="busNameClass" id="busName" placeholder="Business Name" onChange={this.nameChange} />
-                        <br/>
-                        <br/>
+                        <br />
+                        <br />
                         <p className="busNameTypeClass"> Business Type</p>
                         <input type="text" id="busType" className="busNameTypeClasss" placeholder="Business Type" onChange={this.typeChange} />
-                        <br/>
-                        <br/>
+                        <br />
+                        <br />
                         <p className="busSymbolClass"> Business Symbol</p>
                         <input type="text" id="busSymbol" className="busSymbolClass" placeholder="Symbol 3-4 letters" onChange={this.symbolChange} />
-                        <br/>
-                        <br/>
+                        <br />
+                        <br />
                         <p className="busShareClass"> Number of shares offered</p>
                         <input type="number" id="numShares" className="busShareClass" placeholder="Number of Shares" onChange={this.shareChange} />
-                        
+
                         <p className="busSharePriceClass"> Price per share: USD</p>
                         <input type="number" id="priceShares" className="busSharePriceClass" placeholder="Price per share" onChange={this.pricePerShareChange} />
-                        <br/>
-                        <br/>
+                        <br />
+                        <br />
                         <p className="busDescClass"> Business Description</p>
-                        <textarea id="description" className="busDescClass" onChange={this.descriptionChange}/>
-                        <br/>
-                        <br/>
+                        <textarea id="description" className="busDescClass" onChange={this.descriptionChange} />
+                        <br />
+                        <br />
                         <button id="busButton" value="submit" type="submit">Continue</button>
                     </form>
 
-                    
+
                 </div>
             </Jumbotron>
 

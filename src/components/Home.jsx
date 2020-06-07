@@ -2,8 +2,6 @@ import React from 'react';
 import { Jumbotron, Table } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 
-import * as inv from "../investorReq";
-
 export default class Home extends React.Component {
 
 
@@ -52,21 +50,9 @@ export default class Home extends React.Component {
         })
     }
 
-    test = async () => {
-        const obj = {
-            "userAddress": "0x2f36E258AF1945a8C1614BBf6c7E33D27aC39c60",
-            "amt": Math.pow(10, 5)
-        }
-
-        let info = await inv.userBalance();
-        console.log(info);
-    }
-
     render() {
         return (
             <div>
-                <button onClick={this.test}>THingy</button>
-
                 <Jumbotron>
                     <h1 className="display-3">Hello!</h1>
                     <p className="lead">Welcome to Meld Exchange.</p>

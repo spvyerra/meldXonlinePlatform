@@ -1,6 +1,6 @@
 import Web3 from "web3";
-import { meldCoinAbi } from './assets/meldCoinAbi';
-import { secureTokenAbi } from "./assets/secureTokenAbi";
+import { meldCoinAbi } from '../assets/meldCoinAbi';
+import { secureTokenAbi } from "../assets/secureTokenAbi";
 import axios from 'axios';
 
 export let web3;

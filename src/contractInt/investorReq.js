@@ -39,7 +39,8 @@ export let userDeposit = async (obj) => {
 export let userBalance = async () => {
     let address = window.ethereum.selectedAddress;
 
-    let res = await meldCoin.methods.balanceOf(address).call();
+    let res = await meldCoin.methods.balanceOf(address)
+        .call({ from: address });
 
     return res;
 }

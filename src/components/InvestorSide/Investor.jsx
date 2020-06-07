@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Jumbotron, Table } from 'reactstrap';
-import { addVerification } from "../../investorReq.js";
+import { addVerification } from "../../contractInt/investorReq";
 
 export default class Investor extends React.Component {
 

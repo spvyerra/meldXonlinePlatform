@@ -1,7 +1,5 @@
 import axios from 'axios';
-//const axios = require('axios');
-//import fs from 'fs';
-//import { getDefaultNormalizer } from '@testing-library/react';
+import { secureToken, web3 } from "./constants";
 
 /**
  * 
@@ -50,10 +48,10 @@ export let addBusiness = async (numShares, pricePerShare, busName, busSymbol, bu
  */
 export let sellShares = async (obj) => {
     const url = "/transfer/sell";
-    
+
     let res = await axios.post(url, obj)
-    .catch(err => console.log(err));
-    
+        .catch(err => console.log(err));
+
     return res;
 }
 
@@ -88,3 +86,18 @@ export let pendingOrders = async (address) => {
     return res;
 }
 
+/**
+ * 
+ * @param {address} contract address of securetoken contract
+ */
+export let shareBalance = async (contract) => {
+    let userAddress = window.ethereum.selectedAddress;
+
+    secureToken.options.address = contract;
+
+    let res = await secureToken.methods.balanceOf(userAddress)
+        .call({ from: userAddress });
+
+    secureToken.options.address = null;
+    return res;
+}
