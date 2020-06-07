@@ -13,6 +13,9 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.get('/Meld/Address', (req, res) => {
+    res.status(200).json(mc.stableAddress);
+});
 
 app.get('/list', (req, res) => {
     const raw = fs.readFileSync(overall);

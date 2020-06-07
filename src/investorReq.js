@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { web3, meldCoin } from "./constants";
+
 /**
  * 
  * @param { 
@@ -28,6 +30,12 @@ export let userDeposit = async (obj) => {
 
     let res = await axios.post(url, obj)
         .catch(err => console.log(err));
-    
+
     return res;
+}
+
+// Gets meldcoin balance of logged in user
+export let userBalance = async () => {
+
+
 }

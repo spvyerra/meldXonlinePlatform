@@ -165,5 +165,6 @@ module.exports = {
     burnTokens,
     checkBalance,
     addVerify,
-    transfer
+    transfer,
+    stableAddress
 };
