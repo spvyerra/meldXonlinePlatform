@@ -59,3 +59,38 @@ p{
     text-align: left;
     
 }
+
+#convertHeader{
+    padding-top: 100px;
+    align-content: center;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+#convert{
+    font-size: 35px;
+    align-content: center;
+    text-align: center;
+}
+
+#convertDiv{
+    display: inline-block;
+    width: 30%;
+    text-align: left;
+
+    
+} 
+#covertForm{
+   
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+
+}
+
+#converter{
+    
+    align-content: center;
+    display: block;
+    text-align: center;
+}

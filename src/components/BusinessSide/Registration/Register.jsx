@@ -1,6 +1,6 @@
 import React from "react";
 
-import { addBusiness } from "../../../businessData.js";
+import { addBusiness } from "../../../contractInt/businessReq";
 import { NavLink } from 'react-router-dom';
 import { Jumbotron } from "reactstrap";
 import { findAllByAltText } from "@testing-library/react";

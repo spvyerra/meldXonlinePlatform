@@ -1,8 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Jumbotron, Table } from 'reactstrap';
+//import { addVerification } from "./contractInt/investorReq";
 
-import "../investors.css"
+import "../investors.css";
 export default class Investor extends React.Component{
 
 nameChange = (e) => {
@@ -72,7 +73,7 @@ register = () => {
                 </div>  
 
                 <div class="form-group">
-                    <label for="ssn">Email</label>
+                    <label for="ssn">SSN</label>
                      <br/>
                      <input class="form-control" type="number" id="ssn" placeholder="SSN" onChange={this.ssnChange} />
                 </div>   
@@ -82,15 +83,30 @@ register = () => {
             
             
           </div>
-
+          
+          <div id="converter">
+          <div id="convertDiv">
+            <div id="convertHeader">
+                  <h1 id="convert" className="display-3" > Convert USD to Meldcoin</h1>
+                  <label for="convert"> Note: you must be a verified user to own Meldcoin</label>
+              </div>
+            <form id="convertForm" onSubmit={this.mint} >
+              <div  class="form-group">
+                <label for="mint"> USD to MeldCoin (1:1) </label>
+                <input  id="convertInput" class="form-control" type ="number" id="mint" placeholder="USD to convert" onChange={this.mintChange} />
+              </div>
+              <button class="btn btn-primary" value="submit" type="submit" >Convert </button>
+            </form>
+          </div>
+          </div>
+          
+      
+          
          <div>
-            <br />
-            <p> Convert USD to Meldcoin <br/>
-            Note: You must be a verified user to own Meldcoin
-            </p>
+           
             
-            <input type ="number" id="mint" placeholder="USD to convert" onChange={this.mintChange} />
-            <button onClick={this.mint}>Convert </button>
+           
+           
          </div>
         </Jumbotron>
     );
