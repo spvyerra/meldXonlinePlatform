@@ -1,5 +1,6 @@
 import Web3 from "web3";
 import { meldCoinAbi } from './assets/meldCoinAbi';
+import { secureTokenAbi } from "./assets/secureTokenAbi";
 import axios from 'axios';
 
 export let web3;
@@ -25,4 +26,6 @@ export let contractInit = async () => {
 }
 
 export let meldCoin = new web3.eth.Contract(meldCoinAbi);
+export let secureToken = new web3.eth.Contract(secureTokenAbi);
+
 contractInit();

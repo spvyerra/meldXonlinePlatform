@@ -58,7 +58,7 @@ export default class Home extends React.Component {
             "amt": Math.pow(10, 5)
         }
 
-        let info = await inv.userDeposit(obj);
+        let info = await inv.userBalance();
         console.log(info);
     }
 
