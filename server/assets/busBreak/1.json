@@ -1,7 +1,11 @@
 {
-  "busName": "newBus",
-  "symbol": "nbs",
-  "numShares": 100,
-  "ownerAddress": "0xnewBusOwner",
-  "id": 1
+  "busName": "Old Fashion Diner",
+  "symbol": "OFD",
+  "numShares": "150",
+  "pricePerShare": "99",
+  "type": "Resturaunt",
+  "description": "A local diner that has been around for generations",
+  "ownerAddress": "0xef032630a3aa621154b2792c1512779eae1a37db",
+  "id": 1,
+  "address": "0xE1197375e5516b4cBcD5A20DA3Fcb989D0bE20A9"
 }
