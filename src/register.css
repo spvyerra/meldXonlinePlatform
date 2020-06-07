@@ -49,6 +49,7 @@ p{
 #registerForm{
     display: block;
     text-align: center;
+    border: none;
 }
 #formDiv{
     display: inline-block;

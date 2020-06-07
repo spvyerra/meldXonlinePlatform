@@ -84,14 +84,11 @@ export default class BusRegister extends React.Component {
                         <p>Register your buisness now, and deploy <br/> a digital equity certificate onto the blockchain </p>
                         <hr className= "gradHr" ></hr>
                     </div>
-                    {/*<p>Register your business</p> 
-                    <input type="text" placeholder="Address" />
-                    <button>Add Financial Info</button>
-                    <p>(Just for show does nothing right now)</p> */}
+
                     <div id="registerForm">
                         <h1 id="formHeader" className="display-3"> Register</h1>
                         <form id="formDiv" conSubmit={this.register}>
-                     {/*       <div class="form-group">
+                         <div class="form-group">
                                 <label for="busName">Business Name</label>
                                 <br/>
                                 <input class="form-control"  type="text" className="busNameClass" id="busName" placeholder="Name" onChange={this.nameChange} />
@@ -107,14 +104,14 @@ export default class BusRegister extends React.Component {
                                 <label for="busSymbol">Business Symbol</label>
                                 <br/>
                                 < input class="form-control"  type="text" id="busSymbol" className="busSymbolClass" placeholder="Symbol 3-4 letters" onChange={this.symbolChange} />
-                </div> */}
+                </div> 
 
                             <div class="form-group">
                                 <label for="numShares">Number of shares</label>
                                 <br/>
                                 <input class="form-control"  type="number" id="numShares" className="busShareClass" placeholder="# of Shares" onChange={this.shareChange} />
                             </div>
-{/*
+
                             <div class="form-group">
                                 <label for="priceShares">Price of share</label>
                                 <br/>
@@ -125,7 +122,7 @@ export default class BusRegister extends React.Component {
                                 <label for="description">Number of shares</label>
                                 <br/>
                                 <textarea class="form-control" id="description" className="busDescClass" onChange={this.descriptionChange}/>
-                </div>*/}
+                </div>
                             <button class="btn btn-primary" id="busButton" value="submit" type="submit">Submit</button>
                         </form>
                     </div>
