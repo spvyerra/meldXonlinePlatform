@@ -11,16 +11,13 @@ export let getBusList = async () => {
     return res.data;
 }
 
-export let getBusId = async (id) => {
-    const url = '/list/id';
+export let getBusId = async (idt) => {
+    const url = '/list';
 
-    let res = await axios.get(url, {
-        params: {
-            id: id
-        }
-    })
+    let res = await axios.get(url + `/${idt}`)
         .catch(err => console.log(err));
-    
+
+    console.log(res);
     return res.data;
 }
 
