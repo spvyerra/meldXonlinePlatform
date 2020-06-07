@@ -2,142 +2,134 @@ import React from 'react';
 import { Jumbotron, Table } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import "../home.css"
-export default class Home extends React.Component{
+import { getBusList } from "../contractInt/businessReq";
+
+export default class Home extends React.Component {
 
 
-  constructor() {
-    super();
-    this.state = {
-      busisnesses: []
-    };
-  }
-  componentWillMount() {
-    
-    this.getData();
+    constructor() {
+        super();
+        this.state = {
+            busisnesses: []
+        };
+    }
+    componentWillMount() {
 
-  }
+        this.getData();
 
-  getData() {
-    var xhr = new XMLHttpRequest()
+    }
 
-    // get a callback when the server responds
-    xhr.addEventListener('load', () => {
-      // update the state of the component with the result here
-      var json_obj = JSON.parse(xhr.responseText);
-      this.setState({
-        busisnesses: json_obj
-      });
-      console.log(this.state.busisnesses)
-    })
-    // open the request with the verb and the url
-    xhr.open('GET', '/list/', true);
-    // send the request
-    xhr.send();
-  }
+    getData() {
+        getBusList().then((info) => {
+            this.setState({
+                busisnesses: info
+            });
+        });
+    }
 
-  nameChange = (e) => {
-    this.setState({
-        businessName: e.target.value
-    });
-} 
-  symbolChange = (e) => {
-    this.setState({
-        businessSymbol: e.target.value
-    });
-}
+    nameChange = (e) => {
+        this.setState({
+            businessName: e.target.value
+        });
+    }
+    symbolChange = (e) => {
+        this.setState({
+            businessSymbol: e.target.value
+        });
+    }
 
-shareChange = (e) => {
-  this.setState({
-      numBuyShares: e.target.value
-  });
-}
+    shareChange = (e) => {
+        this.setState({
+            numBuyShares: e.target.value
+        });
+    }
 
-buyBus = () => {
-  //Connect to server here
-}
+    buyBus = () => {
+        //Connect to server here
+    }
 
-  renderTableData() {
-    return this.state.busisnesses.map((business, index) => {
-       const { id, busName, symbol, numShares, pricePerShare } = business //destructuring
-      
-      
-        return (
-          <tr key={id}>
-             <td>{busName}</td>
-             <td>{symbol}</td>
-             <td>{numShares}</td>
-             <td>{pricePerShare} </td>
-          </tr>
-       )
-    })
- }
+    renderTableData() {
+        return this.state.busisnesses.map((business, index) => {
+            const { id, busName, symbol, numShares, pricePerShare } = business //destructuring
 
-  render() {
-    return (
-      <div>
-        <Jumbotron>
-          <div className = "headerLinks">
-            <NavLink id= "homeLink" className="link" to="/business/registration">
-               Business
-            </NavLink> 
-            <NavLink id="investorLink" className="link" to="/investor">
-                 Investors
-             </NavLink> 
-                      </div>
-          <div id="homeHeading">
-            <h1 className="display-3">Hello!</h1>
-            <p className="lead">Welcome to Meld Exchange.</p>
-            <hr className="my-2" />
-          </div>
 
-          
-         
-            <div class="homeBusDiv">
-            <div id="homeBusHeading">
-              <h2 id="formHeader" className="display-3"> Buisnesses on MeldX</h2>
-            </div>
-           
-            <Table id='business'>
-                <thead>
-                <tr>
-                  <th>Business Name</th>
-                  <th>Symbol</th>
-                  <th>Number of shares</th>
-                  <th> Price per Share</th>
+            return (
+                <tr key={id}>
+                    <td>{busName}</td>
+                    <td>{symbol}</td>
+                    <td>{numShares}</td>
+                    <td>{pricePerShare} </td>
                 </tr>
-              </thead>
-               <tbody>
-                {this.renderTableData()}
-               </tbody>
-            </Table>
-              </div> 
-              <div id="spacer">
-                <p></p>
-              </div>
-              <div id="registerForm">
-            <h1 id="formHeader" className="display-3"> Invest in a Business</h1>
-            <form id="formDiv" conSubmit={this.buyBus}>
-              <div class="form-group">
-                  <label for="busName">Business Name</label>
-                  <br/>
-                  <input class="form-control"  type="text"  id="busName" placeholder="Name" onChange={this.nameChange} />
-              </div>
-              <div class="form-group">
-                 <label for="busSymbol">Business Symbol</label>
-                 <br/>
-                 < input class="form-control"  type="text" id="busSymbol"  placeholder="Symbol 3-4 letters" onChange={this.symbolChange} />
-              </div> 
-              <div class="form-group">
-                <label for="numShares">Number of shares to Buy</label>
-                 <br/>
-                 <input class="form-control"  type="number" id="numBuyShares"  placeholder="# of Shares" onChange={this.shareChange} />
-               </div>
-               <button class="btn btn-primary" id="busButton" value="submit" type="submit">Submit</button>
-            </form>
-            </div>   
-        </Jumbotron>
-      </div>
-    );
-  };
-  }
-  
+            )
+        })
+    }
+
+    render() {
+        return (
+            <div>
+                <Jumbotron>
+                    <div className="headerLinks">
+                        <NavLink id="homeLink" className="link" to="/business/registration">
+                            Business
+            </NavLink>
+                        <NavLink id="investorLink" className="link" to="/investor">
+                            Investors
+             </NavLink>
+                    </div>
+                    <div id="homeHeading">
+                        <h1 className="display-3">Hello!</h1>
+                        <p className="lead">Welcome to Meld Exchange.</p>
+                        <hr className="my-2" />
+                    </div>
+
+
+
+                    <div class="homeBusDiv">
+                        <div id="homeBusHeading">
+                            <h2 id="formHeader" className="display-3"> Buisnesses on MeldX</h2>
+                        </div>
+
+                        <Table id='business'>
+                            <thead>
+                                <tr>
+                                    <th>Business Name</th>
+                                    <th>Symbol</th>
+                                    <th>Number of shares</th>
+                                    <th> Price per Share</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {this.renderTableData()}
+                            </tbody>
+                        </Table>
+                    </div>
+                    <div id="spacer">
+                        <p></p>
+                    </div>
+                    <div id="registerForm">
+                        <h1 id="formHeader" className="display-3"> Invest in a Business</h1>
+                        <form id="formDiv" conSubmit={this.buyBus}>
+                            <div class="form-group">
+                                <label for="busName">Business Name</label>
+                                <br />
+                                <input class="form-control" type="text" id="busName" placeholder="Name" onChange={this.nameChange} />
+                            </div>
+                            <div class="form-group">
+                                <label for="busSymbol">Business Symbol</label>
+                                <br />
+                                < input class="form-control" type="text" id="busSymbol" placeholder="Symbol 3-4 letters" onChange={this.symbolChange} />
+                            </div>
+                            <div class="form-group">
+                                <label for="numShares">Number of shares to Buy</label>
+                                <br />
+                                <input class="form-control" type="number" id="numBuyShares" placeholder="# of Shares" onChange={this.shareChange} />
+                            </div>
+                            <button class="btn btn-primary" id="busButton" value="submit" type="submit">Submit</button>
+                        </form>
+                    </div>
+                </Jumbotron>
+            </div>
+        );
+    };
+}
+

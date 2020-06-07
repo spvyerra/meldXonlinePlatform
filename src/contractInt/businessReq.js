@@ -1,6 +1,29 @@
 import axios from 'axios';
 import { secureToken, web3 } from "./constants";
 
+
+export let getBusList = async () => {
+    const url = '/list';
+
+    let res = await axios.get(url)
+        .catch(err => console.log(err));
+
+    return res.data;
+}
+
+export let getBusId = async (id) => {
+    const url = '/list/id';
+
+    let res = await axios.get(url, {
+        params: {
+            id: id
+        }
+    })
+        .catch(err => console.log(err));
+    
+    return res.data;
+}
+
 /**
  * 
  * @param {*} numShares 
@@ -33,7 +56,7 @@ export let addBusiness = async (numShares, pricePerShare, busName, busSymbol, bu
     }).catch(err => console.log(err + "Failed"));
 
     console.log(res);
-    return res;
+    return res.data;
 }
 
 
@@ -52,7 +75,7 @@ export let sellShares = async (obj) => {
     let res = await axios.post(url, obj)
         .catch(err => console.log(err));
 
-    return res;
+    return res.data;
 }
 
 /**
@@ -70,7 +93,7 @@ export let buyShares = async (obj) => {
     let res = await axios.post(url, obj)
         .catch(err => console.log(err));
 
-    return res;
+    return res.data;
 }
 
 /**
@@ -83,7 +106,7 @@ export let pendingOrders = async (address) => {
     let res = await axios.put(url, { "userAddress": address })
         .catch(err => console.log(err));
 
-    return res;
+    return res.data;
 }
 
 /**
@@ -99,5 +122,5 @@ export let shareBalance = async (contract) => {
         .call({ from: userAddress });
 
     secureToken.options.address = null;
-    return res;
+    return res.data;
 }
