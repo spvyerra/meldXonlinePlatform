@@ -1,9 +1,9 @@
 import React from "react";
 
-
 import { addBusiness } from "../../../businessData.js";
 import { NavLink } from 'react-router-dom';
 import { Jumbotron } from "reactstrap";
+import { findAllByAltText } from "@testing-library/react";
 
 
 export default class BusRegister extends React.Component {
@@ -49,15 +49,18 @@ export default class BusRegister extends React.Component {
         });
     }
 
-    register = () => {
+    register = async () => {
+        let acct = window.ethereum.selectedAddress;
+        alert(acct);
        
         if(!this.state.businessName|| !this.state.businessSymbol || !this.state.numShares || !this.state.businessDescription || !this.state.businessType) {
             alert("Please complete the form before submitting");
         }
         else if (this.state.nameChange !== "" && this.state.symbolChange !== "" && this.state.shareChange !== "") {
-            addBusiness(this.state.numShares, this.state.pricePerShareChange, this.state.businessName, this.state.businessSymbol, this.state.businessType, this.state.businessDescription);
-        }
 
+            await addBusiness(this.state.numShares, this.state.pricePerShareChange, this.state.businessName, this.state.businessSymbol, this.state.businessType, this.state.businessDescription, acct);
+            alert("Valid form");
+        }
     }
 
     render() {
