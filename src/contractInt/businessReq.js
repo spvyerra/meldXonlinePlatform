@@ -110,14 +110,15 @@ export let pendingOrders = async (address) => {
  * 
  * @param {address} contract address of securetoken contract
  */
-export let shareBalance = async (contract) => {
+export let shareBalance = async (contract, address) => {
     let userAddress = window.ethereum.selectedAddress;
+    console.log(userAddress);
 
     secureToken.options.address = contract;
 
-    let res = await secureToken.methods.balanceOf(userAddress)
-        .call({ from: userAddress });
+    let res = await secureToken.methods.balanceOf(address)
+        .call({ from: address });
 
     secureToken.options.address = null;
-    return res.data;
+    return res;
 }
