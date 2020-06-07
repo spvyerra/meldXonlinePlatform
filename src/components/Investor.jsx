@@ -37,6 +37,9 @@ register = () => {
     
 }
 
+mint = () => {
+  //link to mint funnction on server
+}
   render(){
 
    
