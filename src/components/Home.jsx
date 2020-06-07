@@ -56,6 +56,22 @@ buyBus = () => {
   //Connect to server here
 }
 
+//In the Progresss of doing this
+//fetchAvaibleTokens = async() => {
+  
+  //const url = "/";
+
+   // let res = await axios({
+     //   method: 'get',
+       // url: url
+
+    //}).catch(err => console.log(err + "Failed"));
+//}
+
+getAvailableTokens(id) {
+  return id;
+}
+
   renderTableData() {
     return this.state.busisnesses.map((business, index) => {
        const { id, busName, symbol, numShares, pricePerShare } = business //destructuring
@@ -67,6 +83,7 @@ buyBus = () => {
              <td>{symbol}</td>
              <td>{numShares}</td>
              <td>{pricePerShare} </td>
+              <td>{this.getAvailableTokens(id)}</td>
           </tr>
        )
     })
@@ -97,13 +114,14 @@ buyBus = () => {
               <h2 id="formHeader" className="display-3"> Buisnesses on MeldX</h2>
             </div>
            
-            <Table id='business'>
+            <Table id='businessTable'>
                 <thead>
                 <tr>
                   <th>Business Name</th>
                   <th>Symbol</th>
                   <th>Number of shares</th>
                   <th> Price per Share</th>
+                  <th> Avaiable Shares</th>
                 </tr>
               </thead>
                <tbody>
@@ -134,7 +152,7 @@ buyBus = () => {
                </div>
                <button class="btn btn-primary" id="busButton" value="submit" type="submit">Submit</button>
             </form>
-            </div>   
+             </div>   
         </Jumbotron>
       </div>
     );

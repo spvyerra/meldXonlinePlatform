@@ -44,7 +44,7 @@ mint = () => {
 
    
     return (
-      <Jumbotron>
+      <Jumbotron id="test">
         <div className = "headerLinks">
             <NavLink id= "homeLink" className="link" to="/">
                Home
@@ -106,7 +106,25 @@ mint = () => {
       
           
          <div>
-           
+         
+         <div id="registerFormCheck">
+            <hr className="my-2" />
+            <h1 id="formHeaderCheck" className="display-3"> Check Balance</h1>
+            
+            <form id="formDiv" conSubmit={this.buyBus}>
+              <div class="form-group">
+                  <label for="busName">Business Name</label>
+                  <br/>
+                  <input class="form-control"  type="text"  id="busName" placeholder="Name" onChange={this.nameChange} />
+              </div>
+              <div class="form-group">
+                 <label for="busSymbol">Business Symbol</label>
+                 <br/>
+                 < input class="form-control"  type="text" id="busSymbol"  placeholder="Symbol 3-4 letters" onChange={this.symbolChange} />
+              </div> 
+               <button class="btn btn-primary" id="busButton" value="submit" type="submit">Submit</button>
+            </form>
+             </div>   
             
            
            

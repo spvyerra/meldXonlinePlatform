@@ -47,6 +47,8 @@ p{
 }
 
 #registerForm{
+    
+
     display: block;
     text-align: center;
     border: none;
@@ -58,3 +60,4 @@ p{
     text-align: left;
     
 }
+
