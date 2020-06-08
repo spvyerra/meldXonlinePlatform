@@ -94,10 +94,11 @@ app.post('/transfer/buy', async (req, res) => {
                 buyer.status = "Placed";
                 res.status(200).json(buyer);
             } else {
+                await bus.addVerify(buyer);
                 await mc.transfer(seller.userAddress, buyer.userAddress, buyer.price * buyer.amount);
                 await bus.transfer(buyer.userAddress, seller.userAddress, seller.amount, buyer.contract);
                 
-                port.removeShares(seller.userAddress, seller.id, seller.amount);
+                port.removeShares(seller.userAddress, buyer.id, seller.amount);
                 port.addShares(buyer.userAddress, buyer.id, buyer.amount);
 
                 console.log("Completing order");
@@ -124,7 +125,7 @@ app.post("/transfer/sell", async (req, res) => {
                 await bus.transfer(buyer.userAddress, seller.userAddress, seller.amount, seller.contract);
                 
                 port.removeShares(seller.userAddress, seller.id, seller.amount);
-                port.addShares(buyer.userAddress, buyer.id, buyer.amount);
+                port.addShares(buyer.userAddress, seller.id, buyer.amount);
 
                 console.log("Completing order");
 
