@@ -132,5 +132,10 @@ app.put('/transfer/pending', (req, res) => {
     res.status(200).json(req.body);
 });
 
+app.get('/portfolio/:address', (req, res) => {
+    
+    
+});
+
 const port = process.env.PORT || 8080;
 app.listen(port, () => console.log("Running on port " + port));

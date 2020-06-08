@@ -64,3 +64,6 @@ Content-Type: application/json
 {
     "userAddress": "0xebBF6e4fC3a229D4f5b3B00C6018cff2f3246Cc5"
 }
+
+###
+GET http://localhost:8080/portfolio/0x2f36E258AF1945a8C1614BBf6c7E33D27aC39c60

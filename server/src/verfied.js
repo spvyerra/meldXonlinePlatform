@@ -3,6 +3,19 @@ const fs = require('fs');
 
 const verifiedPath = './server/assets/verified.json';
 
+let getVerified = (address) => {
+    let data = JSON.parse(fs.readFileSync(verifiedPath));
+    data = data.filter((obj) => obj);
+
+    for (let i in data) {
+        if (data[i].userAddress == address) {
+            return data[i];
+        }
+    }
+
+    return null;
+}
+
 let isVerifiedLocal = (obj) => {
     let data = JSON.parse(fs.readFileSync(verifiedPath));
     data = data.filter((obj) => obj);
@@ -118,5 +131,6 @@ let removeVerified = async (contract, addressObj) => {
 module.exports = {
     isVerifiedLocal,
     addVerify,
-    removeVerified
+    removeVerified,
+    getVerified
 };
