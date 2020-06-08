@@ -2,7 +2,8 @@ import React from 'react';
 import { Jumbotron, Table } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import "../home.css"
-import { getBusList } from "../contractInt/businessReq";
+
+import { getBusId, getBusList } from "../contractInt/businessReq";
 
 export default class Home extends React.Component {
 
@@ -51,21 +52,28 @@ export default class Home extends React.Component {
   
 
 
-//In the Progresss of doing this
-//fetchAvaibleTokens = async() => {
-  
-  //const url = "/";
 
-   // let res = await axios({
-     //   method: 'get',
-       // url: url
-
-    //}).catch(err => console.log(err + "Failed"));
-//}
-
-getAvailableTokens(id) {
-  return id;
+fetchAvaibleTokens = async() => {
+   
 }
+
+
+getAvailableTokens= (id) => {
+  
+  var busId;
+  getBusId(id).then((info) => {
+      busId = info;
+     
+   });
+   
+   //Attempt to get the owners address from busId. 
+   //Set busId contract as a variable
+   //call shareBalance on the contract busId
+   //return this
+  }
+
+
+
 
   renderTableData() {
     return this.state.busisnesses.map((business, index) => {
