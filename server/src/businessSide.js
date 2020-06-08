@@ -1,6 +1,5 @@
 let admin = require('./adminInteract.js');
 const verify = require('./verfied');
-
 const fs = require('fs');
 
 const contractPath = './build/contracts/SecureToken.json';
@@ -31,6 +30,7 @@ let deploySecureToken = async (bus) => {
         });
 
     admin.exit();
+    verify.addVerify(deployedAddress, bus.ownerAddress);
 
     return deployedAddress;
 }

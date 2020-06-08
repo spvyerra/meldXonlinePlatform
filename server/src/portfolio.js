@@ -3,8 +3,21 @@ const verify = require('./verfied');
 
 const portfolioPath = "./server/assets/portfolio";
 
+let createPortfolio = (address, id) => {
+    let obj = {
+        "id": id,
+        "address": address,
+        "shares": []
+    };
+
+    fs.writeFileSync(portfolioPath + `/${id}.json`, JSON.stringify(obj, null, 4));
+}
+
 let getPortfolio = (address) => {
     let addressObj = verify.getVerified(address);
+
+    try { fs.accessSync(portfolioPath + `/${addressObj.id}.json`); }
+    catch (err) { createPortfolio(address, addressObj.id); }
 
     const portfolio = JSON.parse(fs.readFileSync(portfolioPath + `/${addressObj.id}.json`));
 
@@ -48,7 +61,7 @@ let removeShares = (address, contractID, numShares) => {
 
     port.shares = port.shares.filter((obj) => obj);
     fs.writeFile(portfolioPath + `/${port.id}.json`, JSON.stringify(port, null, 4),
-        (err) => console.log(err));
+        (err) => { if (err) console.log(err) });
 }
 
 module.exports = {

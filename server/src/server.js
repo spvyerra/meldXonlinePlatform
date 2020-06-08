@@ -56,7 +56,6 @@ app.post('/bus/add', async (req, res) => {
     const newOverall = JSON.stringify(general, null, 4);
     fs.writeFileSync(overall, newOverall);
 
-
     res.status(200).json(newBus);
 });
 
@@ -134,7 +133,7 @@ app.put('/transfer/pending', (req, res) => {
 
 app.get('/portfolio/:address', (req, res) => {
     
-    
+
 });
 
 const port = process.env.PORT || 8080;
