@@ -130,6 +130,7 @@ let removeVerified = async (contract, addressObj) => {
 
 module.exports = {
     isVerifiedLocal,
+    addVerifyLocal,
     addVerify,
     removeVerified,
     getVerified

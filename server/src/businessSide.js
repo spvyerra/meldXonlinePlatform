@@ -1,6 +1,7 @@
 let admin = require('./adminInteract.js');
 const verify = require('./verfied');
 const fs = require('fs');
+const port = require('./portfolio');
 
 const contractPath = './build/contracts/SecureToken.json';
 
@@ -30,7 +31,14 @@ let deploySecureToken = async (bus) => {
         });
 
     admin.exit();
-    verify.addVerify(deployedAddress, bus.ownerAddress);
+    if (!verify.isVerifiedLocal({ "userAddress": bus.ownerAddress })) {
+        verify.addVerifyLocal({
+            "name": "bus",
+            "email": "filler",
+            "ssn": "filler",
+            "userAddress": bus.ownerAddress
+        });
+    }
 
     return deployedAddress;
 }

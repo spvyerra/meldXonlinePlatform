@@ -1,5 +1,14 @@
 {
     "id": 2,
     "address": "0x2f36E258AF1945a8C1614BBf6c7E33D27aC39c60",
-    "shares": []
+    "shares": [
+        {
+            "id": 2,
+            "owned": 2000
+        },
+        {
+            "id": 3,
+            "owned": 2000
+        }
+    ]
 }

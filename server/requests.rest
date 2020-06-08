@@ -9,10 +9,13 @@ POST http://localhost:8080/bus/add
 Content-Type: application/json
 
 {
-    "busName": "SampleBus",
-    "symbol": "nbs",
-    "numShares": 100,
-    "ownerAddress": "0x2f36E258AF1945a8C1614BBf6c7E33D27aC39c60"
+    "busObj" : {"busName": "Ice Cream Store",
+    "symbol": "ICS",
+    "numShares": 2000,
+    "pricePerShare": "120",
+    "type": "Resturaunt",
+    "description": "Ice cream and things you know",
+    "ownerAddress": "0x2f36E258AF1945a8C1614BBf6c7E33D27aC39c60"}
 }
 
 ###

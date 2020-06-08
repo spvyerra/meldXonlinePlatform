@@ -9,9 +9,22 @@
     {
         "id": 1,
         "busName": "Old Fashion Diner",
-         "symbol": "OFD",
+        "symbol": "OFD",
         "numShares": "150",
-         "pricePerShare": "99"
+        "pricePerShare": "99"
+    },
+    {
+        "id": 2,
+        "busName": "Ice Cream Store",
+        "symbol": "ICS",
+        "numShares": 2000,
+        "pricePerShare": "120"
+    },
+    {
+        "id": 3,
+        "busName": "Ice Cream Store",
+        "symbol": "ICS",
+        "numShares": 2000,
+        "pricePerShare": "120"
     }
-    
 ]
