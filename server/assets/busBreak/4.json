@@ -1,0 +1,11 @@
+{
+    "busName": "Cripsy Donuts",
+    "symbol": "CPD",
+    "numShares": "1000",
+    "pricePerShare": "1",
+    "type": "Donuts",
+    "description": "We sell donuts and stufff",
+    "ownerAddress": "0x46e5f23016f44334063c7c02e1340ceba8d4dd46",
+    "id": 4,
+    "address": "0x3f32813857870AaB6BFD34d7d456D14A5d15345A"
+}

@@ -52,7 +52,6 @@ export default class BusRegister extends React.Component {
 
     register = async () => {
         let acct = window.ethereum.selectedAddress;
-        alert(acct);
 
         if (!this.state.businessName || !this.state.businessSymbol || !this.state.numShares || !this.state.businessDescription || !this.state.businessType) {
             alert("Please complete the form before submitting");
@@ -87,7 +86,7 @@ export default class BusRegister extends React.Component {
 
                     <div id="registerForm">
                         <h1 id="formHeader" className="display-3"> Register</h1>
-                        <form id="formDiv" onSubmit={this.register}>
+                        <div id="formDiv">
                             <div className="form-group">
                                 <label htmlFor="busName">Business Name</label>
                                 <br />
@@ -119,15 +118,14 @@ export default class BusRegister extends React.Component {
                             </div>
 
                             <div className="form-group">
-                                <label htmlFor="description">Number of shares</label>
+                                <label htmlFor="description">Description</label>
                                 <br />
                                 <textarea className="form-control" id="description" onChange={this.descriptionChange} />
                             </div>
-                            <button className="btn btn-primary" id="busButton" value="submit" type="submit">Submit</button>
-                        </form>
+                            <button className="btn btn-primary" onClick={this.register} id="busButton" value="submit" type="submit">Submit</button>
+                        </div>
                     </div>
-
-
+                    <p>Sell your shares in the invesors tab</p>
                 </div>
 
             </Jumbotron>

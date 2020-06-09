@@ -26,5 +26,12 @@
         "symbol": "ICS",
         "numShares": 2000,
         "pricePerShare": "120"
+    },
+    {
+        "id": 4,
+        "busName": "Cripsy Donuts",
+        "symbol": "CPD",
+        "numShares": 1000,
+        "pricePerShare": 1
     }
 ]

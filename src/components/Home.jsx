@@ -52,7 +52,8 @@ export default class Home extends React.Component {
             "userAddress": address,
             "contract": breakDown.address,
             "price": breakDown.pricePerShare,
-            "amount": this.state.numBuyShares
+            "amount": this.state.numBuyShares,
+            "id": option.id
         });
     }
 
@@ -69,7 +70,7 @@ export default class Home extends React.Component {
                     <td>{busName}</td>
                     <td>{symbol}</td>
                     <td>{numShares}</td>
-                    <td>{pricePerShare} </td>
+                    <td>{pricePerShare / 100.0} </td>
                 </tr>
             )
         })
@@ -127,9 +128,10 @@ export default class Home extends React.Component {
                                 <br />
                                 <input className="form-control" type="number" id="numBuyShares" placeholder="# of Shares" onChange={this.shareChange} />
                             </div>
-                            <button className="btn btn-primary"  onClick={this.buyBus} id="busButton" value="submit" type="submit">Submit</button>
+                            <button className="btn btn-primary" onClick={this.buyBus} id="busButton" value="submit" type="submit">Submit</button>
                         </div>
                     </div>
+
                 </Jumbotron>
             </div>
         );

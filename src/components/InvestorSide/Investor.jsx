@@ -5,7 +5,7 @@ import { Jumbotron, Table } from 'reactstrap';
 
 import "../../investors.css";
 import { userDeposit, addVerification, getPortfolio } from '../../contractInt/investReq';
-import { getBusList } from '../../contractInt/businessReq';
+import { getBusList, getBusId, sellShares } from '../../contractInt/businessReq';
 
 
 export default class Investor extends React.Component {
@@ -43,6 +43,18 @@ export default class Investor extends React.Component {
         });
     }
 
+    symbolChange = (e) => {
+        this.setState({
+            businessSymbol: e.target.value
+        });
+    }
+
+    shareChange = (e) => {
+        this.setState({
+            numBuyShares: e.target.value
+        });
+    }
+
     register = () => {
         if (this.state.name !== "" && this.state.email !== "" && this.state.ssn !== "") {
 
@@ -72,6 +84,22 @@ export default class Investor extends React.Component {
         console.log(res);
     }
 
+    sellBus = async () => {
+        let list = await getBusList();
+
+        let option = list.find((item) => item.symbol.toUpperCase() == this.state.businessSymbol.toUpperCase());
+        console.log(option);
+        let breakDown = await getBusId(option.id);
+
+        let acct = window.ethereum.selectedAddress;
+        let res = await sellShares({
+            "userAddress": acct,
+            "contract": breakDown.address,
+            "price": breakDown.pricePerShare,
+            "amount": this.state.numBuyShares,
+            "id": option.id
+        })
+    }
 
     renderGetPortfolio = () => {
         if (this.state.InvestorPortfolio.length == 0) {
@@ -97,8 +125,6 @@ export default class Investor extends React.Component {
             })
         }
     }
-
-
 
     getPortfolioFunction = () => {
         getPortfolio().then((info) => {
@@ -168,10 +194,7 @@ export default class Investor extends React.Component {
                     </div>
                 </div>
 
-
-
                 <div>
-
                     <div id="registerFormCheck">
                         <hr className="my-2" />
                         <h1 id="formHeaderCheck" className="display-3"> Get Portfolio</h1>
@@ -192,10 +215,25 @@ export default class Investor extends React.Component {
                             {this.renderGetPortfolio()}
                         </tbody>
                     </Table> : null}
-
-
-
                 </div>
+
+                <br />
+                <div id="converter">
+                    <h1 id="convertDiv">Sell Your Shares</h1>
+                    <div className="form-group">
+                        <label htmlFor="busSymbol">Business Symbol</label>
+                        <br />
+                        < input className="form-control" type="text" id="busSymbol" placeholder="Symbol 3-4 letters" onChange={this.symbolChange} />
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="numShares">Number of shares</label>
+                        <br />
+                        <input className="form-control" type="number" id="numShares" placeholder="# of Shares" onChange={this.shareChange} />
+                    </div>
+                    <button className="btn btn-primary" onClick={this.sellBus} id="busButton" value="submit" type="submit">Sell</button>
+                </div>
+
             </Jumbotron>
         );
     }
