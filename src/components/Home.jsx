@@ -75,24 +75,12 @@ export default class Home extends React.Component {
                     <td>{symbol}</td>
                     <td>{numShares}</td>
                     <td>{pricePerShare} </td>
-                    <td>{this.getAvailableTokens(id)}</td>
                 </tr>
             )
         })
     }
 
-    render() {
-        return (
-          <tr key={id}>
-             <td>{busName}</td>
-             <td>{symbol}</td>
-             <td>{numShares}</td>
-             <td>{pricePerShare} </td>
-              
-          </tr>
-       )
-    })
- }
+
 
   render() {
     return (
