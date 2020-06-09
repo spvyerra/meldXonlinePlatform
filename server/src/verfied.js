@@ -8,7 +8,7 @@ let getVerified = (address) => {
     data = data.filter((obj) => obj);
 
     for (let i in data) {
-        if (data[i].userAddress == address) {
+        if (data[i].userAddress.toUpperCase() == address.toUpperCase()) {
             return data[i];
         }
     }
@@ -21,7 +21,7 @@ let isVerifiedLocal = (obj) => {
     data = data.filter((obj) => obj);
 
     for (let i in data) {
-        if (data[i].userAddress == obj.userAddress) {
+        if (data[i].userAddress.toUpperCase() == obj.userAddress.toUpperCase()) {
             return true;
         }
     }
@@ -96,7 +96,7 @@ let removeVerified = async (contract, addressObj) => {
             data = JSON.parse(data);
 
             for (let i in data) {
-                if (data[i].address == addressObj.userAddress) {
+                if (data[i].address.toUpperCase() == addressObj.userAddress.toUpperCase()) {
                     delete data[i];
                     break;
                 }

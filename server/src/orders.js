@@ -48,12 +48,12 @@ let pendingOrders = (address) => {
     };
 
     for (let i in master.buy) {
-        if (master.buy[i].userAddress == address)
+        if (master.buy[i].userAddress.toUpperCase() == address.toUpperCase())
             list["buy"].push(master.buy[i]);
     }
 
     for (let i in master.sell) {
-        if (master.sell[i].userAddress == address)
+        if (master.sell[i].userAddress.toUpperCase() == address.toUpperCase())
             list["sell"].push(master.sell[i]);
     }
 
