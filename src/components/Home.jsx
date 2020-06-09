@@ -3,7 +3,7 @@ import { Jumbotron, Table } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import "../home.css"
 
-import { getBusId, getBusList } from "../contractInt/businessReq";
+import { shareBalance, getBusId, getBusList } from "../contractInt/businessReq";
 
 export default class Home extends React.Component {
 
@@ -60,9 +60,13 @@ fetchAvaibleTokens = async() => {
 
 getAvailableTokens= (id) => {
   
-  var busId;
-  getBusId(id).then((info) => {
-      busId = info;
+
+ getBusId(id).then((info) => {
+      shareBalance(info.address, info.ownerAddress).then((data) => {
+          console.log(data);
+      });
+
+      
      
    });
    

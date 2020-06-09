@@ -1,9 +1,10 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Jumbotron, Table } from 'reactstrap';
-//import { addVerification } from "./contractInt/investorReq";
+import { getPortfoliom, addVerification } from "../contractInt/investReq";
 
 import "../investors.css";
+import { getPortfolio } from '../contractInt/investReq';
 export default class Investor extends React.Component{
 
 nameChange = (e) => {
@@ -38,8 +39,24 @@ register = () => {
 }
 
 mint = () => {
-  //link to mint funnction on server
+  
 }
+
+
+  
+
+
+getPortfolioFunction = () => {
+
+  getPortfolio().then((info) => {
+     console.log(info)
+      
+  });
+ 
+}
+
+
+
   render(){
 
    
@@ -109,21 +126,9 @@ mint = () => {
          
          <div id="registerFormCheck">
             <hr className="my-2" />
-            <h1 id="formHeaderCheck" className="display-3"> Check Balance</h1>
-            
-            <form id="formDiv" conSubmit={this.buyBus}>
-              <div class="form-group">
-                  <label for="busName">Business Name</label>
-                  <br/>
-                  <input class="form-control"  type="text"  id="busName" placeholder="Name" onChange={this.nameChange} />
-              </div>
-              <div class="form-group">
-                 <label for="busSymbol">Business Symbol</label>
-                 <br/>
-                 < input class="form-control"  type="text" id="busSymbol"  placeholder="Symbol 3-4 letters" onChange={this.symbolChange} />
-              </div> 
-               <button class="btn btn-primary" id="busButton" value="submit" type="submit">Submit</button>
-            </form>
+            <h1 id="formHeaderCheck" className="display-3"> Get Portfolio Balance</h1>
+            <button class="btn btn-primary" id="busButton" onClick={this.getPortfolioFunction}>Submit</button>
+         
              </div>   
             
            

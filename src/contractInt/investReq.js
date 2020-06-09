@@ -44,3 +44,15 @@ export let userBalance = async () => {
 
     return res;
 }
+
+
+export let getPortfolio = async () => {
+    let address = window.ethereum.selectedAddress;
+    console.log(address);
+    const url = '/portfolio/' + address;
+
+    let res = await axios.get(url)
+        .catch(err => console.log(err));
+    
+    return res;
+}
