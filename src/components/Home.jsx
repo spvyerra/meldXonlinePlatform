@@ -141,7 +141,7 @@ getAvailableTokens= (id) => {
               </div>
               <div id="registerForm">
             <h1 id="formHeader" className="display-3"> Invest in a Business</h1>
-            <form id="formDiv" conSubmit={this.buyBus}>
+            <form id="formDiv" onSubmit={this.buyBus}>
               <div class="form-group">
                   <label for="busName">Business Name</label>
                   <br/>

@@ -58,7 +58,9 @@ mint = () => {
 getPortfolioFunction = () => {
 
   getPortfolio().then((info) => {
-     console.log(info)
+    this.setState({
+      InvestorPortfolio: info
+    });
       
   });
  
