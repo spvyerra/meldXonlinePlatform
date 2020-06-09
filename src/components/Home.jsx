@@ -70,7 +70,7 @@ export default class Home extends React.Component {
                     <td>{busName}</td>
                     <td>{symbol}</td>
                     <td>{numShares}</td>
-                    <td>{pricePerShare} </td>
+                    <td>{pricePerShare / 100.0} </td>
                 </tr>
             )
         })
