@@ -28,11 +28,6 @@ export default class Home extends React.Component {
         });
     }
 
-    nameChange = (e) => {
-        this.setState({
-            businessName: e.target.value
-        });
-    }
     symbolChange = (e) => {
         this.setState({
             businessSymbol: e.target.value
@@ -96,7 +91,7 @@ export default class Home extends React.Component {
                         <hr className="my-2" />
                     </div>
 
-                    <div class="homeBusDiv">
+                    <div className="homeBusDiv">
                         <div id="homeBusHeading">
                             <h2 id="formHeader" className="display-3"> Buisnesses on MeldX</h2>
                         </div>
@@ -121,24 +116,19 @@ export default class Home extends React.Component {
                     </div>
                     <div id="registerForm">
                         <h1 id="formHeader" className="display-3"> Invest in a Business</h1>
-                        <form id="formDiv" onSubmit={this.buyBus}>
-                            <div class="form-group">
-                                <label for="busName">Business Name</label>
+                        <div id="formDiv">
+                            <div className="form-group">
+                                <label htmlFor="busSymbol">Business Symbol</label>
                                 <br />
-                                <input class="form-control" type="text" id="busName" placeholder="Name" onChange={this.nameChange} />
+                                < input className="form-control" type="text" id="busSymbol" placeholder="Symbol 3-4 letters" onChange={this.symbolChange} />
                             </div>
-                            <div class="form-group">
-                                <label for="busSymbol">Business Symbol</label>
+                            <div className="form-group">
+                                <label htmlFor="numShares">Number of shares to Buy</label>
                                 <br />
-                                < input class="form-control" type="text" id="busSymbol" placeholder="Symbol 3-4 letters" onChange={this.symbolChange} />
+                                <input className="form-control" type="number" id="numBuyShares" placeholder="# of Shares" onChange={this.shareChange} />
                             </div>
-                            <div class="form-group">
-                                <label for="numShares">Number of shares to Buy</label>
-                                <br />
-                                <input class="form-control" type="number" id="numBuyShares" placeholder="# of Shares" onChange={this.shareChange} />
-                            </div>
-                            <button class="btn btn-primary" id="busButton" value="submit" type="submit">Submit</button>
-                        </form>
+                            <button className="btn btn-primary"  onClick={this.buyBus} id="busButton" value="submit" type="submit">Submit</button>
+                        </div>
                     </div>
                 </Jumbotron>
             </div>

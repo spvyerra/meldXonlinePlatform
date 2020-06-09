@@ -82,7 +82,7 @@ export default class Investor extends React.Component {
         } else {
             return this.state.InvestorPortfolio.map((company, index) => {
                 let { id, owned } = company //destructuring
-                
+
                 if (id <= -1) id = 0;
 
                 let info = this.state.masterList[id];
@@ -115,12 +115,8 @@ export default class Investor extends React.Component {
         return (
             <Jumbotron id="test">
                 <div className="headerLinks">
-                    <NavLink id="homeLink" className="link" to="/">
-                        Home
-            </NavLink>
-                    <NavLink id="investorLink" className="link" to="/business/registration">
-                        Business
-            </NavLink>
+                    <NavLink id="homeLink" className="link" to="/">Home</NavLink>
+                    <NavLink id="investorLink" className="link" to="/business/registration">Business</NavLink>
                 </div>
                 <div id="invHeading">
                     <h1 className="display-3">Investors</h1>
@@ -131,7 +127,7 @@ export default class Investor extends React.Component {
                 </div>
                 <div id="investorForm">
                     <h1 id="formHeader" className="display-3"> Register</h1>
-                    <form id="formDiv" onSubmit={this.register}>
+                    <div id="formDiv" >
                         <div className="form-group">
                             <label htmlFor="fullName">Full Name</label>
                             <br />
@@ -150,8 +146,8 @@ export default class Investor extends React.Component {
                             <input className="form-control" type="number" id="ssn" placeholder="SSN" onChange={this.ssnChange} />
                         </div>
 
-                        <button className="btn btn-primary" id="busButton" value="submit" type="submit">Submit</button>
-                    </form>
+                        <button className="btn btn-primary" onClick={this.register} id="busButton" value="submit" type="submit">Submit</button>
+                    </div>
 
 
                 </div>
@@ -162,13 +158,13 @@ export default class Investor extends React.Component {
                             <h1 id="convert" className="display-3" > Convert USD to Meldcoin</h1>
                             <label htmlFor="convert"> Note: you must be a verified user to own Meldcoin</label>
                         </div>
-                        <form id="convertForm" onSubmit={this.mint} >
+                        <div id="convertForm"  >
                             <div className="form-group">
                                 <label htmlFor="mint"> USD to MeldCoin (1:1) </label>
                                 <input id="convertInput" className="form-control" type="number" id="mint" placeholder="USD to convert" onChange={this.mintChange} />
                             </div>
-                            <button className="btn btn-primary" value="submit" type="submit" >Convert </button>
-                        </form>
+                            <button className="btn btn-primary" onClick={this.mint} value="submit" type="submit" >Convert </button>
+                        </div>
                     </div>
                 </div>
 

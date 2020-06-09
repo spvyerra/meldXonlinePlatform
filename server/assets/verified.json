@@ -30,5 +30,12 @@
         "email": "colinfinkbeiner1@gmail.com",
         "ssn": "123",
         "userAddress": "0xef032630a3aa621154b2792c1512779eae1a37db"
+    },
+    {
+        "id": 5,
+        "name": "Sai's Account",
+        "email": "sai@account.com",
+        "ssn": "123456789",
+        "userAddress": "0x46e5f23016f44334063c7c02e1340ceba8d4dd46"
     }
 ]
