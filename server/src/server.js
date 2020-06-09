@@ -18,7 +18,6 @@ app.get('/Meld/Address', (req, res) => {
     res.status(200).json(mc.stableAddress);
 });
 
-
 app.get('/list', (req, res) => {
     const raw = fs.readFileSync(overall);
     const data = JSON.parse(raw);
@@ -27,12 +26,17 @@ app.get('/list', (req, res) => {
 });
 
 app.get('/list/:id', (req, res) => {
-    const id = req.params.id;
+    try {
+        const id = req.params.id;
 
-    const raw = fs.readFileSync(breakDown + `/${id}.json`);
-    const data = JSON.parse(raw);
+        const raw = fs.readFileSync(breakDown + `/${id}.json`);
+        const data = JSON.parse(raw);
 
-    res.status(200).json(data);
+        res.status(200).json(data);
+    } catch (err) {
+        res.status(409).json("Error occured");
+        res.status(409).json(err);
+    }
 });
 
 app.post('/bus/add', async (req, res) => {
@@ -60,29 +64,39 @@ app.post('/bus/add', async (req, res) => {
     const newRaw = JSON.stringify(newBus, null, 4);
     fs.writeFileSync(breakDown + `/${newBus.id}.json`, newRaw);
 
-    const newOverall = JSON.stringify(general, null, 4);
-    fs.writeFileSync(overall, newOverall);
+        const newRaw = JSON.stringify(newBus, null, 4);
+        fs.writeFileSync(breakDown + `/${newBus.id}.json`, newRaw);
 
     res.status(200).json(newBus);
 });
 
 // New Users
 app.post('/user/add', async (req, res) => {
-    let address;
+    try {
+        let address;
 
-    address = await mc.addVerify(req.body);
+        address = await mc.addVerify(req.body);
 
-    res.status(200).json(address);
+        res.status(200).json(address);
+    } catch (err) {
+        res.status(409).json("Error occured");
+        res.status(409).json(err);
+    }
 });
 
 // Minting tokens to user
 app.post('/user/deposit', async (req, res) => {
-    let address = req.body.userAddress;
-    let amt = req.body.amt;
+    try {
+        let address = req.body.userAddress;
+        let amt = req.body.amt;
 
-    let stableAddress = await mc.mintTokens(address, amt);
+        let stableAddress = await mc.mintTokens(address, amt);
 
-    res.status(200).json(stableAddress);
+        res.status(200).json(stableAddress);
+    } catch (err) {
+        res.status(409).json("Error occured");
+        res.status(409).json(err);
+    }
 });
 
 // Transfer requests
@@ -141,10 +155,15 @@ app.post("/transfer/sell", async (req, res) => {
 
 // Pending orders of specific user
 app.put('/transfer/pending', (req, res) => {
-    let list = order.pendingOrders(req.body.userAddress);
+    try {
+        let list = order.pendingOrders(req.body.userAddress);
 
-    req.body.pending = list;
-    res.status(200).json(req.body);
+        req.body.pending = list;
+        res.status(200).json(req.body);
+    } catch (err) {
+        res.status(409).json("Error occured");
+        res.status(409).json(err);
+    }
 });
 
 app.get('/portfolio/:address', (req, res) => {

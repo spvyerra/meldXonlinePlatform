@@ -19,7 +19,7 @@ export default class BusRegister extends React.Component {
             businessType: e.target.value
         });
     }
-  
+
     descriptionChange = (e) => {
         this.setState({
             businessDescription: e.target.value
@@ -53,8 +53,8 @@ export default class BusRegister extends React.Component {
     register = async () => {
         let acct = window.ethereum.selectedAddress;
         alert(acct);
-       
-        if(!this.state.businessName|| !this.state.businessSymbol || !this.state.numShares || !this.state.businessDescription || !this.state.businessType) {
+
+        if (!this.state.businessName || !this.state.businessSymbol || !this.state.numShares || !this.state.businessDescription || !this.state.businessType) {
             alert("Please complete the form before submitting");
         }
         else if (this.state.nameChange !== "" && this.state.symbolChange !== "" && this.state.shareChange !== "") {
@@ -68,70 +68,70 @@ export default class BusRegister extends React.Component {
         return (
             <Jumbotron>
                 <div>
-                    <div className = "headerLinks">
-                        <NavLink id= "homeLink" className="link" to="/">
+                    <div className="headerLinks">
+                        <NavLink id="homeLink" className="link" to="/">
                             Home
-                        </NavLink> 
+                        </NavLink>
                         <NavLink id="investorLink" className="link" to="/investor">
                             Investors
-                        </NavLink> 
+                        </NavLink>
                     </div>
-                    
+
                     <div id="busHeading">
-                         <h1  className="display-3">Business</h1>
+                        <h1 className="display-3">Business</h1>
                     </div>
                     <div id="explainer">
-                        <p>Register your buisness now, and deploy <br/> a digital equity certificate onto the blockchain </p>
-                        <hr className= "gradHr" ></hr>
+                        <p>Register your buisness now, and deploy <br /> a digital equity certificate onto the blockchain </p>
+                        <hr className="gradHr" ></hr>
                     </div>
 
                     <div id="registerForm">
                         <h1 id="formHeader" className="display-3"> Register</h1>
                         <form id="formDiv" conSubmit={this.register}>
-                         <div class="form-group">
-                         <label for="busName">Business Name</label>
-                                <br/>
-                                <input class="form-control"  type="text"  id="busName" placeholder="Name" onChange={this.nameChange} />
+                            <div class="form-group">
+                                <label for="busName">Business Name</label>
+                                <br />
+                                <input class="form-control" type="text" id="busName" placeholder="Name" onChange={this.nameChange} />
                             </div>
 
                             <div class="form-group">
                                 <label for="busType">Business Type</label>
-                                <br/>
-                                <input  class="form-control" type="text" id="busType"  placeholder="Type" onChange={this.typeChange} />
+                                <br />
+                                <input class="form-control" type="text" id="busType" placeholder="Type" onChange={this.typeChange} />
                             </div>
 
                             <div class="form-group">
                                 <label for="busSymbol">Business Symbol</label>
-                                <br/>
-                                < input class="form-control"  type="text" id="busSymbol"  placeholder="Symbol 3-4 letters" onChange={this.symbolChange} />
-                             </div> 
+                                <br />
+                                < input class="form-control" type="text" id="busSymbol" placeholder="Symbol 3-4 letters" onChange={this.symbolChange} />
+                            </div>
 
                             <div class="form-group">
                                 <label for="numShares">Number of shares</label>
-                                <br/>
-                                <input class="form-control"  type="number" id="numShares"  placeholder="# of Shares" onChange={this.shareChange} />
+                                <br />
+                                <input class="form-control" type="number" id="numShares" placeholder="# of Shares" onChange={this.shareChange} />
                             </div>
 
                             <div class="form-group">
                                 <label for="priceShares">Price of share</label>
-                                <br/>
-                                <input class="form-control" type="number" id="priceShares"  placeholder="$ per share" onChange={this.pricePerShareChange} />
+                                <br />
+                                <input class="form-control" type="number" id="priceShares" placeholder="$ per share" onChange={this.pricePerShareChange} />
                             </div>
 
                             <div class="form-group">
                                 <label for="description">Number of shares</label>
-                                <br/>
-                                <textarea class="form-control" id="description"  onChange={this.descriptionChange}/>
+                                <br />
+                                <textarea class="form-control" id="description" onChange={this.descriptionChange} />
                             </div>
                             <button class="btn btn-primary" id="busButton" value="submit" type="submit">Submit</button>
                         </form>
                     </div>
 
 
-                    </div>
+                </div>
 
             </Jumbotron>
-            
+
         );
     }
 }
