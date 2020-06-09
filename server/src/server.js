@@ -4,6 +4,7 @@ const fs = require('fs');
 const mc = require('./meldCoin');
 const order = require('./orders');
 const bus = require('./businessSide');
+const port = require('./portfolio');
 
 const overall = './server/assets/bus.json';
 const breakDown = './server/assets/busBreak';
@@ -50,12 +51,13 @@ app.post('/bus/add', async (req, res) => {
         "pricePerShare": newBus.pricePerShare,
     });
 
+    port.addShares(newBus.ownerAddress, newBus.id, newBus.numShares);
+
     const newRaw = JSON.stringify(newBus, null, 4);
     fs.writeFileSync(breakDown + `/${newBus.id}.json`, newRaw);
 
     const newOverall = JSON.stringify(general, null, 4);
     fs.writeFileSync(overall, newOverall);
-
 
     res.status(200).json(newBus);
 });
@@ -92,8 +94,13 @@ app.post('/transfer/buy', async (req, res) => {
                 buyer.status = "Placed";
                 res.status(200).json(buyer);
             } else {
+                await bus.addVerify(buyer);
                 await mc.transfer(seller.userAddress, buyer.userAddress, buyer.price * buyer.amount);
                 await bus.transfer(buyer.userAddress, seller.userAddress, seller.amount, buyer.contract);
+                
+                port.removeShares(seller.userAddress, buyer.id, seller.amount);
+                port.addShares(buyer.userAddress, buyer.id, buyer.amount);
+
                 console.log("Completing order");
 
                 buyer.status = "Completed";
@@ -116,6 +123,10 @@ app.post("/transfer/sell", async (req, res) => {
             } else {
                 await mc.transfer(seller.userAddress, buyer.userAddress, buyer.price * buyer.amount);
                 await bus.transfer(buyer.userAddress, seller.userAddress, seller.amount, seller.contract);
+                
+                port.removeShares(seller.userAddress, seller.id, seller.amount);
+                port.addShares(buyer.userAddress, seller.id, buyer.amount);
+
                 console.log("Completing order");
 
                 seller.status = "Completed";
@@ -132,5 +143,12 @@ app.put('/transfer/pending', (req, res) => {
     res.status(200).json(req.body);
 });
 
-const port = process.env.PORT || 8080;
-app.listen(port, () => console.log("Running on port " + port));
+app.get('/portfolio/:address', (req, res) => {
+    const address = req.params.address;
+    const portfolio = port.getPortfolio(address);
+
+    res.status(200).json(portfolio);
+});
+
+const portRun = process.env.PORT || 8080;
+app.listen(portRun, () => console.log("Running on port " + portRun));

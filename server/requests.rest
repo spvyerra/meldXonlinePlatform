@@ -9,10 +9,13 @@ POST http://localhost:8080/bus/add
 Content-Type: application/json
 
 {
-    "busName": "SampleBus",
-    "symbol": "nbs",
-    "numShares": 100,
-    "ownerAddress": "0x2f36E258AF1945a8C1614BBf6c7E33D27aC39c60"
+    "busObj" : {"busName": "Ice Cream Store",
+    "symbol": "ICS",
+    "numShares": 2000,
+    "pricePerShare": "120",
+    "type": "Resturaunt",
+    "description": "Ice cream and things you know",
+    "ownerAddress": "0x2f36E258AF1945a8C1614BBf6c7E33D27aC39c60"}
 }
 
 ###
@@ -41,9 +44,10 @@ Content-Type: application/json
 
 {
     "userAddress": "0xebBF6e4fC3a229D4f5b3B00C6018cff2f3246Cc5",
-    "contract": "0xE4f7AfcF3cEA32B381363044BcB07a860Bb3cE44",
+    "contract": "0x20db0d1EBc18ECA45Fba4045318Fe58aA9065CF5",
     "price": 200,
-    "amount": 5
+    "amount": 5,
+    "id": 2
 }
 
 ###
@@ -52,9 +56,10 @@ Content-Type: application/json
 
 {
     "userAddress": "0x2f36E258AF1945a8C1614BBf6c7E33D27aC39c60",
-    "contract": "0xE4f7AfcF3cEA32B381363044BcB07a860Bb3cE44",
+    "contract": "0x20db0d1EBc18ECA45Fba4045318Fe58aA9065CF5",
     "price": 200,
-    "amount": 5
+    "amount": 5,
+    "id": 2
 }
 
 ###
@@ -64,3 +69,6 @@ Content-Type: application/json
 {
     "userAddress": "0xebBF6e4fC3a229D4f5b3B00C6018cff2f3246Cc5"
 }
+
+###
+GET http://localhost:8080/portfolio/0x2f36E258AF1945a8C1614BBf6c7E33D27aC39c60
