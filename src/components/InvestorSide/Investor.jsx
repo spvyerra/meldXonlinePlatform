@@ -219,8 +219,9 @@ export default class Investor extends React.Component {
                 </div>
 
                 <br />
-                <div id="converter">
-                    <h1 id="convertDiv">Sell Your Shares</h1>
+                <div  id="sellDiv">
+                    <h1 id="formHeader" className="display-3">Sell Your Shares</h1>
+                    <form id="formDiv" onSubmit={this.sellBus}>
                     <div className="form-group">
                         <label htmlFor="busSymbol">Business Symbol</label>
                         <br />
@@ -232,7 +233,9 @@ export default class Investor extends React.Component {
                         <br />
                         <input className="form-control" type="number" id="numShares" placeholder="# of Shares" onChange={this.shareChange} />
                     </div>
-                    <button className="btn btn-primary" onClick={this.sellBus} id="busButton" value="submit" type="submit">Sell</button>
+                    <button className="btn btn-primary" id="busButton" value="submit" type="submit">Sell</button>
+
+                    </form>
                 </div>
 
             </Jumbotron>
