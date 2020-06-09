@@ -47,8 +47,17 @@ register = () => {
     
 }
 
-mint = () => {
-  
+mint = async () => {
+    let address = window.ethereum.selectedAddress;
+
+    let obj = {
+        "userAddress": address,
+        "amt": this.state.mintToken * 100
+    };
+
+    let res = await userDeposit(obj);
+
+    console.log(res);
 }
 
 
