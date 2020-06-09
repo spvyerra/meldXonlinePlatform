@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import "../home.css"
 
 import { shareBalance, getBusId, getBusList, buyShares } from "../contractInt/businessReq";
+import { userBalance } from "../contractInt/investReq";
 
 export default class Home extends React.Component {
 
@@ -78,6 +79,12 @@ export default class Home extends React.Component {
         })
     }
 
+    viewBal = async () => {
+        let bal = await userBalance();
+        console.log(bal);
+
+        alert("Your balance is $" + (bal / 100));
+    }
 
 
     render() {
@@ -95,6 +102,7 @@ export default class Home extends React.Component {
                     </div>
 
                     <div className="homeBusDiv">
+                        <button className="btn btn-primary" id="busButton" onClick={this.viewBal}>Get Account Balance</button>
                         <div id="homeBusHeading">
                             <h2 id="formHeader" className="display-3"> Businesses on MeldX</h2>
                         </div>

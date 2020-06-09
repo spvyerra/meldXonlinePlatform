@@ -42,7 +42,7 @@ export let userBalance = async () => {
     let res = await meldCoin.methods.balanceOf(address)
         .call({ from: address });
 
-    return res.data;
+    return res;
 }
 
 
