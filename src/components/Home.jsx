@@ -49,6 +49,7 @@ export default class Home extends React.Component {
         let list = await getBusList();
 
         let option = list.find((item) => item.symbol.toUpperCase() == this.state.businessSymbol.toUpperCase());
+        console.log(option);
         let breakDown = await getBusId(option.id);
 
         let address = window.ethereum.selectedAddress;
@@ -58,9 +59,6 @@ export default class Home extends React.Component {
             "price": breakDown.pricePerShare,
             "amount": this.state.numBuyShares
         });
-
-
-        alert(res);
     }
 
 
@@ -77,7 +75,7 @@ export default class Home extends React.Component {
 
         getBusId(id).then((info) => {
             shareBalance(info.address, info.ownerAddress).then((data) => {
-                console.log(data);
+                //console.log(data);
             });
 
 
@@ -155,11 +153,11 @@ export default class Home extends React.Component {
                     </div>
                     <div id="registerForm">
                         <h1 id="formHeader" className="display-3"> Invest in a Business</h1>
-                        <form id="formDiv" onSubmit={this.buyBus}>
+                        <div id="formDiv">
                             <div className="form-group">
                                 {/* <label for="busName">Business Name</label>
                                 <br />
-                                <input class="form-control" type="text" id="busName" placeholder="Name" onChange={this.nameChange} /> */}
+                            <input class="form-control" type="text" id="busName" placeholder="Name" onChange={this.nameChange} /> */}
                             </div>
                             <div className="form-group">
                                 <label htmlFor="busSymbol">Business Symbol</label>
@@ -171,8 +169,8 @@ export default class Home extends React.Component {
                                 <br />
                                 <input className="form-control" type="number" id="numBuyShares" placeholder="# of Shares" onChange={this.shareChange} />
                             </div>
-                            <button className="btn btn-primary" id="busButton" value="submit" type="submit">Submit</button>
-                        </form>
+                            <button onClick={this.buyBus} className="btn btn-primary" id="busButton" value="submit" type="submit">Submit</button>
+                        </div>
                     </div>
                 </Jumbotron>
             </div>
