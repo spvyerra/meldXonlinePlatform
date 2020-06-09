@@ -64,9 +64,6 @@ app.post('/bus/add', async (req, res) => {
     const newRaw = JSON.stringify(newBus, null, 4);
     fs.writeFileSync(breakDown + `/${newBus.id}.json`, newRaw);
 
-        const newRaw = JSON.stringify(newBus, null, 4);
-        fs.writeFileSync(breakDown + `/${newBus.id}.json`, newRaw);
-
     res.status(200).json(newBus);
 });
 

@@ -16,7 +16,7 @@ export const ethEnabled = () => {
 ethEnabled();
 
 export let contractInit = async () => {
-    const url = 'Meld/Address';
+    const url = '/Meld/Address';
     
     let res = await axios.get(url);
     

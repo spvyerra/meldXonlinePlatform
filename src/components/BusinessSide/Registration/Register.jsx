@@ -87,43 +87,43 @@ export default class BusRegister extends React.Component {
 
                     <div id="registerForm">
                         <h1 id="formHeader" className="display-3"> Register</h1>
-                        <form id="formDiv" conSubmit={this.register}>
-                            <div class="form-group">
-                                <label for="busName">Business Name</label>
+                        <form id="formDiv" onSubmit={this.register}>
+                            <div className="form-group">
+                                <label htmlFor="busName">Business Name</label>
                                 <br />
-                                <input class="form-control" type="text" id="busName" placeholder="Name" onChange={this.nameChange} />
+                                <input className="form-control" type="text" id="busName" placeholder="Name" onChange={this.nameChange} />
                             </div>
 
-                            <div class="form-group">
-                                <label for="busType">Business Type</label>
+                            <div className="form-group">
+                                <label htmlFor="busType">Business Type</label>
                                 <br />
-                                <input class="form-control" type="text" id="busType" placeholder="Type" onChange={this.typeChange} />
+                                <input className="form-control" type="text" id="busType" placeholder="Type" onChange={this.typeChange} />
                             </div>
 
-                            <div class="form-group">
-                                <label for="busSymbol">Business Symbol</label>
+                            <div className="form-group">
+                                <label htmlFor="busSymbol">Business Symbol</label>
                                 <br />
-                                < input class="form-control" type="text" id="busSymbol" placeholder="Symbol 3-4 letters" onChange={this.symbolChange} />
+                                < input className="form-control" type="text" id="busSymbol" placeholder="Symbol 3-4 letters" onChange={this.symbolChange} />
                             </div>
 
-                            <div class="form-group">
-                                <label for="numShares">Number of shares</label>
+                            <div className="form-group">
+                                <label htmlFor="numShares">Number of shares</label>
                                 <br />
-                                <input class="form-control" type="number" id="numShares" placeholder="# of Shares" onChange={this.shareChange} />
+                                <input className="form-control" type="number" id="numShares" placeholder="# of Shares" onChange={this.shareChange} />
                             </div>
 
-                            <div class="form-group">
-                                <label for="priceShares">Price of share</label>
+                            <div className="form-group">
+                                <label htmlFor="priceShares">Price of share</label>
                                 <br />
-                                <input class="form-control" type="number" id="priceShares" placeholder="$ per share" onChange={this.pricePerShareChange} />
+                                <input className="form-control" type="number" id="priceShares" placeholder="$ per share" onChange={this.pricePerShareChange} />
                             </div>
 
-                            <div class="form-group">
-                                <label for="description">Number of shares</label>
+                            <div className="form-group">
+                                <label htmlFor="description">Number of shares</label>
                                 <br />
-                                <textarea class="form-control" id="description" onChange={this.descriptionChange} />
+                                <textarea className="form-control" id="description" onChange={this.descriptionChange} />
                             </div>
-                            <button class="btn btn-primary" id="busButton" value="submit" type="submit">Submit</button>
+                            <button className="btn btn-primary" id="busButton" value="submit" type="submit">Submit</button>
                         </form>
                     </div>
 

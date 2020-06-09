@@ -1,5 +1,5 @@
 const fs = require('fs');
-const verify = require('./verfied');
+const verify = require('./verified');
 
 const portfolioPath = "./server/assets/portfolio";
 

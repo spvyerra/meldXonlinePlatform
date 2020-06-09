@@ -72,3 +72,6 @@ Content-Type: application/json
 
 ###
 GET http://localhost:8080/portfolio/0x2f36E258AF1945a8C1614BBf6c7E33D27aC39c60
+
+###
+GET http://localhost:8080/Meld/Address

@@ -1,6 +1,6 @@
 const fs = require('fs');
 const bus = require('./businessSide');
-const verify = require('./verfied');
+const verify = require('./verified');
 
 const orderPath = "./server/assets/orders.json";
 

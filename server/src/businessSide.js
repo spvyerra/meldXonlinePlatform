@@ -1,5 +1,4 @@
 let admin = require('./adminInteract.js');
-const verify = require('./verfied');
 const verify = require('./verified');
 
 const fs = require('fs');
