@@ -52,29 +52,8 @@ export default class Home extends React.Component {
   
 
 
-
-fetchAvaibleTokens = async() => {
-   
-}
-
-
-getAvailableTokens= (id) => {
   
 
- getBusId(id).then((info) => {
-      shareBalance(info.address, info.ownerAddress).then((data) => {
-          console.log(data);
-      });
-
-      
-     
-   });
-   
-   //Attempt to get the owners address from busId. 
-   //Set busId contract as a variable
-   //call shareBalance on the contract busId
-   //return this
-  }
 
 
 
@@ -90,7 +69,7 @@ getAvailableTokens= (id) => {
              <td>{symbol}</td>
              <td>{numShares}</td>
              <td>{pricePerShare} </td>
-              <td>{this.getAvailableTokens(id)}</td>
+              
           </tr>
        )
     })
@@ -128,7 +107,7 @@ getAvailableTokens= (id) => {
                   <th>Symbol</th>
                   <th>Number of shares</th>
                   <th> Price per Share</th>
-                  <th> Avaiable Shares</th>
+
                 </tr>
               </thead>
                <tbody>
