@@ -4,9 +4,17 @@ import { Jumbotron, Table } from 'reactstrap';
 
 
 import "../investors.css";
-import {addVerification, getPortfolio } from '../contractInt/investReq';
+import {userDeposit, addVerification, getPortfolio } from '../contractInt/investReq';
+import { getBusId } from '../contractInt/businessReq';
 export default class Investor extends React.Component{
 
+
+constructor() {
+  super()
+  this.state = ({
+    portfolioSwitch: false
+  });
+}
 nameChange = (e) => {
     this.setState({
         FullName: e.target.value
@@ -61,16 +69,47 @@ mint = async () => {
 }
 
 
-  
+renderGetPortfolio(){
+
+  if(this.state.portfolioSwitch === true) {
+    if(this.state.InvestorPortfolio === undefined) {
+      alert("You currently do not own any shares")
+      this.setState({
+        portfolioSwitch: false
+      })
+    }
+    else {
+      return this.state.InvestorPortfolio.map((investor, index) => {
+        const { id, owned } = investor //destructuring
+       
+       getBusId(id).then((info) => {
+          return (
+            <tr key={id}>
+              <td>{info.busName}</td>
+              <td>{info.symbol}</td>
+              <td>{owned}</td>
+            </tr>
+        )
+       })
+        
+     })
+    }
+    
+  }
+    
+  }
+ 
 
 
 getPortfolioFunction = () => {
 
   getPortfolio().then((info) => {
     this.setState({
-      InvestorPortfolio: info
+      InvestorPortfolio: info.shares,
+      portfolioSwitch: true
     });
-      
+    
+
   });
  
 }
@@ -149,8 +188,22 @@ getPortfolioFunction = () => {
             <h1 id="formHeaderCheck" className="display-3"> Get Portfolio Balance</h1>
             <button class="btn btn-primary" id="busButton" onClick={this.getPortfolioFunction}>Submit</button>
          
-             </div>   
-            
+             </div>  
+
+             {this.state.portfolioSwitch ? <Table id='businessTable'>
+                <thead>
+                <tr>
+                  <th>Business Name</th>
+                  <th>Symbol</th>
+                  <th>Number of Shares Owned</th>
+                
+                </tr>
+              </thead>
+               <tbody>
+                {this.renderGetPortfolio()}
+               </tbody>
+            </Table> : null}
+
            
            
          </div>
