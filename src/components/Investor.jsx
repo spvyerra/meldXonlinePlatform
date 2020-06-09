@@ -47,7 +47,7 @@ register = () => {
     
 }
 
-mint = () => {
+mint = async () => {
     let address = window.ethereum.selectedAddress;
 
     let obj = {
