@@ -8,6 +8,7 @@ export let getBusList = async () => {
     let res = await axios.get(url)
         .catch(err => console.log(err));
 
+    console.log(res);
     return res.data;
 }
 
@@ -17,7 +18,6 @@ export let getBusId = async (idt) => {
     let res = await axios.get(url + `/${idt}`)
         .catch(err => console.log(err));
 
-    console.log(res);
     return res.data;
 }
 
@@ -112,7 +112,6 @@ export let pendingOrders = async (address) => {
  */
 export let shareBalance = async (contract, address) => {
     let userAddress = window.ethereum.selectedAddress;
-    console.log(userAddress);
 
     secureToken.options.address = contract;
 

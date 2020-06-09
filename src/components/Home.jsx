@@ -3,7 +3,7 @@ import { Jumbotron, Table } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import "../home.css"
 
-import { shareBalance, getBusId, getBusList } from "../contractInt/businessReq";
+import { shareBalance, getBusId, getBusList, buyShares } from "../contractInt/businessReq";
 
 export default class Home extends React.Component {
 
@@ -45,24 +45,43 @@ export default class Home extends React.Component {
         });
     }
 
-    buyBus = () => {
-        //Connect to server here
+    buyBus = async () => {
+        let list = await getBusList();
+
+        let option = list.find((item) => item.symbol.toUpperCase() == this.state.businessSymbol.toUpperCase());
+        console.log(option);
+        let breakDown = await getBusId(option.id);
+
+        let address = window.ethereum.selectedAddress;
+        let res = await buyShares({
+            "userAddress": address,
+            "contract": breakDown.address,
+            "price": breakDown.pricePerShare,
+            "amount": this.state.numBuyShares
+        });
     }
 
-  
-
-
-  
 
 
 
+    renderTableData() {
+        return this.state.busisnesses.map((business, index) => {
+            const { id, busName, symbol, numShares, pricePerShare } = business //destructuring
 
 
-  renderTableData() {
-    return this.state.busisnesses.map((business, index) => {
-       const { id, busName, symbol, numShares, pricePerShare } = business //destructuring
-      
-      
+            return (
+                <tr key={id}>
+                    <td>{busName}</td>
+                    <td>{symbol}</td>
+                    <td>{numShares}</td>
+                    <td>{pricePerShare} </td>
+                    <td>{this.getAvailableTokens(id)}</td>
+                </tr>
+            )
+        })
+    }
+
+    render() {
         return (
           <tr key={id}>
              <td>{busName}</td>

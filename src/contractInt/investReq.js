@@ -16,7 +16,7 @@ export let addVerification = async (obj) => {
     let res = await axios.post(url, obj)
         .catch(err => console.log(err));
 
-    return res;
+    return res.data;
 }
 
 /**
@@ -31,7 +31,7 @@ export let userDeposit = async (obj) => {
     let res = await axios.post(url, obj)
         .catch(err => console.log(err));
 
-    return res;
+    return res.data;
 }
 
 // Gets meldcoin balance of logged in user
@@ -42,7 +42,7 @@ export let userBalance = async () => {
     let res = await meldCoin.methods.balanceOf(address)
         .call({ from: address });
 
-    return res;
+    return res.data;
 }
 
 
@@ -54,5 +54,5 @@ export let getPortfolio = async () => {
     let res = await axios.get(url)
         .catch(err => console.log(err));
     
-    return res;
+    return res.data;
 }
