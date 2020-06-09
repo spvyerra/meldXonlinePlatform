@@ -1,6 +1,11 @@
 {
-    "busName": "Test Business",
-    "symbol": "TST",
-    "numShares": "10000",
-    "id": 2
+    "busName": "Ice Cream Store",
+    "symbol": "ICS",
+    "numShares": 2000,
+    "pricePerShare": "120",
+    "type": "Resturaunt",
+    "description": "Ice cream and things you know",
+    "ownerAddress": "0x2f36E258AF1945a8C1614BBf6c7E33D27aC39c60",
+    "id": 2,
+    "address": "0x20db0d1EBc18ECA45Fba4045318Fe58aA9065CF5"
 }

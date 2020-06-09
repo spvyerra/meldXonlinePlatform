@@ -4,6 +4,7 @@ const fs = require('fs');
 const mc = require('./meldCoin');
 const order = require('./orders');
 const bus = require('./businessSide');
+const port = require('./portfolio');
 
 const overall = './server/assets/bus.json';
 const breakDown = './server/assets/busBreak';
@@ -39,37 +40,31 @@ app.get('/list/:id', (req, res) => {
 });
 
 app.post('/bus/add', async (req, res) => {
-    try {
-        const raw = fs.readFileSync(overall);
-        let general = JSON.parse(raw);
+    const raw = fs.readFileSync(overall);
+    let general = JSON.parse(raw);
 
-        let newBus = req.body.busObj;
-        newBus.id = general.length;
-        console.log(newBus);
+    let newBus = req.body.busObj;
+    newBus.id = general.length;
+    console.log(newBus);
 
-        let address = await bus.deploySecureToken(newBus);
-        console.log(`Deployed at ${address}`);
+    let address = await bus.deploySecureToken(newBus);
+    console.log(`Deployed at ${address}`);
 
-        newBus.address = address;
-        general.push({
-            "id": newBus.id,
-            "busName": newBus.busName,
-            "symbol": newBus.symbol,
-            "numShares": newBus.numShares,
-            "pricePerShare": newBus.pricePerShare
-        });
+    newBus.address = address;
+    general.push({
+        "id": newBus.id,
+        "busName": newBus.busName,
+        "symbol": newBus.symbol,
+        "numShares": newBus.numShares,
+        "pricePerShare": newBus.pricePerShare,
+    });
 
-        const newRaw = JSON.stringify(newBus, null, 4);
-        fs.writeFileSync(breakDown + `/${newBus.id}.json`, newRaw);
+    port.addShares(newBus.ownerAddress, newBus.id, newBus.numShares);
 
-        const newOverall = JSON.stringify(general, null, 4);
-        fs.writeFileSync(overall, newOverall);
+    const newRaw = JSON.stringify(newBus, null, 4);
+    fs.writeFileSync(breakDown + `/${newBus.id}.json`, newRaw);
 
-        res.status(200).json(newBus);
-    } catch (err) {
-        res.status(409).json("Error occured");
-        res.status(409).json(err);
-    }
+    res.status(200).json(newBus);
 });
 
 // New Users
@@ -104,56 +99,55 @@ app.post('/user/deposit', async (req, res) => {
 // Transfer requests
 // When user wants to buy tokens this request is called
 app.post('/transfer/buy', async (req, res) => {
-    try {
-        let buyer = req.body;
-        order.orderMatch(buyer.contract, "sell", buyer.amount, buyer.price)
-            .then(async (seller) => {
-                if (seller == null) {
-                    order.addBuy(buyer);
-                    console.log("Placing buy order");
+    let buyer = req.body;
+    order.orderMatch(buyer.contract, "sell", buyer.amount, buyer.price)
+        .then(async (seller) => {
+            if (seller == null) {
+                order.addBuy(buyer);
+                console.log("Placing buy order")
 
-                    buyer.status = "Placed";
-                    res.status(200).json(buyer);
-                } else {
-                    await mc.transfer(seller.userAddress, buyer.userAddress, buyer.price * buyer.amount);
-                    await bus.transfer(buyer.userAddress, seller.userAddress, seller.amount, buyer.contract);
-                    console.log("Completing order");
+                buyer.status = "Placed";
+                res.status(200).json(buyer);
+            } else {
+                await bus.addVerify(buyer);
+                await mc.transfer(seller.userAddress, buyer.userAddress, buyer.price * buyer.amount);
+                await bus.transfer(buyer.userAddress, seller.userAddress, seller.amount, buyer.contract);
+                
+                port.removeShares(seller.userAddress, buyer.id, seller.amount);
+                port.addShares(buyer.userAddress, buyer.id, buyer.amount);
 
-                    buyer.status = "Completed";
-                    res.status(200).json(buyer);
-                }
-            });
-    } catch (err) {
-        res.status(409).json("Error occured");
-        res.status(409).json(err);
-    }
+                console.log("Completing order");
+
+                buyer.status = "Completed";
+                res.status(200).json(buyer);
+            }
+        });
 });
 
 // When user wants to sell tokens this request is called
 app.post("/transfer/sell", async (req, res) => {
-    try {
-        let seller = req.body;
-        order.orderMatch(seller.contract, "buy", seller.amount, seller.price)
-            .then(async (buyer) => {
-                if (buyer == null) {
-                    seller.status = "Placed";
-                    order.addSell(seller);
+    let seller = req.body;
+    order.orderMatch(seller.contract, "buy", seller.amount, seller.price)
+        .then(async (buyer) => {
+            if (buyer == null) {
+                seller.status = "Placed";
+                order.addSell(seller);
 
-                    console.log("Placing sell order");
-                    res.status(200).json(seller);
-                } else {
-                    await mc.transfer(seller.userAddress, buyer.userAddress, buyer.price * buyer.amount);
-                    await bus.transfer(buyer.userAddress, seller.userAddress, seller.amount, seller.contract);
-                    console.log("Completing order");
+                console.log("Placing sell order");
+                res.status(200).json(seller);
+            } else {
+                await mc.transfer(seller.userAddress, buyer.userAddress, buyer.price * buyer.amount);
+                await bus.transfer(buyer.userAddress, seller.userAddress, seller.amount, seller.contract);
+                
+                port.removeShares(seller.userAddress, seller.id, seller.amount);
+                port.addShares(buyer.userAddress, seller.id, buyer.amount);
 
-                    seller.status = "Completed";
-                    res.status(200).json(seller);
-                }
-            });
-    } catch (err) {
-        res.status(409).json("Error occured");
-        res.status(409).json(err);
-    }
+                console.log("Completing order");
+
+                seller.status = "Completed";
+                res.status(200).json(seller);
+            }
+        });
 });
 
 // Pending orders of specific user
@@ -169,5 +163,12 @@ app.put('/transfer/pending', (req, res) => {
     }
 });
 
-const port = process.env.PORT || 8080;
-app.listen(port, () => console.log("Running on port " + port));
+app.get('/portfolio/:address', (req, res) => {
+    const address = req.params.address;
+    const portfolio = port.getPortfolio(address);
+
+    res.status(200).json(portfolio);
+});
+
+const portRun = process.env.PORT || 8080;
+app.listen(portRun, () => console.log("Running on port " + portRun));

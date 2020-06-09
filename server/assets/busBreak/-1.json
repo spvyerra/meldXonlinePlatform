@@ -1,8 +1,11 @@
 {
+    "busName": "Greg's Greenhouse",
+    "symbol": "GGG",
+    "numShares": "150",
+    "pricePerShare": "99",
+    "type": "Nurery",
+    "description": "A local greenhouse",
+    "ownerAddress": "0xef032630a3aa621154b2792c1512779eae1a37db",
     "id": -1,
-    "busName": "sample",
-    "symbol": "smpl",
-    "numShares": 0,
-    "contractAddress": "0xsample",
-    "ownerAddress": "0xsample"
+    "address": "0x859ebBfc966A965A719337E6ea4aD09a1DF18610"
 }

@@ -4,6 +4,7 @@ import { addBusiness } from "../../../contractInt/businessReq";
 import { NavLink } from 'react-router-dom';
 import { Jumbotron } from "reactstrap";
 import { findAllByAltText } from "@testing-library/react";
+import "../../../register.css"
 
 
 export default class BusRegister extends React.Component {
@@ -40,7 +41,7 @@ export default class BusRegister extends React.Component {
 
     pricePerShareChange = (e) => {
         this.setState({
-            perPerShare: e.target.value
+            pricePerShare: e.target.value
         });
     }
     shareChange = (e) => {
@@ -58,7 +59,7 @@ export default class BusRegister extends React.Component {
         }
         else if (this.state.nameChange !== "" && this.state.symbolChange !== "" && this.state.shareChange !== "") {
 
-            await addBusiness(this.state.numShares, this.state.pricePerShareChange, this.state.businessName, this.state.businessSymbol, this.state.businessType, this.state.businessDescription, acct);
+            await addBusiness(this.state.numShares, this.state.pricePerShare, this.state.businessName, this.state.businessSymbol, this.state.businessType, this.state.businessDescription, acct);
             alert("Valid form");
         }
     }
@@ -67,46 +68,72 @@ export default class BusRegister extends React.Component {
         return (
             <Jumbotron>
                 <div>
-                    <NavLink to="/">
-                        Home
-                    </NavLink>
-                    <h1 className="display-3">Business</h1>
-                    <p>Register your business</p>
-                    <input type="text" placeholder="Address" />
-                    <button>Add Financial Info</button>
-                    <p>(Just for show does nothing right now)</p>
-                    <form onSubmit={this.register}>
-                        <h2>Contract Info</h2>
-                        <p className="busNameClass"> Business Name</p>
-                        <input type="text" className="busNameClass" id="busName" placeholder="Business Name" onChange={this.nameChange} />
-                        <br />
-                        <br />
-                        <p className="busNameTypeClass"> Business Type</p>
-                        <input type="text" id="busType" className="busNameTypeClasss" placeholder="Business Type" onChange={this.typeChange} />
-                        <br />
-                        <br />
-                        <p className="busSymbolClass"> Business Symbol</p>
-                        <input type="text" id="busSymbol" className="busSymbolClass" placeholder="Symbol 3-4 letters" onChange={this.symbolChange} />
-                        <br />
-                        <br />
-                        <p className="busShareClass"> Number of shares offered</p>
-                        <input type="number" id="numShares" className="busShareClass" placeholder="Number of Shares" onChange={this.shareChange} />
+                    <div className="headerLinks">
+                        <NavLink id="homeLink" className="link" to="/">
+                            Home
+                        </NavLink>
+                        <NavLink id="investorLink" className="link" to="/investor">
+                            Investors
+                        </NavLink>
+                    </div>
 
-                        <p className="busSharePriceClass"> Price per share: USD</p>
-                        <input type="number" id="priceShares" className="busSharePriceClass" placeholder="Price per share" onChange={this.pricePerShareChange} />
-                        <br />
-                        <br />
-                        <p className="busDescClass"> Business Description</p>
-                        <textarea id="description" className="busDescClass" onChange={this.descriptionChange} />
-                        <br />
-                        <br />
-                        <button id="busButton" value="submit" type="submit">Continue</button>
-                    </form>
+                    <div id="busHeading">
+                        <h1 className="display-3">Business</h1>
+                    </div>
+                    <div id="explainer">
+                        <p>Register your buisness now, and deploy <br /> a digital equity certificate onto the blockchain </p>
+                        <hr className="gradHr" ></hr>
+                    </div>
+
+                    <div id="registerForm">
+                        <h1 id="formHeader" className="display-3"> Register</h1>
+                        <form id="formDiv" onSubmit={this.register}>
+                            <div className="form-group">
+                                <label htmlFor="busName">Business Name</label>
+                                <br />
+                                <input className="form-control" type="text" id="busName" placeholder="Name" onChange={this.nameChange} />
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="busType">Business Type</label>
+                                <br />
+                                <input className="form-control" type="text" id="busType" placeholder="Type" onChange={this.typeChange} />
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="busSymbol">Business Symbol</label>
+                                <br />
+                                < input className="form-control" type="text" id="busSymbol" placeholder="Symbol 3-4 letters" onChange={this.symbolChange} />
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="numShares">Number of shares</label>
+                                <br />
+                                <input className="form-control" type="number" id="numShares" placeholder="# of Shares" onChange={this.shareChange} />
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="priceShares">Price of share</label>
+                                <br />
+                                <input className="form-control" type="number" id="priceShares" placeholder="$ per share" onChange={this.pricePerShareChange} />
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="description">Number of shares</label>
+                                <br />
+                                <textarea className="form-control" id="description" onChange={this.descriptionChange} />
+                            </div>
+                            <button className="btn btn-primary" id="busButton" value="submit" type="submit">Submit</button>
+                        </form>
+                    </div>
 
 
                 </div>
+
             </Jumbotron>
 
         );
     }
 }
+
+

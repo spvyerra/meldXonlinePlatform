@@ -1,8 +1,11 @@
 {
-    "busName": "2000",
-    "symbol": "2000",
-    "numShares": "2000",
-    "type": "2000",
-    "description": "200",
-    "id": 3
+    "busName": "Ice Cream Store",
+    "symbol": "ICS",
+    "numShares": 2000,
+    "pricePerShare": "120",
+    "type": "Resturaunt",
+    "description": "Ice cream and things you know",
+    "ownerAddress": "0x2f36E258AF1945a8C1614BBf6c7E33D27aC39c60",
+    "id": 3,
+    "address": "0x7B44E48888049Fe39608F22F4f268E7b89B593dC"
 }

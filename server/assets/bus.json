@@ -1,64 +1,30 @@
 [
     {
         "id": -1,
-        "busName": "sample",
-        "symbol": "smpl"
+        "busName": "Greg's Greenhouse",
+        "symbol": "GGG",
+        "numShares": "150",
+        "pricePerShare": "99"
     },
     {
         "id": 1,
-        "busName": "newBus",
-        "symbol": "nbs"
+        "busName": "Old Fashion Diner",
+        "symbol": "OFD",
+        "numShares": "150",
+        "pricePerShare": "99"
     },
     {
         "id": 2,
-        "busName": "Test Business",
-        "symbol": "TST"
+        "busName": "Ice Cream Store",
+        "symbol": "ICS",
+        "numShares": 2000,
+        "pricePerShare": "120"
     },
     {
         "id": 3,
-        "busName": "2000",
-        "symbol": "2000"
-    },
-    {
-        "id": 4,
-        "busName": "2000",
-        "symbol": "2000"
-    },
-    {
-        "id": 5,
-        "busName": "100",
-        "symbol": "SMB"
-    },
-    {
-        "id": 6,
-        "busName": "MeldX",
-        "symbol": "MLDX"
-    },
-    {
-        "id": 7,
-        "busName": "MeldX",
-        "symbol": "MLDX"
-    },
-    {
-        "id": 8,
-        "busName": "Mcdonalds",
-        "symbol": "MCD"
-    },
-    {
-        "id": 9,
-        "busName": "Hardware Store",
-        "symbol": "HDW"
-    },
-    {
-        "id": 10,
-        "busName": "saibus",
-        "symbol": "SAI",
-        "numShares": "200"
-    },
-    {
-        "id": 11,
-        "busName": "spv",
-        "symbol": "SPV",
-        "numShares": "500"
+        "busName": "Ice Cream Store",
+        "symbol": "ICS",
+        "numShares": 2000,
+        "pricePerShare": "120"
     }
 ]

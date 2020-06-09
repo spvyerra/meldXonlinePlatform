@@ -3,12 +3,25 @@ const fs = require('fs');
 
 const verifiedPath = './server/assets/verified.json';
 
+let getVerified = (address) => {
+    let data = JSON.parse(fs.readFileSync(verifiedPath));
+    data = data.filter((obj) => obj);
+
+    for (let i in data) {
+        if (data[i].userAddress.toUpperCase() == address.toUpperCase()) {
+            return data[i];
+        }
+    }
+
+    return null;
+}
+
 let isVerifiedLocal = (obj) => {
     let data = JSON.parse(fs.readFileSync(verifiedPath));
     data = data.filter((obj) => obj);
 
     for (let i in data) {
-        if (data[i].userAddress == obj.userAddress) {
+        if (data[i].userAddress.toUpperCase() == obj.userAddress.toUpperCase()) {
             return true;
         }
     }
@@ -41,8 +54,7 @@ let addVerify = async (contract, addressObj) => {
     admin.init();
     let acct = admin.getAcct();
     addVerifyLocal(addressObj);
-
-    contract.options.address = addressObj.contAddress;
+    console.log(addressObj);
 
     let tmp = await contract.methods.isVerified(addressObj.userAddress).call();
 
@@ -83,7 +95,7 @@ let removeVerified = async (contract, addressObj) => {
             data = JSON.parse(data);
 
             for (let i in data) {
-                if (data[i].address == addressObj.userAddress) {
+                if (data[i].address.toUpperCase() == addressObj.userAddress.toUpperCase()) {
                     delete data[i];
                     break;
                 }
@@ -117,6 +129,8 @@ let removeVerified = async (contract, addressObj) => {
 
 module.exports = {
     isVerifiedLocal,
+    addVerifyLocal,
     addVerify,
-    removeVerified
+    removeVerified,
+    getVerified
 };
