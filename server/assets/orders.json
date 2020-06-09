@@ -1,23 +1,4 @@
 {
-    "buy": [
-        {
-            "userAddress": "0x2f36e258af1945a8c1614bbf6c7e33d27ac39c60",
-            "contract": "0x859ebBfc966A965A719337E6ea4aD09a1DF18610",
-            "price": "99",
-            "amount": "10",
-            "id": 0,
-            "contAddress": "0x859ebBfc966A965A719337E6ea4aD09a1DF18610",
-            "status": "Placed"
-        },
-        {
-            "userAddress": "0x46e5f23016f44334063c7c02e1340ceba8d4dd46",
-            "contract": "0x20db0d1EBc18ECA45Fba4045318Fe58aA9065CF5",
-            "price": "120",
-            "amount": "10",
-            "id": 1,
-            "contAddress": "0x20db0d1EBc18ECA45Fba4045318Fe58aA9065CF5",
-            "status": "Placed"
-        }
-    ],
+    "buy": [],
     "sell": []
 }

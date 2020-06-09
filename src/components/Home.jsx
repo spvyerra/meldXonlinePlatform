@@ -52,7 +52,8 @@ export default class Home extends React.Component {
             "userAddress": address,
             "contract": breakDown.address,
             "price": breakDown.pricePerShare,
-            "amount": this.state.numBuyShares
+            "amount": this.state.numBuyShares,
+            "id": option.id
         });
     }
 

@@ -96,7 +96,8 @@ export default class Investor extends React.Component {
             "userAddress": acct,
             "contract": breakDown.address,
             "price": breakDown.pricePerShare,
-            "amount": this.state.numBuyShares
+            "amount": this.state.numBuyShares,
+            "id": option.id
         })
     }
 
@@ -124,8 +125,6 @@ export default class Investor extends React.Component {
             })
         }
     }
-
-
 
     getPortfolioFunction = () => {
         getPortfolio().then((info) => {
