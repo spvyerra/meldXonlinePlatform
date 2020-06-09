@@ -125,13 +125,7 @@ export default class BusRegister extends React.Component {
                             <button className="btn btn-primary" onClick={this.register} id="busButton" value="submit" type="submit">Submit</button>
                         </div>
                     </div>
-                    <br />
-                    <div id="registerForm">
-                        <h1 id="formHeader" className="display-3">Sell Your Shares To Potential Investors</h1>
-
-
-                    </div>
-
+                    <p>Sell your shares in the invesors tab</p>
                 </div>
 
             </Jumbotron>

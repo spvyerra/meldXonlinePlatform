@@ -127,9 +127,10 @@ export default class Home extends React.Component {
                                 <br />
                                 <input className="form-control" type="number" id="numBuyShares" placeholder="# of Shares" onChange={this.shareChange} />
                             </div>
-                            <button className="btn btn-primary"  onClick={this.buyBus} id="busButton" value="submit" type="submit">Submit</button>
+                            <button className="btn btn-primary" onClick={this.buyBus} id="busButton" value="submit" type="submit">Submit</button>
                         </div>
                     </div>
+
                 </Jumbotron>
             </div>
         );
