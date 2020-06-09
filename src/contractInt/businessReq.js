@@ -17,7 +17,6 @@ export let getBusId = async (idt) => {
     let res = await axios.get(url + `/${idt}`)
         .catch(err => console.log(err));
 
-    console.log(res);
     return res.data;
 }
 

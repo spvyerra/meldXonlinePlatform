@@ -54,8 +54,7 @@ let addVerify = async (contract, addressObj) => {
     admin.init();
     let acct = admin.getAcct();
     addVerifyLocal(addressObj);
-
-    contract.options.address = addressObj.contAddress;
+    console.log(addressObj);
 
     let tmp = await contract.methods.isVerified(addressObj.userAddress).call();
 
