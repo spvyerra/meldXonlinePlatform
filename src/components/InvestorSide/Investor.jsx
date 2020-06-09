@@ -55,9 +55,8 @@ export default class Investor extends React.Component {
         });
     }
 
-    register = () => {
+    register = async () => {
         if (this.state.name !== "" && this.state.email !== "" && this.state.ssn !== "") {
-
             const Obj = {
                 "userAddress": window.ethereum.selectedAddress,
                 "name": this.state.FullName,
@@ -65,7 +64,7 @@ export default class Investor extends React.Component {
                 "email": this.state.email,
             };
 
-            addVerification(Obj);
+            await addVerification(Obj);
             alert("Sucessfully verified");
         }
 
@@ -98,7 +97,9 @@ export default class Investor extends React.Component {
             "price": breakDown.pricePerShare,
             "amount": this.state.numBuyShares,
             "id": option.id
-        })
+        });
+
+        alert("Sell Order Placed");
     }
 
     renderGetPortfolio = () => {

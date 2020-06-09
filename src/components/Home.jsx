@@ -55,6 +55,8 @@ export default class Home extends React.Component {
             "amount": this.state.numBuyShares,
             "id": option.id
         });
+
+        alert("Buy Order Placed");
     }
 
 
@@ -94,7 +96,7 @@ export default class Home extends React.Component {
 
                     <div className="homeBusDiv">
                         <div id="homeBusHeading">
-                            <h2 id="formHeader" className="display-3"> Buisnesses on MeldX</h2>
+                            <h2 id="formHeader" className="display-3"> Businesses on MeldX</h2>
                         </div>
 
                         <Table id='businessTable'>
