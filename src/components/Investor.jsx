@@ -1,10 +1,10 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Jumbotron, Table } from 'reactstrap';
-import { getPortfoliom, addVerification } from "../contractInt/investReq";
+
 
 import "../investors.css";
-import { getPortfolio } from '../contractInt/investReq';
+import {addVerification, getPortfolio } from '../contractInt/investReq';
 export default class Investor extends React.Component{
 
 nameChange = (e) => {
@@ -32,8 +32,17 @@ mintChange = (e) => {
 }
 
 register = () => {
-    if(this.state.nameChange !== "" && this.state.emailChange !== "" && this.state.ssnChange !== "") {
-       //add linkage to server
+    if(this.state.name !== "" && this.state.email !== "" && this.state.ssn !== "") {
+
+      const Obj = {
+        "userAddress": window.ethereum.selectedAddress,
+        "name": this.state.FullName,
+        "ssn":this.state.ssn,
+        "email": this.state.email,
+    }; 
+
+       addVerification(Obj);
+      alert("Sucessfully verified");
     }
     
 }
@@ -79,7 +88,7 @@ getPortfolioFunction = () => {
         </div>
          <div id="investorForm">
             <h1 id="formHeader" className="display-3"> Register</h1>
-            <form id="formDiv" conSubmit={this.register}>
+            <form id="formDiv" onSubmit={this.register}>
                 <div class="form-group">
                     <label for="fullName">Full Name</label>
                      <br/>

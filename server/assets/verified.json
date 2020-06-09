@@ -23,5 +23,12 @@
         "email": "namey@boi.com",
         "ssn": 123456789,
         "userAddress": "0xebBF6e4fC3a229D4f5b3B00C6018cff2f3246Cc5"
+    },
+    {
+        "id": 4,
+        "name": "Colin Finkbeiner",
+        "email": "colinfinkbeiner1@gmail.com",
+        "ssn": "123",
+        "userAddress": "0xef032630a3aa621154b2792c1512779eae1a37db"
     }
 ]
