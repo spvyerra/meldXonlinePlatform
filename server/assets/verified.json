@@ -37,5 +37,19 @@
         "email": "sai@account.com",
         "ssn": "123456789",
         "userAddress": "0x46e5f23016f44334063c7c02e1340ceba8d4dd46"
+    },
+    {
+        "id": 6,
+        "name": "Bob Marley",
+        "email": "bobmarley@marley.com",
+        "ssn": "519864257",
+        "userAddress": "0x96f97c49b43969453d6db876924d9a7eab8ef7b8"
+    },
+    {
+        "id": 7,
+        "name": "George Mason",
+        "email": "george@mason.com",
+        "ssn": "14859263",
+        "userAddress": "0x1f15055e4d5dc8b13f8a4f96bbae3eba3654eac3"
     }
 ]

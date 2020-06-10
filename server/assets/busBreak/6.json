@@ -1,0 +1,11 @@
+{
+    "busName": "Banana Inc",
+    "symbol": "BAN",
+    "numShares": "1000",
+    "pricePerShare": 500,
+    "type": "Fruit",
+    "description": "Sell the most pristine bananas on earth!",
+    "ownerAddress": "0x96f97c49b43969453d6db876924d9a7eab8ef7b8",
+    "id": 6,
+    "address": "0xD2D1bC8a0AC127656Db87414efCcA2C650806Faa"
+}

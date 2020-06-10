@@ -33,5 +33,19 @@
         "symbol": "CPD",
         "numShares": 1000,
         "pricePerShare": 1
+    },
+    {
+        "id": 5,
+        "busName": "Widget Corp",
+        "symbol": "WDC",
+        "numShares": "1000",
+        "pricePerShare": "10"
+    },
+    {
+        "id": 6,
+        "busName": "Banana Inc",
+        "symbol": "BAN",
+        "numShares": "1000",
+        "pricePerShare": 500
     }
 ]

@@ -1,0 +1,11 @@
+{
+    "busName": "Widget Corp",
+    "symbol": "WDC",
+    "numShares": "1000",
+    "pricePerShare": "10",
+    "type": "Widgets",
+    "description": "We produce many widgets for everyone!",
+    "ownerAddress": "0xebbf6e4fc3a229d4f5b3b00c6018cff2f3246cc5",
+    "id": 5,
+    "address": "0xeaE79c7f8Cabe22614DC9b810A812C850a19BCDD"
+}

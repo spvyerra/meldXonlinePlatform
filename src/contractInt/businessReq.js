@@ -36,7 +36,7 @@ export let addBusiness = async (numShares, pricePerShare, busName, busSymbol, bu
         "busName": busName,
         "symbol": busSymbol,
         "numShares": numShares,
-        "pricePerShare": pricePerShare,
+        "pricePerShare": pricePerShare * 100,
         "type": busType,
         "description": busDesc,
         "ownerAddress": acct
